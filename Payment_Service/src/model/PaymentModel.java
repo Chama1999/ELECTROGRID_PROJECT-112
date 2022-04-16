@@ -225,7 +225,7 @@ public class PaymentModel {
 		
 		try(Connection con = connect()) {
 			
-			String updateQuery = "update payment set account_number=?,card_type=?,card_number=?,name_on_card=?,cvc=?,expire_date=?,status=? ,sub_amount =? ,date=?,tax_id=?,bill_id=? where payment_id =?" ;
+			String updateQuery = "update payment set account_number=?,card_type=?,card_number=?,name_on_card=?,cvc=?,expire_date=?,status=? ,tot_charges =? ,date=?,tax_id=?,bill_id=? where payment_id =?" ;
 			
 			PreparedStatement pstmt = con.prepareStatement(updateQuery);
 			
@@ -243,7 +243,7 @@ public class PaymentModel {
 			pstmt.setDate(9,date);
 			pstmt.setInt(10,tax_id);
 			pstmt.setInt(11,bill_id);
-			pstmt.setInt(11,payment_id);
+			pstmt.setInt(12,payment_id);
 			pstmt.execute();
 			con.close();
 			System.out.println(payment_id);
