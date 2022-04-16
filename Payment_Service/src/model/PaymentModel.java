@@ -1,11 +1,13 @@
 package model;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.SQLException;
 
 public class PaymentModel {
 	public Connection connect()
@@ -36,9 +38,10 @@ public class PaymentModel {
 			{return "Error while connecting to the database for inserting."; }
 			
 			
-			String insertQuery = "insert into payment values (NULL, ?, ?, ?, ?, ?, ?, ?, 20000, ?, 999, ?)";
+			String insertQuery = "insert into payment values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, 999, ?)";
 			PreparedStatement pstmnt = con.prepareStatement(insertQuery);
 			
+			double tot_charges = this.calculateSubAmount(bill_id);
 			pstmnt.setString(1, account_number);
 			pstmnt.setString(2, card_type);
 			pstmnt.setInt(3, card_number);
@@ -46,8 +49,9 @@ public class PaymentModel {
 			pstmnt.setInt(5, cvc);
 			pstmnt.setDate(6, expire_date);
 			pstmnt.setString(7, status);
-			pstmnt.setDate(8, date);
-			pstmnt.setInt(9, bill_id);
+			pstmnt.setDouble(8, tot_charges);
+			pstmnt.setDate(9, date);
+			pstmnt.setInt(10, bill_id);
 			
 			// execute the statement3
 						pstmnt.execute();
@@ -134,4 +138,78 @@ public class PaymentModel {
 		return output;
 
     }
+	
+	
+	public String getPaymentByUser(int user_id) {
+		try(Connection con = connect()) {
+			String getQuery = "select py.payment_id, c.name, py.date, py.tot_charges from billing o \n"
+					+ "join user c on o.user_id = c.user_id \n"
+					+ "join payment py on o.bill_id = py.bill_id \n" 
+					+ "where c.user_id = ?;";
+			PreparedStatement pstmnt = con.prepareStatement(getQuery);
+			pstmnt.setInt(1, user_id);
+			
+			String output = "<table>" + 
+					"<tr>" 
+					+ "<th>Payment ID</th>" 
+					+ "<th>Full Name</th>"
+					+ "<th>Payment Date</th>" 
+					+ "<th>Total Amount</th>";
+	       ResultSet rs = pstmnt.executeQuery();
+	       
+	       while (rs.next()) {
+				int payment_id = rs.getInt("payment_id");
+				String name = rs.getString("name");
+				Date date = rs.getDate("date");
+				double tot_charges = rs.getDouble("tot_charges");
+				
+
+				output += "<tr><td>" + payment_id + "</td>";
+				output += "<td>" + name + "</td>";
+				output += "<td>" + date + "</td>";
+				output += "<td>" + tot_charges + "</td>";
+				
+
+			}
+	       output += "</table>";
+			return output;
+			
+		}
+		catch(Exception e) {
+			return "Error occur during retrieving \n" + e.getMessage();
+		}
+		
+	}
+	
+	
+	public double calculateSubAmount(int bill_id) {
+		double tot_charges = 0;
+		try(Connection con = connect()) {
+			String getQuery = "select o.amount\n" 
+					+ "from billing o\n"
+					+ "where o.bill_id = ?;";
+		     
+			PreparedStatement pstmt = con.prepareStatement(getQuery);
+			pstmt.setInt(1, bill_id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			float amount = 0;
+			float tax = 200;
+			
+            while (rs.next()) {
+				
+				amount = rs.getFloat("amount");
+			}
+            con.close();
+			tot_charges = amount + tax;
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return tot_charges;
+		
+	}
+    
 }

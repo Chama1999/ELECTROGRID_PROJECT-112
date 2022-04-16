@@ -1,6 +1,7 @@
 package com;
 import model.PaymentModel;
 
+
 import java.sql.Date;
 
 
@@ -37,10 +38,18 @@ public class PaymentService {
 		
 		
 		@GET
-	    @Path("/")
+	    @Path("/get")
 	    @Produces(MediaType.TEXT_HTML)
 	    public String getAllPatmentEntry(){
 	        return this.payment.getAllPayment();
 	    }
+		
+		@GET
+		@Path("/getById/{user_id}")
+		@Produces(MediaType.TEXT_HTML)
+		public String getPaymentById(@PathParam("user_id") int user_id) {
+			return this.payment.getPaymentByUser(user_id);
+		}
+		
 
 }
