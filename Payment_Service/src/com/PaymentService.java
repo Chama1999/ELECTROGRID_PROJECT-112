@@ -72,5 +72,23 @@ public class PaymentService {
 		
 		}
 		
+		
+		//delete service
+		@DELETE
+		@Path("/delete/payment/{payment_id}")
+		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+		@Produces(MediaType.TEXT_PLAIN)
+		public String DeleteOrder(
+		@PathParam ("payment_id") int payment_id )
+		{
+
+		//Read the value from the element <AppID>
+		String output = payment.DeletePayment(payment_id);
+		        return output;
+
+
+
+		}
+		
 
 }
