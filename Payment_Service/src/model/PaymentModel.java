@@ -211,5 +211,53 @@ public class PaymentModel {
 		return tot_charges;
 		
 	}
+	
+	public String updatePayment(int payment_id,
+			String account_number,
+			String card_type,
+			int card_number,
+			String name_on_card,
+			int cvc,
+			Date expire_date,
+			String status,
+			Date date,
+			int bill_id) {
+		
+		try(Connection con = connect()) {
+			
+			String updateQuery = "update payment set account_number=?,card_type=?,card_number=?,name_on_card=?,cvc=?,expire_date=?,status=? ,sub_amount =? ,date=?,tax_id=?,bill_id=? where payment_id =?" ;
+			
+			PreparedStatement pstmt = con.prepareStatement(updateQuery);
+			
+			double tot_charges = this.calculateSubAmount(bill_id);
+			@SuppressWarnings("restriction")
+			int tax_id = 999;
+			pstmt.setString(1,account_number);
+			pstmt.setString(2,card_type);
+			pstmt.setInt(3,card_number);
+			pstmt.setString(4,name_on_card);
+			pstmt.setInt(5,cvc);
+			pstmt.setDate(6,expire_date);
+			pstmt.setString(7,status);
+			pstmt.setDouble(8,tot_charges);
+			pstmt.setDate(9,date);
+			pstmt.setInt(10,tax_id);
+			pstmt.setInt(11,bill_id);
+			pstmt.setInt(11,payment_id);
+			pstmt.execute();
+			con.close();
+			System.out.println(payment_id);
+	
+			return "Payment updated successfully 123";
+			
+			
+		}
+		catch(Exception e) {
+			return "Error occur during updating \n" +
+					e.getMessage();
+		}
+		
+		
+	}
     
 }
