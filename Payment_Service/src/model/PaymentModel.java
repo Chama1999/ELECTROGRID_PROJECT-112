@@ -36,7 +36,7 @@ public class PaymentModel {
 			{return "Error while connecting to the database for inserting."; }
 			
 			
-			String insertQuery = "insert into payment values (NULL, ?, ?, ?, ?, ?, ?, ?, NULL, ?, NULL, ?)";
+			String insertQuery = "insert into payment values (NULL, ?, ?, ?, ?, ?, ?, ?, 20000, ?, 999, ?)";
 			PreparedStatement pstmnt = con.prepareStatement(insertQuery);
 			
 			pstmnt.setString(1, account_number);
