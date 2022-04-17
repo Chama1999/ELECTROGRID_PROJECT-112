@@ -61,5 +61,16 @@ UserModel userObj = new UserModel();
 		return output;
 	}
 	
+	//reading data
+	
+	@GET
+	@Path("/")
+	@Produces(MediaType.TEXT_HTML)
+	public String readUserDetails()//view all users
+	{
+		return userObj.readUserDetails();
+	}
+	
+	
 
 }
