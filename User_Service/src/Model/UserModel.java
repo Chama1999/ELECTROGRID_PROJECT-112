@@ -197,7 +197,7 @@ public class UserModel {
 						   return "Error while connecting to the database for updating"; 
 					   }
 					   // create a prepared statement
-					   String query = "UPDATE user SET accountNo=?,name=?,NIC=?,userEmail=?,userPhone=?,username=?,password=?WHERE userId=?";
+					   String query = "UPDATE user SET accountNo=?,name=?,NIC=?,email=?,phone=?,username=?,password=?WHERE userId=?";
 					   PreparedStatement preparedStmt = con.prepareStatement(query);
 					   // binding values
 					   preparedStmt.setString(1, accountNo);
