@@ -79,6 +79,27 @@ UserModel userObj = new UserModel();
 		return userObj.getUserDetails(userId);
 	}
 	
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateUser(String userData)//update user
+	{
+		//Convert the input string to a JSON object
+		 JsonObject userObject = new JsonParser().parse(userData).getAsJsonObject();
+		//Read the values from the JSON object
+		 String userId = userObject.get("userId").getAsString();
+		 String accountNo = userObject.get("accountNo").getAsString();
+		 String name = userObject.get("name").getAsString();
+		 String NIC = userObject.get("NIC").getAsString();
+		 String email = userObject.get("email").getAsString();
+		 String phone = userObject.get("phone").getAsString();
+		 String username = userObject.get("username").getAsString();
+		 String password = userObject.get("password").getAsString();
+		 String output = userObj.EditUserDetails(userId,accountNo, name, NIC, email,phone,username,password);
+		return output;
+	}
+	
 	
 	
 
