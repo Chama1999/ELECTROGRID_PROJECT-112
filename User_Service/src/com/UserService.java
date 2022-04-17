@@ -71,6 +71,14 @@ UserModel userObj = new UserModel();
 		return userObj.readUserDetails();
 	}
 	
+	@GET
+	@Path("/getUserbyID/{userId}")//view a specific user
+	@Produces(MediaType.TEXT_HTML)
+	public String UserProfileDetails(@PathParam("userId") String userId) {
+
+		return userObj.getUserDetails(userId);
+	}
+	
 	
 	
 
