@@ -44,6 +44,9 @@ UserModel userObj = new UserModel();
 		 else if(accountNo.length()!=10) {
 			 return "Account number is consist of 10 digits";
 		 }
+		 else if(username.equals(username)) {
+			 return "username is already taken";
+		 }
 		 else if(NIC.length()!=10) {
 			 return "NIC length must be 10 characters long";
 		 }
@@ -98,7 +101,7 @@ UserModel userObj = new UserModel();
 		 String username = userObject.get("username").getAsString();
 		 String password = userObject.get("password").getAsString();
 		 
-		 if(accountNo.isEmpty()||name.isEmpty()||address.isEmpty()||NIC.isEmpty()||email.isEmpty()||phone.isEmpty()||username.isEmpty()||password.isEmpty()) 
+		if(accountNo.isEmpty()||name.isEmpty()||address.isEmpty()||NIC.isEmpty()||email.isEmpty()||phone.isEmpty()||username.isEmpty()||password.isEmpty()) 
 		 {
 			 return "input fields cannot be empty";
 		 } 
@@ -111,7 +114,7 @@ UserModel userObj = new UserModel();
 		 else if(password.length()<8||password.length()>20) {
 			 return "password should be more than 8 and less than 20 in length";
 		 }
-		 else if(!password.matches("(.*[@,#,$,%].*$)")) {
+		 else if(!password.matches("(.*[@,#,$,%].*$)" )) {
 	    	 return "password must contain at least one special character";
 	     }
 		 
@@ -119,6 +122,22 @@ UserModel userObj = new UserModel();
 		return output;
 	}
 	
+	
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteUser(String userData)//delete users
+	{
+		//Convert the input string to an XML document
+		 Document doc = Jsoup.parse(userData, "", Parser.xmlParser());
+	
+		//Read the value from the element <userId>
+		 String userID = doc.select("userId").text();
+		 String output = userObj.deleteUser(userID);
+		return output;
+	}
+
 	
 	
 
