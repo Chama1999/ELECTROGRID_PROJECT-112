@@ -36,11 +36,30 @@ UserModel userObj = new UserModel();
 	 @FormParam("username") String username,
 	 @FormParam("password") String password
 	 )
-	{
+	{	
+		if(accountNo.isEmpty()||name.isEmpty()||address.isEmpty()||NIC.isEmpty()||email.isEmpty()||phone.isEmpty()||userType.isEmpty()||username.isEmpty()||password.isEmpty()) 
+		 {
+			 return "input fields cannot be empty";
+		 } 
+		 else if(accountNo.length()!=10) {
+			 return "Account number is consist of 10 digits";
+		 }
+		 else if(NIC.length()!=10) {
+			 return "NIC length must be 10 characters long";
+		 }
+		 else if(password.length()<8||password.length()>20) {
+			 return "password should be more than 8 and less than 20 in length";
+		 }
+		 else if(!password.matches("(.*[@,#,$,%].*$)")) {
+	    	 return "password must contain at least one special character";
+	     }
 		
-	 String output = userObj.RegisterUser(accountNo, name,address, NIC, email,phone,userType,username,password);
-	 return output;
-    }
+
+
+
+		String output = userObj.RegisterUser(accountNo, name,address, NIC, email,phone,userType,username,password);
+		return output;
+	}
 	
 
 }
