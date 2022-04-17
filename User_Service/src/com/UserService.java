@@ -37,7 +37,7 @@ UserModel userObj = new UserModel();
 	 @FormParam("password") String password
 	 )
 	{	
-		if(accountNo.isEmpty()||name.isEmpty()||address.isEmpty()||NIC.isEmpty()||email.isEmpty()||phone.isEmpty()||userType.isEmpty()||username.isEmpty()||password.isEmpty()) 
+		if(accountNo.isEmpty()||name.isEmpty()||address.isEmpty()||NIC.isEmpty()||email.isEmpty()||phone.isEmpty()||username.isEmpty()||password.isEmpty()) 
 		 {
 			 return "input fields cannot be empty";
 		 } 
@@ -57,7 +57,7 @@ UserModel userObj = new UserModel();
 
 
 
-		String output = userObj.RegisterUser(accountNo, name,address, NIC, email,phone,userType,username,password);
+		String output = userObj.RegisterUser(accountNo, name,address, NIC, email,phone,username,password);
 		return output;
 	}
 	
