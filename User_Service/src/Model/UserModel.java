@@ -128,4 +128,62 @@ public class UserModel {
 				return output;
 			}
 			
+			 public String getUserDetails(String userID)
+				
+				{
+					 String output = "";
+					try
+					 {
+					 Connection con = connect();
+					 if (con == null)
+					 {
+						 return "Error while connecting to the database for reading";
+					 }
+					 // Prepare the html table to be displayed
+					 output = "<table border='1'><tr><th>Account No</th>"
+					 +"<th>Name</th><th>NIC</th>"
+					 + "<th>Email</th>"
+					 + "<th>Phone</th>"
+					 + "<th>UserName</th>"
+					 + "<th>Password</th>";
+					 String query = "select * from user where userId='"+userID+"'";
+					 Statement stmt = con.createStatement();
+					 ResultSet rs = stmt.executeQuery(query);
+					 // iterate through the rows in the result set
+					 while (rs.next())
+					 { 
+						 String userId = Integer.toString(rs.getInt("userId"));
+						 String accountNo = rs.getString("accountNo");
+						 String name = rs.getString("name");
+						 String NIC = rs.getString("NIC");
+						 String email = rs.getString("email");
+						 String phone = rs.getString("phone");
+						 String username = rs.getString("username");
+						 String password = rs.getString("password");
+						 // Add a row into the html table
+						 output += "<tr><td>" + accountNo + "</td>";
+						 output += "<td>" + name + "</td>";
+						 output += "<td>" + NIC + "</td>";
+						 output += "<td>" + email + "</td>"; 
+						 output += "<td>" + phone + "</td>";
+						 output += "<td>" + username + "</td>";
+						 output += "<td>" + password + "</td>";
+						 // buttons
+						 output += "<input name='itemID' type='hidden' "
+						 + " value='" + userId + "'>"
+						 + "</form></td></tr>";
+					 }
+					 con.close();
+					 // Complete the html table
+					 output += "</table>";
+					 
+					 }
+					catch (Exception e)
+					 {
+						 output = "Error while reading the user details";
+						 System.err.println(e.getMessage());
+					 }
+					return output;
+				}
+			
 }
