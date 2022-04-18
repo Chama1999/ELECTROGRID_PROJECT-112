@@ -145,6 +145,7 @@ public class UserModel {
 					 }
 					 // Prepare the html table to be displayed
 					 output = "<table border='1'><tr><th>Account No</th>"
+					 + "<th>Pin code</th>"
 					 +"<th>Name</th><th>NIC</th>"
 					 + "<th>Email</th>"
 					 + "<th>Phone</th>"
@@ -158,6 +159,7 @@ public class UserModel {
 					 { 
 						 String userId = Integer.toString(rs.getInt("userId"));
 						 String accountNo = rs.getString("accountNo");
+						 String pincode = rs.getString("pincode");
 						 String name = rs.getString("name");
 						 String NIC = rs.getString("NIC");
 						 String email = rs.getString("email");
@@ -166,6 +168,7 @@ public class UserModel {
 						 String password = rs.getString("password");
 						 // Add a row into the html table
 						 output += "<tr><td>" + accountNo + "</td>";
+						 output += "<td>" + pincode + "</td>";
 						 output += "<td>" + name + "</td>";
 						 output += "<td>" + NIC + "</td>";
 						 output += "<td>" + email + "</td>"; 
