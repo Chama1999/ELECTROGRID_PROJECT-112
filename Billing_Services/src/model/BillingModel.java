@@ -94,9 +94,12 @@ public class BillingModel {
 
 	private int calculateUnits(int previous_r, int current_r) {
 		
+		 int units = 0;
+		 
+		 //calculation
+		 units = current_r - previous_r;
 		
-		
-		 return 0;
+		 return units;
 	}
 
 
