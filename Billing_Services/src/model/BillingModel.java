@@ -47,6 +47,7 @@ public class BillingModel {
 			int units = this.calculateUnits(previous_r,current_r);
 			double c_amount = this.calculateCurrentAmount(units);
 			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
+			
 			// binding values
 			preparedStmt.setInt(1, 0);
 			preparedStmt.setString(2, account_no);
@@ -74,7 +75,6 @@ public class BillingModel {
 		}
 		return output;
 	}
-
 
 
 
