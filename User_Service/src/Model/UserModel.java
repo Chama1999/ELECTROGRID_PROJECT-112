@@ -193,7 +193,7 @@ public class UserModel {
 					return output;
 				}
 			 
-			 public String EditUserDetails(String userId,String accountNo,String name,String NIC, String email, String phone, String username, String password)
+			 public String EditUserDetails(String userId,String accountNo,String pincode,String name,String address,String NIC, String email, String phone, String username, String password)
 			   {
 				   String output = "";
 				   try
@@ -204,17 +204,19 @@ public class UserModel {
 						   return "Error while connecting to the database for updating"; 
 					   }
 					   // create a prepared statement
-					   String query = "UPDATE user SET accountNo=?,name=?,NIC=?,email=?,phone=?,username=?,password=?WHERE userId=?";
+					   String query = "UPDATE user SET accountNo=?,pincode=?,address=?,name=?,NIC=?,email=?,phone=?,username=?,password=?WHERE userId=?";
 					   PreparedStatement preparedStmt = con.prepareStatement(query);
 					   // binding values
 					   preparedStmt.setString(1, accountNo);
-					   preparedStmt.setString(2, name);
-					   preparedStmt.setString(3, NIC);
-					   preparedStmt.setString(4, email);
-					   preparedStmt.setString(5, phone);
-					   preparedStmt.setString(6, username);
-					   preparedStmt.setString(7, password);
-					   preparedStmt.setInt(8, Integer.parseInt(userId));
+					   preparedStmt.setString(2, pincode);
+					   preparedStmt.setString(3, name);
+					   preparedStmt.setString(4, address);
+					   preparedStmt.setString(5, NIC);
+					   preparedStmt.setString(6, email);
+					   preparedStmt.setString(7, phone);
+					   preparedStmt.setString(8, username);
+					   preparedStmt.setString(9, password);
+					   preparedStmt.setInt(10, Integer.parseInt(userId));
 					   // execute the statement
 					   preparedStmt.execute();
 					   con.close();
@@ -238,7 +240,7 @@ public class UserModel {
 				   if (con == null)
 				   {return "Error while connecting to the database for deleting."; }
 				   // create a prepared statement
-				   String query = "delete from users where userId=?";
+				   String query = "delete from user where userId=?";
 				   PreparedStatement preparedStmt = con.prepareStatement(query);
 				   // binding values
 				   preparedStmt.setInt(1, Integer.parseInt(userId));
