@@ -91,6 +91,7 @@ UserModel userObj = new UserModel();
 		//Read the values from the JSON object
 		 String userId = userObject.get("userId").getAsString();
 		 String accountNo = userObject.get("accountNo").getAsString();
+		 String pincode = userObject.get("pincode").getAsString();
 		 String name = userObject.get("name").getAsString();
 		 String address = userObject.get("address").getAsString();
 		 String NIC = userObject.get("NIC").getAsString();
@@ -116,7 +117,7 @@ UserModel userObj = new UserModel();
 	    	 return "password must contain at least one special character";
 	     }
 		 
-		 String output = userObj.EditUserDetails(userId,accountNo, name, NIC, email,phone,username,password);
+		 String output = userObj.EditUserDetails(userId,accountNo,pincode, name,address, NIC, email,phone,username,password);
 		return output;
 	}
 	
