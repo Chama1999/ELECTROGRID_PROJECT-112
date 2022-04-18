@@ -25,7 +25,7 @@ public class BillingModel {
 	} 
 	
 	
-	public String insertbillingdata(String account_no, String address, Date from_d, int previous_r, Date to_d, int current_r, double p_amount, String status )
+	public String insertbillingdata(String account_no, Date from_d, int previous_r, Date to_d, int current_r, double p_amount, String status )
 	{
 		String output = "";
 		try
@@ -40,8 +40,8 @@ public class BillingModel {
 			String query = " insert into billing values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
-			String name = this.getuserdetails(account_no);
-			//String address = this.getuserdetails(account_no);
+			String name = this.getuserdetailsname(account_no);
+			String address = this.getuserdetailsaddress(account_no);
 			
 			
 			int units = this.calculateUnits(previous_r,current_r);
@@ -78,15 +78,52 @@ public class BillingModel {
 
 
 
-	private String getuserdetails(String account_no) {
-		 String name="";
-		 //String address="";
+	private String getuserdetailsaddress(String account_no) {
+		 
+		 String address="";
 		 
 		try {
 			
 			Connection con = connect();
 			
-			String getQuery = "select u.Name\n"
+			String getQuery = "select u.Address\n"
+					+ "from user u\n"
+					+ "where u.accountNo = ?; ";
+			
+			PreparedStatement pstmt = con.prepareStatement(getQuery);
+			pstmt.setString(1, account_no);
+
+			String getaddress ="";
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				
+				getaddress = rs.getString("Address");
+				
+			}
+			con.close();
+
+			address = getaddress;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return address;
+	}
+
+
+	private String getuserdetailsname(String account_no) {
+		 String name="";
+		  
+		 
+		try {
+			
+			Connection con = connect();
+			
+			String getQuery = "select u.Name , u.Address\n"
 					+ "from user u\n"
 					+ "where u.accountNo = ?; ";
 			
@@ -94,20 +131,18 @@ public class BillingModel {
 			pstmt.setString(1, account_no);
 			
 			String getname ="";
-			//String gaddress ="";
 			
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
 				
 				getname = rs.getString("Name");
-				//gaddress = rs.getString("Address");
-				
+	
 			}
 			con.close();
 			
 			name = getname;
-			//address = gaddress;
+
 			
 		}catch(Exception e) {
 			e.printStackTrace();

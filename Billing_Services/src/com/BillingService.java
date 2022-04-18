@@ -22,8 +22,6 @@ public class BillingService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String insertbillingdata(@FormParam("Account_No") String Account_No,
-			//@FormParam("Name") String Name,
-			@FormParam("Address") String Address,
 			@FormParam("From_Date") Date From_Date,
 			@FormParam("Previous_Reading") int Previous_Reading,
 			@FormParam("To_Date") Date To_Date,
@@ -31,7 +29,7 @@ public class BillingService {
 			@FormParam("Previous_Amount") double Previous_Amount,
 			@FormParam("Status") String Status)
 	{
-		String output = billing.insertbillingdata(Account_No, Address, From_Date, Previous_Reading, To_Date, Current_Reading, Previous_Amount, Status);
+		String output = billing.insertbillingdata(Account_No, From_Date, Previous_Reading, To_Date, Current_Reading, Previous_Amount, Status);
 		return output;
 	}
 }
