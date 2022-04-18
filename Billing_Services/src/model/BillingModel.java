@@ -78,8 +78,11 @@ public class BillingModel {
 
 	private double calculateTotalAmount(double c_amount, double p_amount) {
 		
+		double t_amount = 0;
 		
-		return 0;
+		t_amount = c_amount + p_amount;
+		
+		return t_amount;
 	}
 
 
