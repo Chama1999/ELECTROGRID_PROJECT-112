@@ -29,10 +29,10 @@ public class BillingService {
 			//@FormParam("Previous_Reading") int Previous_Reading,
 			@FormParam("To_Date") Date To_Date,
 			@FormParam("Current_Reading") int Current_Reading,
-			@FormParam("Previous_Amount") double Previous_Amount,
+			//@FormParam("Previous_Amount") double Previous_Amount,
 			@FormParam("Status") String Status)
 	{
-		String output = billing.insertbillingdata(Account_No, From_Date, To_Date, Current_Reading, Previous_Amount, Status);
+		String output = billing.insertbillingdata(Account_No, From_Date, To_Date, Current_Reading, Status);
 		return output;
 	}
 }

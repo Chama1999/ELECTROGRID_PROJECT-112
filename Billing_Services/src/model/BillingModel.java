@@ -25,7 +25,7 @@ public class BillingModel {
 	} 
 	
 	
-	public String insertbillingdata(String account_no, Date from_d, Date to_d, int current_r, double p_amount, String status )
+	public String insertbillingdata(String account_no, Date from_d, Date to_d, int current_r, String status )
 	{
 		String output = "";
 		try
@@ -47,6 +47,7 @@ public class BillingModel {
 			
 			int units = this.calculateUnits(previous_r,current_r);
 			double c_amount = this.calculateCurrentAmount(units);
+			double p_amount = this.calculatePreviousAmount(account_no, status);
 			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
 			
 			// binding values
@@ -77,6 +78,48 @@ public class BillingModel {
 		return output;
 	}
 
+
+
+	private double calculatePreviousAmount(String account_no, String status) {
+		 
+		double p_amount=0;
+		 
+		try {
+			
+			Connection con = connect();
+			
+			String getQuery = "select Total_amount\n"
+								+ "from billing\n"
+								+ "where Account_No = ? and Status='Pending' or 'Last Month'; ";
+			
+			PreparedStatement pstmt = con.prepareStatement(getQuery);
+			pstmt.setString(1, account_no);
+
+			double Total_a= 0;
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				
+				Total_a = rs.getDouble("Total_amount");
+				
+			}
+			con.close();
+			
+			if(status == "Pending") {
+				p_amount = Total_a;
+			}
+			else {
+				p_amount=0;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return p_amount;
+	}
 
 
 	private int getpreviousreading(String account_no, String status) {
