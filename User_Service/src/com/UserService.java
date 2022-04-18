@@ -32,7 +32,6 @@ UserModel userObj = new UserModel();
 	 @FormParam("NIC") String NIC,
 	 @FormParam("email") String email,
 	 @FormParam("phone") String phone,
-	 @FormParam("userType") String userType,
 	 @FormParam("username") String username,
 	 @FormParam("password") String password
 	 )
@@ -43,9 +42,6 @@ UserModel userObj = new UserModel();
 		 } 
 		 else if(accountNo.length()!=10) {
 			 return "Account number is consist of 10 digits";
-		 }
-		 else if(username.equals(username)) {
-			 return "username is already taken";
 		 }
 		 else if(NIC.length()!=10) {
 			 return "NIC length must be 10 characters long";
