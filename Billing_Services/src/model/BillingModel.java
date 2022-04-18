@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class BillingModel {
 	
@@ -80,7 +81,7 @@ public class BillingModel {
 
 
 
-	private double getPreviousAmount(String account_no, String status) {
+	public double getPreviousAmount(String account_no, String status) {
 		 
 		double p_amount=0;
 		 
@@ -119,7 +120,7 @@ public class BillingModel {
 	}
 
 
-	private int getpreviousreading(String account_no, String status) {
+	public int getpreviousreading(String account_no, String status) {
 		 
 		int previous_r=0;
 		 
@@ -157,7 +158,7 @@ public class BillingModel {
 	}
 
 
-	private String getuserdetailsaddress(String account_no) {
+	public String getuserdetailsaddress(String account_no) {
 		 
 		 String address="";
 		 
@@ -194,7 +195,7 @@ public class BillingModel {
 	}
 
 
-	private String getuserdetailsname(String account_no) {
+	public String getuserdetailsname(String account_no) {
 		 String name="";
 		  
 		 
@@ -231,7 +232,7 @@ public class BillingModel {
 	}
 
 
-	private int calculateUnits(int previous_r, int current_r) {
+	public int calculateUnits(int previous_r, int current_r) {
 		
 		 int units = 0;
 		 
@@ -242,7 +243,7 @@ public class BillingModel {
 	}
 
 	
-	private double calculateCurrentAmount(int units) {
+	public double calculateCurrentAmount(int units) {
 		
 		double c_amount = 0;
 		
@@ -252,7 +253,7 @@ public class BillingModel {
 	}
 
 
-	private double calculateTotalAmount(double c_amount, double p_amount) {
+	public double calculateTotalAmount(double c_amount, double p_amount) {
 		
 		double t_amount = 0;
 		
@@ -262,6 +263,81 @@ public class BillingModel {
 	}
 
 
-
+	public String readBilingDetails() {
+		
+		String output = "";
+		
+		try {
+			
+			Connection con = connect();
+			if (con == null)
+			{
+				return "Error while connecting to the database for reading."; 
+			}
+			
+			// Prepare the html table to be displayed
+			output = "<table border='1'><tr><th>Account No</th>"
+					+"<th>Name</th>" 
+					+"<th>Address</th>"
+					+"<th>From Date</th>"
+					+"<th>Previous Meter Reading</th>"
+					+"<th>To date</th>"
+					+"<th>Current Meter Reading</th>"
+					+"<th>No of Units Consumed</th>"
+					+"<th>Charge for electricity consumed</th>"
+					+"<th>Total amount according to the previous amount</th>"
+					+"<th>Total Amount</th>"
+					+"<th>Status</th></tr>";
+			
+			String query = "select * from billing";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			 // iterate through the rows in the result set
+			 while (rs.next())
+			 {
+				 int ID= rs.getInt("ID");
+				 String Account_No = rs.getString("Account_No");
+				 String Name = rs.getString("Name");
+				 String Address = rs.getString("Address");
+				 Date From_Date = rs.getDate("From_Date");
+				 int Previous_Reading = rs.getInt("Previous_Reading");
+				 Date To_Date = rs.getDate("To_Date");
+				 int Current_Reading = rs.getInt("Current_Reading");
+				 int Units = rs.getInt("Units");
+				 Double Current_amount = rs.getDouble("Current_amount");
+				 Double Previous_amount = rs.getDouble("Previous_amount");
+				 Double Total_amount = rs.getDouble("Total_amount");
+				 String Status = rs.getString("Status");
+				 // Add a row into the html table
+				 output += "<tr><td>" + Account_No + "</td>";
+				 output += "<td>" + Name + "</td>";
+				 output += "<td>" + Address + "</td>";
+				 output += "<td>" + From_Date + "</td>";
+				 output += "<td>" + Previous_Reading + "</td>";
+				 output += "<td>" + To_Date + "</td>"; 
+				 output += "<td>" + Current_Reading + "</td>";
+				 output += "<td>" + Units + "</td>";
+				 output += "<td>" + Current_amount + "</td>";
+				 output += "<td>" + Previous_amount + "</td>";
+				 output += "<td>" + Total_amount + "</td>";
+				 output += "<td>" + Status + "</td>";
+				 // buttons
+				 output += "<input name='ID' type='hidden' "
+				 + " value='" + ID + "'>"
+				 + "</form></td></tr>";
+			 }
+			 con.close();
+			 // Complete the html table
+			 output += "</table>";
+			
+		}catch(Exception e) {
+			
+			output = "Error while reading the bill betails of users";
+			System.err.println(e.getMessage());
+		}
+		
+		return output;
+	}
 	
 }
