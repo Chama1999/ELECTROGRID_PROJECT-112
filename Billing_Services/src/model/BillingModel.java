@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class BillingModel {
 	
@@ -24,7 +25,7 @@ public class BillingModel {
 	} 
 	
 	
-	public String insertbillingdata(String account_no, String name, String address, Date from_d, int previous_r, Date to_d, int current_r, double p_amount, String status )
+	public String insertbillingdata(String account_no, String address, Date from_d, int previous_r, Date to_d, int current_r, double p_amount, String status )
 	{
 		String output = "";
 		try
@@ -39,10 +40,12 @@ public class BillingModel {
 			String query = " insert into billing values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
+			String name = this.getuserdetails(account_no);
+			//String address = this.getuserdetails(account_no);
+			
 			
 			int units = this.calculateUnits(previous_r,current_r);
 			double c_amount = this.calculateCurrentAmount(units);
-			
 			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
 			// binding values
 			preparedStmt.setInt(1, 0);
@@ -73,29 +76,44 @@ public class BillingModel {
 	}
 
 
-	
 
 
-	private double calculateTotalAmount(double c_amount, double p_amount) {
+	private String getuserdetails(String account_no) {
+		 String name="";
+		 //String address="";
+		 
+		try {
+			
+			Connection con = connect();
+			
+			String getQuery = "select u.Name\n"
+					+ "from user u\n"
+					+ "where u.accountNo = ?; ";
+			
+			PreparedStatement pstmt = con.prepareStatement(getQuery);
+			pstmt.setString(1, account_no);
+			
+			String getname ="";
+			//String gaddress ="";
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				getname = rs.getString("Name");
+				//gaddress = rs.getString("Address");
+				
+			}
+			con.close();
+			
+			name = getname;
+			//address = gaddress;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		double t_amount = 0;
-		
-		t_amount = c_amount + p_amount;
-		
-		return t_amount;
-	}
-
-
-	 
-
-
-	private double calculateCurrentAmount(int units) {
-		
-		double c_amount = 0;
-		
-		c_amount = units * 5;
-		
-		return c_amount;
+		return name;
 	}
 
 
@@ -109,8 +127,26 @@ public class BillingModel {
 		 return units;
 	}
 
-
 	
+	private double calculateCurrentAmount(int units) {
+		
+		double c_amount = 0;
+		
+		c_amount = units * 5;
+		
+		return c_amount;
+	}
+
+
+	private double calculateTotalAmount(double c_amount, double p_amount) {
+		
+		double t_amount = 0;
+		
+		t_amount = c_amount + p_amount;
+		
+		return t_amount;
+	}
+
 
 
 	
