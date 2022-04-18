@@ -25,7 +25,7 @@ public class BillingModel {
 	} 
 	
 	
-	public String insertbillingdata(String account_no, Date from_d, int previous_r, Date to_d, int current_r, double p_amount, String status )
+	public String insertbillingdata(String account_no, Date from_d, Date to_d, int current_r, double p_amount, String status )
 	{
 		String output = "";
 		try
@@ -43,6 +43,7 @@ public class BillingModel {
 			String name = this.getuserdetailsname(account_no);
 			String address = this.getuserdetailsaddress(account_no);
 			
+			int previous_r = this.getpreviousreading(account_no, status);
 			
 			int units = this.calculateUnits(previous_r,current_r);
 			double c_amount = this.calculateCurrentAmount(units);
@@ -76,6 +77,43 @@ public class BillingModel {
 		return output;
 	}
 
+
+
+	private int getpreviousreading(String account_no, String status) {
+		 
+		int previous_r=0;
+		 
+		try {
+			
+			Connection con = connect();
+			
+			String getQuery = "select Current_Reading\n"
+					+ "from billing\n"
+					+ "where Account_No = ? and Status='Pending'; ";
+			
+			PreparedStatement pstmt = con.prepareStatement(getQuery);
+			pstmt.setString(1, account_no);
+
+			int Current_R= 0;
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				
+				Current_R = rs.getInt("Current_Reading");
+				
+			}
+			con.close();
+
+			previous_r = Current_R;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return previous_r;
+	}
 
 
 	private String getuserdetailsaddress(String account_no) {
