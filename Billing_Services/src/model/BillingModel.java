@@ -47,7 +47,7 @@ public class BillingModel {
 			
 			int units = this.calculateUnits(previous_r,current_r);
 			double c_amount = this.calculateCurrentAmount(units);
-			double p_amount = this.calculatePreviousAmount(account_no, status);
+			double p_amount = this.getPreviousAmount(account_no, status);
 			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
 			
 			// binding values
@@ -80,7 +80,7 @@ public class BillingModel {
 
 
 
-	private double calculatePreviousAmount(String account_no, String status) {
+	private double getPreviousAmount(String account_no, String status) {
 		 
 		double p_amount=0;
 		 
@@ -90,7 +90,7 @@ public class BillingModel {
 			
 			String getQuery = "select Total_amount\n"
 								+ "from billing\n"
-								+ "where Account_No = ? and Status='Pending' or 'Last Month'; ";
+								+ "where Account_No = ? and Status='Pending'; ";
 			
 			PreparedStatement pstmt = con.prepareStatement(getQuery);
 			pstmt.setString(1, account_no);
@@ -107,12 +107,9 @@ public class BillingModel {
 			}
 			con.close();
 			
-			if(status == "Pending") {
-				p_amount = Total_a;
-			}
-			else {
-				p_amount=0;
-			}
+			 
+			p_amount = Total_a;
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -132,7 +129,7 @@ public class BillingModel {
 			
 			String getQuery = "select Current_Reading\n"
 					+ "from billing\n"
-					+ "where Account_No = ? and Status='Pending'; ";
+					+ "where Account_No = ? and Status='Pending' or Status='Last Month'; ";
 			
 			PreparedStatement pstmt = con.prepareStatement(getQuery);
 			pstmt.setString(1, account_no);
@@ -148,8 +145,9 @@ public class BillingModel {
 				
 			}
 			con.close();
-
+			
 			previous_r = Current_R;
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
