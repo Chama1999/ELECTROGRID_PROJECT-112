@@ -88,7 +88,11 @@ public class BillingModel {
 
 	private double calculateCurrentAmount(int units) {
 		
-		return 0;
+		double c_amount = 0;
+		
+		c_amount = units * 5;
+		
+		return c_amount;
 	}
 
 
