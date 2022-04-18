@@ -31,7 +31,7 @@ public class UserModel {
 			}
 			
 			
-			public String RegisterUser(String accountNo,String name,String address,String NIC, String email, String phone, String username, String password) {
+			public String RegisterUser(String accountNo,String pincode,String name,String address,String NIC, String email, String phone, String username, String password) {
 			   	
 				String output = "";
 						try
@@ -41,18 +41,19 @@ public class UserModel {
 						 return "Error while connecting to the database";
 						 }
 				    		
-				    	    String sql = "insert into user(`userId`,`accountNo`,`name`,`address`,`NIC`,`email`,`phone`,`username`,`password`)"+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				    	    String sql = "insert into user(`userId`,`accountNo`,`pincode`,`name`,`address`,`NIC`,`email`,`phone`,`username`,`password`)"+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 				    	    PreparedStatement preparedStmt = con.prepareStatement(sql);
 							 // binding values
 							 preparedStmt.setInt(1, 0);
 							 preparedStmt.setString(2, accountNo);
-							 preparedStmt.setString(3, name);
-							 preparedStmt.setString(4, address);
-							 preparedStmt.setString(5, NIC);
-							 preparedStmt.setString(6, email); 
-							 preparedStmt.setString(7, phone);
-							 preparedStmt.setString(8, username); 
-							 preparedStmt.setString(9, password); 
+							 preparedStmt.setString(3, pincode);
+							 preparedStmt.setString(4, name);
+							 preparedStmt.setString(5, address);
+							 preparedStmt.setString(6, NIC);
+							 preparedStmt.setString(7, email); 
+							 preparedStmt.setString(8, phone);
+							 preparedStmt.setString(9, username); 
+							 preparedStmt.setString(10, password); 
 							//execute the statement
 							 preparedStmt.execute();
 							 con.close();
