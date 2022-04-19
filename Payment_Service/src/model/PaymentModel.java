@@ -42,18 +42,19 @@ public class PaymentModel {
 			
 			String insertQuery = "insert into payment values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pstmnt = con.prepareStatement(insertQuery);
-			
-			double TotalAmount = this.calculateSubAmount(BillID,PaymentDate);
-			int TaxID = this.getValidTax(PaymentDate).getKey();
+			int NoOfUnit = 0;
+			int NoOfUnits = 0;
+			double TotalAmount = this.calculateSubAmount(BillID, NoOfUnits);
+			double TaxAmount = this.calculateTaxAmount(BillID, NoOfUnit);
 			pstmnt.setString(1, CardType);
 			pstmnt.setInt(2, CardNumber);
 			pstmnt.setString(3, CardHolderName);
 			pstmnt.setInt(4, CVC);
 			pstmnt.setDate(5, CardExpireDate);
 			pstmnt.setString(6, Status);
+			pstmnt.setDouble(7, TaxAmount);
 			pstmnt.setDouble(7, TotalAmount);
 			pstmnt.setDate(8, PaymentDate);
-			pstmnt.setInt(9, TaxID);
 			pstmnt.setInt(10, BillID);
 			
 			// execute the statement3
@@ -92,9 +93,9 @@ public class PaymentModel {
 					"<th>CVC</th>" +
 					"<th>CardExpireDate</th>" +
 					"<th>Status</th>" +
+					"<th>TaxAmount</th>" +
                     "<th>TotalAmount</th>" +
 					"<th>PaymentDate</th>" +
-					"<th>TaxID</th>" +
 					"<th>BillID</th>";
 						String query = "select * from payment";
 						Statement stmt = con.createStatement();
@@ -109,9 +110,9 @@ public class PaymentModel {
 							int CVC = rs.getInt("CVC");
 							Date CardExpireDate = rs.getDate("CardExpireDate");
 							String Status = rs.getString("Status");
+							float TaxAmount = rs.getFloat("TaxAmount");
 							float TotalAmount = rs.getFloat("TotalAmount");
 							Date PaymentDate = rs.getDate("PaymentDate");
-							int TaxID = rs.getInt("TaxID");
 							int BillID = rs.getInt("BillID");
 
 							output += "<tr><td>" + PaymentID + "</td>";
@@ -121,9 +122,9 @@ public class PaymentModel {
 							output += "<td>" + CVC + "</td>";
 							output += "<td>" + CardExpireDate + "</td>";
 							output += "<td>" + Status + "</td>";
+							output += "<td>" + TaxAmount + "</td>";
 							output += "<td>" + TotalAmount + "</td>";
 							output += "<td>" + PaymentDate + "</td>";
-							output += "<td>" + TaxID + "</td>";
 							output += "<td>" + BillID + "</td>";
 						}
 						con.close();
@@ -182,7 +183,54 @@ public class PaymentModel {
 	}
 	
 	
-	public double calculateSubAmount(int BillID, Date PaymentDate) {
+	
+	public float calculateTaxAmount(int BillID, int NoOfUnit) {
+		float TaxAmount = 0;
+		try(Connection con = connect()) {
+			String getQuery = "select o.NoOfUnits\n" 
+					+ "from billing o\n"
+					+ "where o.BillID = ?;";
+		     
+			PreparedStatement pstmt = con.prepareStatement(getQuery);
+			pstmt.setInt(1, BillID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			float Tamount = 0;
+			if (NoOfUnit <= 100)
+			{
+				Tamount = NoOfUnit * 3;
+			}	
+			else if (NoOfUnit <= 200)
+			{
+				Tamount = 100 * 3 + (NoOfUnit-100)*4;
+			}
+			else
+			{
+				Tamount = 100 * 3 + 100 * 4 + (NoOfUnit-200) * 5;
+			}
+			
+            while (rs.next()) {
+				
+				Tamount = rs.getFloat("Tamount");
+			}
+            con.close();
+            TaxAmount = Tamount;
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return TaxAmount;
+		
+	}
+	
+	
+	
+	
+	
+	
+	public double calculateSubAmount(int BillID, int NoOfUnits) {
 		double TotalAmount = 0;
 		try(Connection con = connect()) {
 			String getQuery = "select o.Amount\n" 
@@ -195,7 +243,7 @@ public class PaymentModel {
 			
 			float Amount = 0;
 			@SuppressWarnings("restriction")
-			float TaxAmount = this.getValidTax(PaymentDate).getValue();
+			float TaxAmount = this.calculateTaxAmount(BillID, NoOfUnits);
 			
             while (rs.next()) {
 				
@@ -229,18 +277,19 @@ public class PaymentModel {
 			
 			PreparedStatement pstmt = con.prepareStatement(updateQuery);
 			
-			double TotalAmount = this.calculateSubAmount(BillID,PaymentDate);
-			@SuppressWarnings("restriction")
-			int TaxID = this.getValidTax(PaymentDate).getKey();
+			int NoOfUnit = 0;
+			int NoOfUnits = 0;
+			double TotalAmount = this.calculateSubAmount(BillID, NoOfUnits);
+			double TaxAmount = this.calculateTaxAmount(BillID, NoOfUnit);
 			pstmt.setString(1,CardType);
 			pstmt.setInt(2,CardNumber);
 			pstmt.setString(3,CardHolderName);
 			pstmt.setInt(4,CVC);
 			pstmt.setDate(5,CardExpireDate);
 			pstmt.setString(6,Status);
+			pstmt.setDouble(7, TaxAmount);
 			pstmt.setDouble(7,TotalAmount);
 			pstmt.setDate(8,PaymentDate);
-			pstmt.setInt(9,TaxID);
 			pstmt.setInt(10,BillID);
 			pstmt.setInt(11,PaymentID);
 			pstmt.execute();
@@ -286,30 +335,6 @@ public class PaymentModel {
 	} 
 	
 	
-	@SuppressWarnings({ "restriction", "unchecked" })
-	public Pair<Integer, Float> getValidTax(Date today) {
-		float TaxAmount = 0;
-		int TaxID = 0;
-		Pair<Integer, Float> pair = new Pair<Integer, Float>(TaxID,TaxAmount);
-		try(Connection con = connect()) {
-			String searchQuey = "select TaxID, TaxAmount from tax "
-					+ "where ValidFrom < ?"
-					+ "and ValidTo > ?";
-			PreparedStatement pstmt = con.prepareStatement(searchQuey);
-			pstmt.setDate(1, today);
-			pstmt.setDate(2, today);
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				TaxID = rs.getInt("TaxID");
-				TaxAmount = rs.getFloat("TaxAmount");
-				pair = new Pair<Integer, Float>(TaxID,TaxAmount);
-			}
-			con.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return pair;
-		
-	}
+
     
 }
