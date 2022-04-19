@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -51,5 +52,18 @@ public class BillingService {
 		return billing.getuserBilingDetails(Account_No, To_Date);
 	}
 
+	@PUT
+	@Path("/update/bill/{Account_No}/{To_Date}")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updatebillByaccount_no(@PathParam("Account_No") String Account_No , 
+			@FormParam("From_Date") Date From_Date,
+			@FormParam("To_Date") Date To_Date,
+			@FormParam("Current_Reading") int Current_Reading,
+			@FormParam("Status") String Status) {
+		
+	return billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
+	
+	}
 	
 }

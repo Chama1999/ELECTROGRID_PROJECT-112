@@ -51,6 +51,12 @@ public class BillingModel {
 			double p_amount = this.getPreviousAmount(account_no, status);
 			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
 			
+			String querynew = "delete from billing where Account_No = ?";
+			PreparedStatement preparedStmt1 = con.prepareStatement(querynew);
+			preparedStmt1 .setString(1, account_no);
+			
+			preparedStmt1.execute();
+			
 			// binding values
 			preparedStmt.setInt(1, 0);
 			preparedStmt.setString(2, account_no);
@@ -130,7 +136,7 @@ public class BillingModel {
 			
 			String getQuery = "select Current_Reading\n"
 					+ "from billing\n"
-					+ "where Account_No = ? and Status='Pending' or Status='Last Month'; ";
+					+ "where Account_No = ? and Status='Pending' or Status='Done'; ";
 			
 			PreparedStatement pstmt = con.prepareStatement(getQuery);
 			pstmt.setString(1, account_no);
@@ -203,7 +209,7 @@ public class BillingModel {
 			
 			Connection con = connect();
 			
-			String getQuery = "select u.Name , u.Address\n"
+			String getQuery = "select u.Name \n"
 					+ "from user u\n"
 					+ "where u.accountNo = ?; ";
 			
@@ -247,7 +253,17 @@ public class BillingModel {
 		
 		double c_amount = 0;
 		
-		c_amount = units * 5;
+		if(units<=60) {
+			c_amount = units * 7.85;
+		}else if(units>60 && units<=90){
+			c_amount = units * 10.00;
+		}else if(units>90 && units<=120){
+			c_amount = units * 27.75;
+		}else if(units>120 && units<=180){
+			c_amount = units * 32.00;
+		}else {
+			c_amount = units * 45.00;
+		}
 		
 		return c_amount;
 	}
@@ -309,8 +325,10 @@ public class BillingModel {
 				 Double Previous_amount = rs.getDouble("Previous_amount");
 				 Double Total_amount = rs.getDouble("Total_amount");
 				 String Status = rs.getString("Status");
+				 
 				 // Add a row into the html table
-				 output += "<tr><td>" + Account_No + "</td>";
+				 output += "<tr><td>" + ID + "</td>";
+				 output += "<td>" + Account_No + "</td>";
 				 output += "<td>" + Name + "</td>";
 				 output += "<td>" + Address + "</td>";
 				 output += "<td>" + From_Date + "</td>";
@@ -388,7 +406,8 @@ public class BillingModel {
 				 String Status = rs.getString("Status");
 				 
 				 // Add a row into the html table
-				 output += "<tr><td>" + Account_No + "</td>";
+				 output += "<tr><td>" + ID + "</td>";
+				 output += "<td>" + Account_No + "</td>";
 				 output += "<td>" + Name + "</td>";
 				 output += "<td>" + Address + "</td>";
 				 output += "<td>" + From_Date + "</td>";
@@ -401,9 +420,7 @@ public class BillingModel {
 				 output += "<td>" + Total_amount + "</td>";
 				 output += "<td>" + Status + "</td>";
 				 // buttons
-				 output += "<input name='ID' type='hidden' "
-				 + " value='" + ID + "'>"
-				 + "</form></td></tr>";
+				 
 			 }
 			 con.close();
 			 // Complete the html table
@@ -417,6 +434,62 @@ public class BillingModel {
 		
 		return output;
 		
+	}
+	
+	public String updateBillDetails(String account_no, Date from_d, Date to_d, int current_r, String status ) {
+		
+		String output = "";
+		
+		try {
+			
+			Connection con = connect();
+			if (con == null)
+			{
+				return "Error while connecting to the database for updating."; 
+			}
+			
+			// create a prepared statement
+			String query = "UPDATE billing SET Account_No=?,Name=?,Address=?,From_Date=?,Previous_Reading=?,To_Date=?,Current_Reading=?,Units=?,Current_amount=?,Previous_amount=?,Total_amount=?,Status=? where Account_No=? ";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			// binding values
+
+			String name = this.getuserdetailsname(account_no);
+			String address = this.getuserdetailsaddress(account_no);
+			
+			int previous_r = this.getpreviousreading(account_no, status);
+			
+			int units = this.calculateUnits(previous_r,current_r);
+			double c_amount = this.calculateCurrentAmount(units);
+			double p_amount = this.getPreviousAmount(account_no, status);
+			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
+			
+			// binding values
+			preparedStmt.setInt(1, 0);
+			preparedStmt.setString(2, account_no);
+			preparedStmt.setString(3, name);
+			preparedStmt.setString(4, address);
+			preparedStmt.setDate(5, from_d);
+			preparedStmt.setInt(6, previous_r);
+			preparedStmt.setDate(7, to_d);
+			preparedStmt.setInt(8, current_r);
+			preparedStmt.setInt(9, units);
+			preparedStmt.setDouble(10,  c_amount);
+			preparedStmt.setDouble(11, p_amount);
+			preparedStmt.setDouble(12,  t_amount);
+			preparedStmt.setString(13, status);
+			
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+			output = "Updated successfully";
+			   
+		}catch(Exception e) {
+			
+			output = "Error while updating the item.";
+			System.err.println(e.getMessage());
+		}
+		
+		return output;
 	}
 	
 }
