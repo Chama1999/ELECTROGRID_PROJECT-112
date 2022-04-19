@@ -8,6 +8,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -38,8 +39,17 @@ public class BillingService {
 	@GET
 	@Path("/read")
 	@Produces(MediaType.TEXT_HTML)
-	public String readBilingDetails()//view all billing details of userd
-	{
+	public String readBilingDetails() {//view all billing details of users
 		return billing.readBilingDetails();
 	}
+	
+	@GET
+	@Path("/getDetailsbyid/{Account_No}")//view a specific billing details of user
+	@Produces(MediaType.TEXT_HTML)
+	public String UserBillingDetails(@PathParam("Account_No") String Account_No) {
+
+		return billing.getuserBilingDetails(Account_No);
+	}
+
+	
 }
