@@ -45,11 +45,11 @@ public class BillingService {
 	}
 	
 	@GET
-	@Path("/getDetailsbyid/{Account_No}/{To_Date}")//view a specific billing details of user
+	@Path("/getDetailsbyid/{Account_No}")//view a specific billing details of user
 	@Produces(MediaType.TEXT_HTML)
-	public String UserBillingDetails(@PathParam("Account_No") String Account_No, @PathParam("To_Date") Date To_Date) {
+	public String UserBillingDetails(@PathParam("Account_No") String Account_No) {
 
-		return billing.getuserBilingDetails(Account_No, To_Date);
+		return billing.getuserBilingDetails(Account_No);
 	}
 
 	@PUT

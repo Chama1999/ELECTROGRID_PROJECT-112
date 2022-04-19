@@ -358,7 +358,7 @@ public class BillingModel {
 		return output;
 	}
 	
-	public String getuserBilingDetails(String account_no, Date to_date) {
+	public String getuserBilingDetails(String account_no) {
 		
 		String output = "";
 		
@@ -384,7 +384,7 @@ public class BillingModel {
 					+"<th>Total Amount</th>"
 					+"<th>Status</th></tr>";
 			
-			String query = "select * from billing where Account_No='"+account_no+"' and To_Date = '"+to_date+"'";
+			String query = "select * from billing where Account_No='"+account_no+"'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
