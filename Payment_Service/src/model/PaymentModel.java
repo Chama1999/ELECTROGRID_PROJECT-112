@@ -82,7 +82,7 @@ public class PaymentModel {
 			}
 			
 			// Prepare the html table to be displayed
-			output = "<table border=\"1\">" +
+			output = "<table border=\"1\" border-color=\"red\">" +
                     "<tr>" +
 					"<th>PaymentID</th>" +
                     "<th>CardType</th>" +
