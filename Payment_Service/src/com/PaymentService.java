@@ -20,17 +20,17 @@ public class PaymentService {
 		@Path("/")
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 		@Produces(MediaType.TEXT_PLAIN)
-		public String addPayment(@FormParam("account_number") String account_number,
-				                 @FormParam("card_type") String card_type,
-				                 @FormParam("card_number") int card_number,
-				                 @FormParam("name_on_card") String name_on_card,
-				                 @FormParam("cvc") int cvc,
-				                 @FormParam("expire_date") Date expire_date,
-				                 @FormParam("status") String status,
-				                 @FormParam("date") Date date,
-				                 @FormParam("bill_id") int bill_id)
+		public String addPayment(
+				                 @FormParam("CardType") String CardType,
+				                 @FormParam("CardNumber") int CardNumber,
+				                 @FormParam("CardHolderName") String CardHolderName,
+				                 @FormParam("CVC") int CVC,
+				                 @FormParam("CardExpireDate") Date CardExpireDate,
+				                 @FormParam("Status") String Status,
+				                 @FormParam("PaymentDate") Date PaymentDate,
+				                 @FormParam("BillID") int BillID)
 		{
-			String output = payment.addPayment(account_number, card_type, card_number, name_on_card, cvc, expire_date, status, date, bill_id);
+			String output = payment.addPayment(CardType, CardNumber, CardHolderName, CVC, CardExpireDate, Status, PaymentDate, BillID);
 			return output;
 		}
 		
@@ -45,45 +45,44 @@ public class PaymentService {
 	    }
 		
 		@GET
-		@Path("/getById/{user_id}")
+		@Path("/getById/{UserID}")
 		@Produces(MediaType.TEXT_HTML)
-		public String getPaymentById(@PathParam("user_id") int user_id) {
-			return this.payment.getPaymentByUser(user_id);
+		public String getPaymentById(@PathParam("UserID") int UserID) {
+			return this.payment.getPaymentByUser(UserID);
 		}
 		
 		
 		//update service
 		@PUT
-		@Path("/update/payment/{payment_id}")
+		@Path("/update/payment/{PaymentID}")
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 		@Produces(MediaType.TEXT_PLAIN)
-		public String updatePaymentById(@PathParam("payment_id") int payment_id ,
-				 @FormParam("account_number") String account_number,
-				 @FormParam("card_type") String card_type,
-				@FormParam("card_number") int card_number,
-				 @FormParam("name_on_card") String name_on_card,
-				 @FormParam("cvc") int cvc,
-				@FormParam("expire_date") Date expire_date,
-				@FormParam("status") String status,
-				@FormParam("date") Date date,
-				@FormParam("bill_id") int bill_id ) {
+		public String updatePaymentById(@PathParam("PaymentID") int PaymentID ,
+				 @FormParam("CardType") String CardType,
+				@FormParam("CardNumber") int CardNumber,
+				 @FormParam("CardHolderName") String CardHolderName,
+				 @FormParam("CVC") int CVC,
+				@FormParam("CardExpireDate") Date CardExpireDate,
+				@FormParam("Status") String Status,
+				@FormParam("PaymentDate") Date PaymentDate,
+				@FormParam("BillID") int BillID ) {
 			
-		return this.payment.updatePayment(payment_id, account_number, card_type, card_number, name_on_card, cvc, expire_date, status, date, bill_id);
+		return this.payment.updatePayment(PaymentID, CardType, CardNumber, CardHolderName, CVC, CardExpireDate, Status, PaymentDate, BillID);
 		
 		}
 		
 		
 		//delete service
 		@DELETE
-		@Path("/delete/payment/{payment_id}")
+		@Path("/delete/payment/{PaymentID}")
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 		@Produces(MediaType.TEXT_PLAIN)
 		public String DeleteOrder(
-		@PathParam ("payment_id") int payment_id )
+		@PathParam ("PaymentID") int PaymentID )
 		{
 
 		//Read the value from the element <AppID>
-		String output = payment.DeletePayment(payment_id);
+		String output = payment.DeletePayment(PaymentID);
 		        return output;
 
 

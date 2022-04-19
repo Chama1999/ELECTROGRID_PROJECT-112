@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+import javafx.util.Pair;
 
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -9,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 
+@SuppressWarnings("restriction")
 public class PaymentModel {
 	public Connection connect()
 	{
@@ -28,7 +30,7 @@ public class PaymentModel {
 		return con;
 	}
 	
-	public String addPayment(String account_number,String card_type,int card_number,String name_on_card,int cvc,Date expire_date,String status,Date date,int bill_id )
+	public String addPayment(String CardType,int CardNumber,String CardHolderName,int CVC,Date CardExpireDate,String Status,Date PaymentDate,int BillID )
 	{
 		String output = "";
 		try
@@ -38,20 +40,21 @@ public class PaymentModel {
 			{return "Error while connecting to the database for inserting."; }
 			
 			
-			String insertQuery = "insert into payment values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, 999, ?)";
+			String insertQuery = "insert into payment values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pstmnt = con.prepareStatement(insertQuery);
 			
-			double tot_charges = this.calculateSubAmount(bill_id);
-			pstmnt.setString(1, account_number);
-			pstmnt.setString(2, card_type);
-			pstmnt.setInt(3, card_number);
-			pstmnt.setString(4, name_on_card);
-			pstmnt.setInt(5, cvc);
-			pstmnt.setDate(6, expire_date);
-			pstmnt.setString(7, status);
-			pstmnt.setDouble(8, tot_charges);
-			pstmnt.setDate(9, date);
-			pstmnt.setInt(10, bill_id);
+			double TotalAmount = this.calculateSubAmount(BillID,PaymentDate);
+			int TaxID = this.getValidTax(PaymentDate).getKey();
+			pstmnt.setString(1, CardType);
+			pstmnt.setInt(2, CardNumber);
+			pstmnt.setString(3, CardHolderName);
+			pstmnt.setInt(4, CVC);
+			pstmnt.setDate(5, CardExpireDate);
+			pstmnt.setString(6, Status);
+			pstmnt.setDouble(7, TotalAmount);
+			pstmnt.setDate(8, PaymentDate);
+			pstmnt.setInt(9, TaxID);
+			pstmnt.setInt(10, BillID);
 			
 			// execute the statement3
 						pstmnt.execute();
@@ -82,49 +85,46 @@ public class PaymentModel {
 			// Prepare the html table to be displayed
 			output = "<table border=\"1\">" +
                     "<tr>" +
-					"<th>payment_id</th>" +
-                    "<th>account_number</th>" +
-					"<th>card_type</th>" +
-					"<th>card_number</th>" +
-					"<th>name_on_card</th>" +
-					"<th>cvc</th>" +
-					"<th>expire_date</th>" +
-					"<th>status</th>" +
-                    "<th>tot_charges</th>" +
-					"<th>date</th>" +
-					"<th>tax_id</th>" +
-					"<th>bill_id</th>";
+					"<th>PaymentID</th>" +
+                    "<th>CardType</th>" +
+					"<th>CardNumber</th>" +
+					"<th>CardHolderName</th>" +
+					"<th>CVC</th>" +
+					"<th>CardExpireDate</th>" +
+					"<th>Status</th>" +
+                    "<th>TotalAmount</th>" +
+					"<th>PaymentDate</th>" +
+					"<th>TaxID</th>" +
+					"<th>BillID</th>";
 						String query = "select * from payment";
 						Statement stmt = con.createStatement();
 						ResultSet rs = stmt.executeQuery(query);
 						// iterate through the rows in the result set
 						while (rs.next())
 						{
-							int payment_id = rs.getInt("payment_id");
-							String account_number = rs.getString("account_number");
-							String card_type = rs.getString("card_type");
-							int card_number = rs.getInt("card_number");
-							String name_on_card = rs.getString("name_on_card");
-							int cvc = rs.getInt("cvc");
-							Date expire_date = rs.getDate("expire_date");
-							String status = rs.getString("status");
-							float tot_charges = rs.getFloat("tot_charges");
-							Date date = rs.getDate("date");
-							int tax_id = rs.getInt("tax_id");
-							int bill_id = rs.getInt("bill_id");
+							int PaymentID = rs.getInt("PaymentID");
+							String CardType = rs.getString("CardType");
+							int CardNumber = rs.getInt("CardNumber");
+							String CardHolderName = rs.getString("CardHolderName");
+							int CVC = rs.getInt("CVC");
+							Date CardExpireDate = rs.getDate("CardExpireDate");
+							String Status = rs.getString("Status");
+							float TotalAmount = rs.getFloat("TotalAmount");
+							Date PaymentDate = rs.getDate("PaymentDate");
+							int TaxID = rs.getInt("TaxID");
+							int BillID = rs.getInt("BillID");
 
-							output += "<tr><td>" + payment_id + "</td>";
-							output += "<td>" + account_number + "</td>";
-							output += "<td>" + card_type + "</td>";
-							output += "<td>" + card_number + "</td>";
-							output += "<td>" + name_on_card + "</td>";
-							output += "<td>" + cvc + "</td>";
-							output += "<td>" + expire_date + "</td>";
-							output += "<td>" + status + "</td>";
-							output += "<td>" + tot_charges + "</td>";
-							output += "<td>" + date + "</td>";
-							output += "<td>" + tax_id + "</td>";
-							output += "<td>" + bill_id + "</td>";
+							output += "<tr><td>" + PaymentID + "</td>";
+							output += "<td>" + CardType + "</td>";
+							output += "<td>" + CardNumber + "</td>";							
+							output += "<td>" + CardHolderName + "</td>";
+							output += "<td>" + CVC + "</td>";
+							output += "<td>" + CardExpireDate + "</td>";
+							output += "<td>" + Status + "</td>";
+							output += "<td>" + TotalAmount + "</td>";
+							output += "<td>" + PaymentDate + "</td>";
+							output += "<td>" + TaxID + "</td>";
+							output += "<td>" + BillID + "</td>";
 						}
 						con.close();
 						// Complete the html table
@@ -140,34 +140,34 @@ public class PaymentModel {
     }
 	
 	
-	public String getPaymentByUser(int user_id) {
+	public String getPaymentByUser(int UserID) {
 		try(Connection con = connect()) {
-			String getQuery = "select py.payment_id, c.name, py.date, py.tot_charges from billing o \n"
-					+ "join user c on o.user_id = c.user_id \n"
-					+ "join payment py on o.bill_id = py.bill_id \n" 
-					+ "where c.user_id = ?;";
+			String getQuery = "select py.PaymentID, c.name, py.PaymentDate, py.TotalAmount from billing o \n"
+					+ "join user c on o.UserID = c.UserID \n"
+					+ "join payment py on o.BillID = py.BillID \n" 
+					+ "where c.UserID = ?;";
 			PreparedStatement pstmnt = con.prepareStatement(getQuery);
-			pstmnt.setInt(1, user_id);
+			pstmnt.setInt(1, UserID);
 			
 			String output = "<table>" + 
 					"<tr>" 
-					+ "<th>Payment ID</th>" 
-					+ "<th>Full Name</th>"
-					+ "<th>Payment Date</th>" 
-					+ "<th>Total Amount</th>";
+					+ "<th>PaymentID</th>" 
+					+ "<th>name</th>"
+					+ "<th>PaymentDate</th>" 
+					+ "<th>TotalAmount</th>";
 	       ResultSet rs = pstmnt.executeQuery();
 	       
 	       while (rs.next()) {
-				int payment_id = rs.getInt("payment_id");
+				int PaymentID = rs.getInt("PaymentID");
 				String name = rs.getString("name");
-				Date date = rs.getDate("date");
-				double tot_charges = rs.getDouble("tot_charges");
+				Date PaymentDate = rs.getDate("PaymentDate");
+				double TotalAmount = rs.getDouble("TotalAmount");
 				
 
-				output += "<tr><td>" + payment_id + "</td>";
+				output += "<tr><td>" + PaymentID + "</td>";
 				output += "<td>" + name + "</td>";
-				output += "<td>" + date + "</td>";
-				output += "<td>" + tot_charges + "</td>";
+				output += "<td>" + PaymentDate + "</td>";
+				output += "<td>" + TotalAmount + "</td>";
 				
 
 			}
@@ -182,73 +182,72 @@ public class PaymentModel {
 	}
 	
 	
-	public double calculateSubAmount(int bill_id) {
-		double tot_charges = 0;
+	public double calculateSubAmount(int BillID, Date PaymentDate) {
+		double TotalAmount = 0;
 		try(Connection con = connect()) {
-			String getQuery = "select o.amount\n" 
+			String getQuery = "select o.Amount\n" 
 					+ "from billing o\n"
-					+ "where o.bill_id = ?;";
+					+ "where o.BillID = ?;";
 		     
 			PreparedStatement pstmt = con.prepareStatement(getQuery);
-			pstmt.setInt(1, bill_id);
+			pstmt.setInt(1, BillID);
 			ResultSet rs = pstmt.executeQuery();
 			
-			float amount = 0;
-			float tax = 200;
+			float Amount = 0;
+			@SuppressWarnings("restriction")
+			float TaxAmount = this.getValidTax(PaymentDate).getValue();
 			
             while (rs.next()) {
 				
-				amount = rs.getFloat("amount");
+				Amount = rs.getFloat("Amount");
 			}
             con.close();
-			tot_charges = amount + tax;
+            TotalAmount = Amount + TaxAmount;
 			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		return tot_charges;
+		return TotalAmount;
 		
 	}
 	
-	public String updatePayment(int payment_id,
-			String account_number,
-			String card_type,
-			int card_number,
-			String name_on_card,
-			int cvc,
-			Date expire_date,
-			String status,
-			Date date,
-			int bill_id) {
+	public String updatePayment(int PaymentID,
+			String CardType,
+			int CardNumber,
+			String CardHolderName,
+			int CVC,
+			Date CardExpireDate,
+			String Status,
+			Date PaymentDate,
+			int BillID) {
 		
 		try(Connection con = connect()) {
 			
-			String updateQuery = "update payment set account_number=?,card_type=?,card_number=?,name_on_card=?,cvc=?,expire_date=?,status=? ,tot_charges =? ,date=?,tax_id=?,bill_id=? where payment_id =?" ;
+			String updateQuery = "update payment set CardType=?,CardNumber=?,CardHolderName=?,CVC=?,CardExpireDate=?,Status=? ,TotalAmount=? ,PaymentDate=?,TaxID=?,BillID=? where PaymentID =?" ;
 			
 			PreparedStatement pstmt = con.prepareStatement(updateQuery);
 			
-			double tot_charges = this.calculateSubAmount(bill_id);
+			double TotalAmount = this.calculateSubAmount(BillID,PaymentDate);
 			@SuppressWarnings("restriction")
-			int tax_id = 999;
-			pstmt.setString(1,account_number);
-			pstmt.setString(2,card_type);
-			pstmt.setInt(3,card_number);
-			pstmt.setString(4,name_on_card);
-			pstmt.setInt(5,cvc);
-			pstmt.setDate(6,expire_date);
-			pstmt.setString(7,status);
-			pstmt.setDouble(8,tot_charges);
-			pstmt.setDate(9,date);
-			pstmt.setInt(10,tax_id);
-			pstmt.setInt(11,bill_id);
-			pstmt.setInt(12,payment_id);
+			int TaxID = this.getValidTax(PaymentDate).getKey();
+			pstmt.setString(1,CardType);
+			pstmt.setInt(2,CardNumber);
+			pstmt.setString(3,CardHolderName);
+			pstmt.setInt(4,CVC);
+			pstmt.setDate(5,CardExpireDate);
+			pstmt.setString(6,Status);
+			pstmt.setDouble(7,TotalAmount);
+			pstmt.setDate(8,PaymentDate);
+			pstmt.setInt(9,TaxID);
+			pstmt.setInt(10,BillID);
+			pstmt.setInt(11,PaymentID);
 			pstmt.execute();
 			con.close();
-			System.out.println(payment_id);
+			System.out.println(PaymentID);
 	
-			return "Payment updated successfully 123";
+			return "Payment updated successfully";
 			
 			
 		}
@@ -260,7 +259,7 @@ public class PaymentModel {
 		
 	}
 	
-	public String DeletePayment(int payment_id) 
+	public String DeletePayment(int PaymentID) 
 	{ 
 		String output = ""; 
 		try
@@ -269,10 +268,10 @@ public class PaymentModel {
 			if (con == null) 
 			{return "Error while connecting to the database for deleting."; } 
 			// create a prepared statement
-			String query = "delete from payment where payment_id=?"; 
+			String query = "delete from payment where PaymentID=?"; 
 			PreparedStatement preparedStmt = con.prepareStatement(query); 
 			// binding values
-			preparedStmt.setInt(1,payment_id); 
+			preparedStmt.setInt(1,PaymentID); 
 			// execute the statement
 			preparedStmt.execute(); 
 			con.close(); 
@@ -285,5 +284,32 @@ public class PaymentModel {
 		} 
 		return output; 
 	} 
+	
+	
+	@SuppressWarnings({ "restriction", "unchecked" })
+	public Pair<Integer, Float> getValidTax(Date today) {
+		float TaxAmount = 0;
+		int TaxID = 0;
+		Pair<Integer, Float> pair = new Pair<Integer, Float>(TaxID,TaxAmount);
+		try(Connection con = connect()) {
+			String searchQuey = "select TaxID, TaxAmount from tax "
+					+ "where ValidFrom < ?"
+					+ "and ValidTo > ?";
+			PreparedStatement pstmt = con.prepareStatement(searchQuey);
+			pstmt.setDate(1, today);
+			pstmt.setDate(2, today);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				TaxID = rs.getInt("TaxID");
+				TaxAmount = rs.getFloat("TaxAmount");
+				pair = new Pair<Integer, Float>(TaxID,TaxAmount);
+			}
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pair;
+		
+	}
     
 }
