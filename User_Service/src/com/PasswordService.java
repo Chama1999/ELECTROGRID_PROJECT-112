@@ -1,13 +1,18 @@
 package com;
 
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+//For REST Service
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+//For JSON
+import com.google.gson.*;
+
+//For XML
+import org.jsoup.*;
+import org.jsoup.parser.*;
+import org.jsoup.nodes.Document;
+
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -25,9 +30,11 @@ public class PasswordService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	
-	public String ResetPassword(@FormParam("pincode") String pincode,@FormParam("password") String newpassword) 
-	{
-		String output = password.ForgotPassword(pincode,newpassword);//pass userCode sent through the email and new password
+	public String ResetPassword(@FormParam("userId") String userId,@FormParam("password") String newpassword) 
+	{	
+		
+		
+		String output = password.ForgotPassword(userId,newpassword);//use the unique user ID and set the new password
 		return output;
 	}
 	
@@ -37,10 +44,11 @@ public class PasswordService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	
-	public String validateLogin(@FormParam("username") String Username, 
+	public String validateLogin(@FormParam("userId") String UserID,
+			                    @FormParam("username") String Username, 
 							    @FormParam("password") String Password) 
 	{
-		String output = password.validateUserLogin(Username, Password);
+		String output = password.validateUserLogin(UserID,Username, Password);
 		return output;
 	}
 
