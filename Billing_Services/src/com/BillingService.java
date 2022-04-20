@@ -2,7 +2,7 @@ package com;
 
 import java.sql.Date;
 
-
+//For REST Service
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -14,6 +14,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import model.BillingModel;
+
+//For JSON
+import com.google.gson.*;
+
+//For XML
+import org.jsoup.*;
+import org.jsoup.parser.*;
+import org.jsoup.nodes.Document;
 
 
 
@@ -53,17 +61,26 @@ public class BillingService {
 	}
 
 	@PUT
-	@Path("/update/bill/{Account_No}/{To_Date}")
+	@Path("/updatebill")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String updatebillByaccount_no(@PathParam("Account_No") String Account_No , 
-			@FormParam("From_Date") Date From_Date,
-			@FormParam("To_Date") Date To_Date,
-			@FormParam("Current_Reading") int Current_Reading,
-			@FormParam("Status") String Status) {
+	public String updateBillDetails(String billData) {
 		
-	return billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
-	
+		// Convert the input string to a JSON object
+		JsonObject billObj = new JsonParser().parse(billData).getAsJsonObject();
+		// Read the values from the JSON object
+		String Account_No = billObj.get("Acount_No").getAsString();
+		String From_Date = billObj.get("From_Date").getAsString();
+		String To_Date = billObj.get("To_Date").getAsString();
+		String Current_Reading = billObj.get("Current_Reading").getAsString();
+		String Status = billObj.get("Status").getAsString();
+		 
+
+		//return billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
+		  
+		 
+		 String output = billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
+		 return output;
 	}
 	
 }

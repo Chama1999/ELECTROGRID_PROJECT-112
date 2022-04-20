@@ -436,7 +436,7 @@ public class BillingModel {
 		
 	}
 	
-	public String updateBillDetails(String account_no, Date from_d, Date to_d, int current_r, String status ) {
+	public String updateBillDetails(String account_no, String from_Date, String to_Date, String current_Reading, String status ) {
 		
 		String output = "";
 		
@@ -458,24 +458,24 @@ public class BillingModel {
 			
 			int previous_r = this.getpreviousreading(account_no, status);
 			
-			int units = this.calculateUnits(previous_r,current_r);
-			double c_amount = this.calculateCurrentAmount(units);
+			//int units = this.calculateUnits(previous_r,current_Reading);
+			//double c_amount = this.calculateCurrentAmount(units);
 			double p_amount = this.getPreviousAmount(account_no, status);
-			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
+			//double t_amount = this.calculateTotalAmount(c_amount,p_amount);
 			
 			// binding values
 			preparedStmt.setInt(1, 0);
 			preparedStmt.setString(2, account_no);
 			preparedStmt.setString(3, name);
 			preparedStmt.setString(4, address);
-			preparedStmt.setDate(5, from_d);
+			preparedStmt.setString(5, from_Date);
 			preparedStmt.setInt(6, previous_r);
-			preparedStmt.setDate(7, to_d);
-			preparedStmt.setInt(8, current_r);
-			preparedStmt.setInt(9, units);
-			preparedStmt.setDouble(10,  c_amount);
+			preparedStmt.setString(7, to_Date);
+			//preparedStmt.setString(8,  current_Reading));
+			//preparedStmt.setInt(9, units);
+			//preparedStmt.setDouble(10,  c_amount);
 			preparedStmt.setDouble(11, p_amount);
-			preparedStmt.setDouble(12,  t_amount);
+			//preparedStmt.setDouble(12,  t_amount);
 			preparedStmt.setString(13, status);
 			
 			// execute the statement
@@ -485,7 +485,7 @@ public class BillingModel {
 			   
 		}catch(Exception e) {
 			
-			output = "Error while updating the item.";
+			output = "Error while updating the billing details.";
 			System.err.println(e.getMessage());
 		}
 		
