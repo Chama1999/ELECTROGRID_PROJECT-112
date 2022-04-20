@@ -28,7 +28,7 @@ public class Password {
 			return con;
 			}
 				
-		public String ForgotPassword(String pincode,String password) 
+		public String ForgotPassword(String userId,String password) 
 		{
 			try
 			{
@@ -38,13 +38,13 @@ public class Password {
 					return "Error while connecting to the database for validation"; 
 				}
 							
-				String query = "UPDATE user SET password=? WHERE pincode=?";
+				String query = "UPDATE user SET password=? WHERE userId=?";
 				PreparedStatement preparedStmt = con.prepareStatement(query);
 				
 				
 				// binding values
 				preparedStmt.setString(1,password);//newpassword to be set is passed
-				preparedStmt.setString(2,pincode);//usercode sent through email is passed
+				preparedStmt.setString(2,userId);//usercode sent through email is passed
 		
 				preparedStmt.execute();
 				con.close();
@@ -59,7 +59,7 @@ public class Password {
 		}
 		
 		//validate the user login details
-		public String validateUserLogin(String username, String password) 
+		public String validateUserLogin(String userId ,String username, String password) 
 		{
 			try
 			{
@@ -69,17 +69,18 @@ public class Password {
 					return "Error while connecting to the database for validation"; 
 				}
 							
-				String query = "select username, password from user";
+				String query = "select userId ,username, password from user";
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
 							
 				while(rs.next())
 				{
+					String UserId = rs.getString("userId");
 					String userN = rs.getString("username");
 					String pass = rs.getString("password");
 					
 								
-					if(username.equals(userN) && password.equals(pass))
+					if(userId.equals(UserId) && username.equals(userN) && password.equals(pass))
 					{
 						
 							return "Welcome "+ username;
@@ -90,7 +91,7 @@ public class Password {
 			{
 				System.err.println(e.getMessage());
 			}
-				return "Username or Passwod is incorrect";
+				return "Username or Password is incorrect";
 			}
 
 }
