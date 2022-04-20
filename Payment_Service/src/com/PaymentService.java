@@ -2,7 +2,9 @@ package com;
 import model.PaymentModel;
 
 
-import java.sql.Date;
+
+
+
 
 
 import javax.ws.rs.*;
@@ -22,14 +24,22 @@ public class PaymentService {
 		@Produces(MediaType.TEXT_PLAIN)
 		public String addPayment(
 				                 @FormParam("CardType") String CardType,
-				                 @FormParam("CardNumber") int CardNumber,
+				                 @FormParam("CardNumber") String CardNumber,
 				                 @FormParam("CardHolderName") String CardHolderName,
-				                 @FormParam("CVC") int CVC,
-				                 @FormParam("CardExpireDate") Date CardExpireDate,
+				                 @FormParam("CVC") String CVC,
+				                 @FormParam("CardExpireDate") String CardExpireDate,
 				                 @FormParam("Status") String Status,
-				                 @FormParam("PaymentDate") Date PaymentDate,
+				                 @FormParam("PaymentDate") String PaymentDate,
 				                 @FormParam("BillID") int BillID)
 		{
+			
+			if(CardType.isEmpty()||CardHolderName.isEmpty()||Status.isEmpty())
+			{
+				 return "input fields cannot be empty";
+			}
+			
+			
+			
 			String output = payment.addPayment(CardType, CardNumber, CardHolderName, CVC, CardExpireDate, Status, PaymentDate, BillID);
 			return output;
 		}
@@ -38,7 +48,7 @@ public class PaymentService {
 		
 		
 		@GET
-	    @Path("/get")
+		@Path("/get")
 	    @Produces(MediaType.TEXT_HTML)
 	    public String getAllPatmentEntry(){
 	        return this.payment.getAllPayment();
@@ -59,12 +69,12 @@ public class PaymentService {
 		@Produces(MediaType.TEXT_PLAIN)
 		public String updatePaymentById(@PathParam("PaymentID") int PaymentID ,
 				 @FormParam("CardType") String CardType,
-				@FormParam("CardNumber") int CardNumber,
+				@FormParam("CardNumber") String CardNumber,
 				 @FormParam("CardHolderName") String CardHolderName,
-				 @FormParam("CVC") int CVC,
-				@FormParam("CardExpireDate") Date CardExpireDate,
+				 @FormParam("CVC") String CVC,
+				@FormParam("CardExpireDate") String CardExpireDate,
 				@FormParam("Status") String Status,
-				@FormParam("PaymentDate") Date PaymentDate,
+				@FormParam("PaymentDate") String PaymentDate,
 				@FormParam("BillID") int BillID ) {
 			
 		return this.payment.updatePayment(PaymentID, CardType, CardNumber, CardHolderName, CVC, CardExpireDate, Status, PaymentDate, BillID);
