@@ -448,35 +448,36 @@ public class BillingModel {
 				return "Error while connecting to the database for updating."; 
 			}
 			
-			// create a prepared statement
-			String query = "UPDATE billing SET Account_No=?,Name=?,Address=?,From_Date=?,Previous_Reading=?,To_Date=?,Current_Reading=?,Units=?,Current_amount=?,Previous_amount=?,Total_amount=?,Status=? where Account_No=? ";
-			PreparedStatement preparedStmt = con.prepareStatement(query);
-			// binding values
+			 
 
 			String name = this.getuserdetailsname(account_no);
 			String address = this.getuserdetailsaddress(account_no);
 			
 			int previous_r = this.getpreviousreading(account_no, status);
 			
-			//int units = this.calculateUnits(previous_r,current_Reading);
-			//double c_amount = this.calculateCurrentAmount(units);
+			int units = this.calculateUnits(previous_r,Integer.parseInt(current_Reading));
+			double c_amount = this.calculateCurrentAmount(units);
 			double p_amount = this.getPreviousAmount(account_no, status);
-			//double t_amount = this.calculateTotalAmount(c_amount,p_amount);
+			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
+			
+			// create a prepared statement
+			String query = "UPDATE billing SET From_Date=?,Previous_Reading=?,To_Date=?,Current_Reading=?,Units=?,Current_amount=?,Previous_amount=?,Total_amount=?,Status=? where Account_No=? ";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			
 			
 			// binding values
-			preparedStmt.setInt(1, 0);
-			preparedStmt.setString(2, account_no);
-			preparedStmt.setString(3, name);
-			preparedStmt.setString(4, address);
-			preparedStmt.setString(5, from_Date);
-			preparedStmt.setInt(6, previous_r);
-			preparedStmt.setString(7, to_Date);
-			//preparedStmt.setString(8,  current_Reading));
-			//preparedStmt.setInt(9, units);
-			//preparedStmt.setDouble(10,  c_amount);
-			preparedStmt.setDouble(11, p_amount);
-			//preparedStmt.setDouble(12,  t_amount);
-			preparedStmt.setString(13, status);
+		
+			preparedStmt.setString(1, from_Date);
+			preparedStmt.setInt(2, previous_r);
+			preparedStmt.setString(3, to_Date);
+			preparedStmt.setInt(4, Integer.parseInt(current_Reading));
+			preparedStmt.setInt(5, units);
+			preparedStmt.setDouble(6,  c_amount);
+			preparedStmt.setDouble(7, p_amount);
+			preparedStmt.setDouble(8,  t_amount);
+			preparedStmt.setString(9, status);
+			preparedStmt.setString(10, account_no); 
+			
 			
 			// execute the statement
 			preparedStmt.execute();
