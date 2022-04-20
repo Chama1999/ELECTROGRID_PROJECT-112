@@ -45,11 +45,11 @@ public class BillingService {
 			@FormParam("Status") String Status)
 	{
 		
-		/*if(Account_No.isEmpty()||From_Date.isEmpty()|To_Date.isEmpty()||Current_Reading.isEmpty()||Status.isEmpty())
+		if(Account_No.isEmpty()||From_Date.isEmpty()|To_Date.isEmpty()||Status.isEmpty())
 		{
-			 return "Fields must be filled out";
+			 return "Fields can't be empty";
 		}
-		*/
+		
 		String output = billing.insertbillingdata(Account_No, From_Date, To_Date, Current_Reading, Status);
 		return output;
 	}
