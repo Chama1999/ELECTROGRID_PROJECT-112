@@ -61,8 +61,7 @@ UserModel userObj = new UserModel();
 		 else if(!email.matches ("(\\W|^)[\\w.+\\-]*@gmail\\.com(\\W|$)")) {
 			 return "Invalid email address";
 	     }
-		 
-
+		
 
 
 		String output = userObj.RegisterUser(accountNo,pincode, name,address, NIC, email,phone,username,password);
