@@ -303,7 +303,7 @@ public class BillingModel {
 					+"<th>Charge for electricity consumed</th>"
 					+"<th>Total amount according to the previous amount</th>"
 					+"<th>Total Amount</th>"
-					+"<th>Status</th></tr>";
+					+"<th>Status (Pending / Done)</th></tr>";
 			
 			String query = "select * from billing";
 			Statement stmt = con.createStatement();
@@ -382,7 +382,7 @@ public class BillingModel {
 					+"<th>Charge for electricity consumed</th>"
 					+"<th>Total amount according to the previous amount</th>"
 					+"<th>Total Amount</th>"
-					+"<th>Status</th></tr>";
+					+"<th>Status (Pending / Done)</th></tr>";
 			
 			String query = "select * from billing where Account_No='"+account_no+"'";
 			Statement stmt = con.createStatement();

@@ -44,6 +44,12 @@ public class BillingService {
 			@FormParam("Current_Reading") int Current_Reading,
 			@FormParam("Status") String Status)
 	{
+		
+		/*if(Account_No.isEmpty()||From_Date.isEmpty()|To_Date.isEmpty()||Current_Reading.isEmpty()||Status.isEmpty())
+		{
+			 return "Fields must be filled out";
+		}
+		*/
 		String output = billing.insertbillingdata(Account_No, From_Date, To_Date, Current_Reading, Status);
 		return output;
 	}
