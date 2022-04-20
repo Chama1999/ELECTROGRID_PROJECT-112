@@ -30,7 +30,7 @@ public class PaymentModel {
 		return con;
 	}
 	
-	public String addPayment(String CardType,String CardNumber,String CardHolderName,String CVC,String CardExpireDate,String Status,String PaymentDate,int BillID )
+	public String addPayment(String CardType,String CardNumber,String CardHolderName,String CVC,String CardExpireDate,String PaymentDate,int BillID )
 	{
 		String output = "";
 		try
@@ -44,6 +44,7 @@ public class PaymentModel {
 			PreparedStatement pstmnt = con.prepareStatement(insertQuery);
 			double TaxAmount = this.calculateTaxAmount(BillID);
 			double TotalAmount = this.calculateSubAmount(BillID);
+			String Status = "pending";
 			pstmnt.setString(1, CardType);
 			pstmnt.setString(2, CardNumber);
 			pstmnt.setString(3, CardHolderName);
@@ -141,31 +142,40 @@ public class PaymentModel {
 	
 	public String getPaymentByUser(int UserID) {
 		try(Connection con = connect()) {
-			String getQuery = "select py.PaymentID, c.name, py.PaymentDate, py.TotalAmount from billing o \n"
+			String getQuery = "select py.PaymentID, o.BillID, c.name, py.PaymentDate,o.NoOfUnits,py.Status, py.TotalAmount from billing o \n"
 					+ "join user c on o.UserID = c.UserID \n"
 					+ "join payment py on o.BillID = py.BillID \n" 
 					+ "where c.UserID = ?;";
 			PreparedStatement pstmnt = con.prepareStatement(getQuery);
 			pstmnt.setInt(1, UserID);
 			
-			String output = "<table>" + 
+			String output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" + 
 					"<tr>" 
 					+ "<th>PaymentID</th>" 
-					+ "<th>name</th>"
-					+ "<th>PaymentDate</th>" 
-					+ "<th>TotalAmount</th>";
+					+ "<th>Bill ID</th>"
+					+ "<th>Full Name</th>"
+					+ "<th>Payment Date</th>" 
+					+ "<th>No Of Units per month</th>"
+					+ "<th>Status</th>"
+					+ "<th>Total Amount(Include TAX)</th>";
 	       ResultSet rs = pstmnt.executeQuery();
 	       
 	       while (rs.next()) {
 				int PaymentID = rs.getInt("PaymentID");
+				int BillID = rs.getInt("BillID");
 				String name = rs.getString("name");
 				String PaymentDate = rs.getString("PaymentDate");
+				int NoOfUnits = rs.getInt("NoOfUnits");
+				String Status = rs.getString("Status");
 				double TotalAmount = rs.getDouble("TotalAmount");
 				
 
 				output += "<tr><td>" + PaymentID + "</td>";
+				output += "<td>" + BillID + "</td>";
 				output += "<td>" + name + "</td>";
 				output += "<td>" + PaymentDate + "</td>";
+				output += "<td>" + NoOfUnits + "</td>";
+				output += "<td>" + Status + "</td>";
 				output += "<td>" + TotalAmount + "</td>";
 				
 
@@ -313,7 +323,6 @@ public class PaymentModel {
 			String CardHolderName,
 			String CVC,
 			String CardExpireDate,
-			String Status,
 			String PaymentDate,
 			int BillID) {
 		
@@ -324,6 +333,7 @@ public class PaymentModel {
 			PreparedStatement pstmt = con.prepareStatement(updateQuery);
 			double TaxAmount = this.calculateTaxAmount(BillID);
 			double TotalAmount = this.calculateSubAmount(BillID);
+			String Status = "pending";
 			pstmt.setString(1,CardType);
 			pstmt.setString(2,CardNumber);
 			pstmt.setString(3,CardHolderName);
