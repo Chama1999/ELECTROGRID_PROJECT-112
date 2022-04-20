@@ -4,6 +4,7 @@ import java.sql.Date;
 
 //For REST Service
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,6 +13,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
 
 import model.BillingModel;
 
@@ -79,6 +84,21 @@ public class BillingService {
 		 
 		 String output = billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
 		 return output;
+	}
+	
+	@DELETE
+	@Path("/delete")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deletebill(String billData)
+	{
+		//Convert the input string to an XML document
+		Document doc = Jsoup.parse(billData, "", Parser.xmlParser());
+
+		//Read the value from the element <itemID>
+		String Account_No = doc.select("Account_No").text();
+		String output = billing.deletebill(Account_No);
+		return output;
 	}
 	
 }

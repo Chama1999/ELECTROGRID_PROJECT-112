@@ -493,4 +493,30 @@ public class BillingModel {
 		return output;
 	}
 	
+	public String deletebill(String Account_No)
+	   {
+		String output = "";
+		try
+		{
+			Connection con = connect();
+			if (con == null)
+			{return "Error while connecting to the database for deleting."; }
+			// create a prepared statement
+			String query = "delete from billing where Account_No=?";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			// binding values
+			preparedStmt.setString(1, Account_No);
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+			output = "Deleted successfully";
+		}
+		catch (Exception e)
+		{
+			output = "Error while deleting the bill";
+			System.err.println(e.getMessage());
+		}
+		return output;
+		}
+	
 }
