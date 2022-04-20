@@ -37,6 +37,27 @@ public class PaymentService {
 			{
 				 return "Fields must be filled out";
 			}
+			else if(CardNumber.length()!=16) {
+				 return "Card Number length must be 16 characters long";
+			 }
+			else if(CVC.length()!=3)
+			{
+				 return "CVC length must be 3 characters long";
+			}
+			else if(!CardType.matches("^[a-z A-Z]*$"))
+			{
+				return "Can't use numbers on Card Type feild";
+			}
+			else if(!CardNumber.matches("[0-9]+"))
+			{
+				return "Can't use Characters on Card Number feild.."
+						+ "Must be Integer";
+			}
+			else if(!CVC.matches("[0-9]+"))
+			{
+				return "Can't use Characters on CVC feild.."
+						+ "Must be Integer";
+			}
 			
 			
 			
