@@ -88,7 +88,7 @@ UserModel userObj = new UserModel();
 	}
 	
 	@PUT
-	@Path("/")
+	@Path("/updateUsers")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateUser(String userData)//update user
