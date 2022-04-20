@@ -58,6 +58,14 @@ public class PaymentService {
 				return "Can't use Characters on CVC feild.."
 						+ "Must be Integer";
 			}
+			else if(!CardExpireDate.matches("^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$"))
+			{
+				return "CardExpireDate did not match correct date format";
+			}
+			else if(!PaymentDate.matches("^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$"))
+			{
+				return "PaymentDate did not match correct date format";
+			}
 			
 			
 			
