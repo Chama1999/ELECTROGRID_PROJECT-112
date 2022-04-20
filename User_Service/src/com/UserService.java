@@ -45,9 +45,9 @@ UserModel userObj = new UserModel();
 		 else if(accountNo.length()!=10) {
 			 return "Account number is consist of 10 digits";
 		 }
-//		 else if(NIC.length()!=10){
-//			 return "NIC length must be 10 characters";
-//		 }
+		 else if(NIC.length()!=10){
+			 return "NIC length must be 10 characters";
+	    }
 //		 else if(NIC.matches("[0-9]{9}[v|V]")){
 //			 return "Wrong NIC pattern";
 //		 }
@@ -60,11 +60,8 @@ UserModel userObj = new UserModel();
 	     }
 		 else if(!email.matches ("(\\W|^)[\\w.+\\-]*@gmail\\.com(\\W|$)")) {
 			 return "Invalid email address";
-	 }
-//		 else if(username.equals("username")) {
-//			 return "Username is already taken";
-//		 }
-		
+	     }
+		 
 
 
 
