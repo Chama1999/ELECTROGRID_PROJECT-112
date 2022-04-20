@@ -28,12 +28,11 @@ public class PaymentService {
 				                 @FormParam("CardHolderName") String CardHolderName,
 				                 @FormParam("CVC") String CVC,
 				                 @FormParam("CardExpireDate") String CardExpireDate,
-				                 @FormParam("Status") String Status,
 				                 @FormParam("PaymentDate") String PaymentDate,
 				                 @FormParam("BillID") int BillID)
 		{
 			
-			if(CardType.isEmpty()||CardNumber.isEmpty()||CardHolderName.isEmpty()||CVC.isEmpty()||CardExpireDate.isEmpty()||Status.isEmpty()||PaymentDate.isEmpty())
+			if(CardType.isEmpty()||CardNumber.isEmpty()||CardHolderName.isEmpty()||CVC.isEmpty()||CardExpireDate.isEmpty()||PaymentDate.isEmpty())
 			{
 				 return "Fields must be filled out";
 			}
@@ -69,7 +68,7 @@ public class PaymentService {
 			
 			
 			
-			String output = payment.addPayment(CardType, CardNumber, CardHolderName, CVC, CardExpireDate, Status, PaymentDate, BillID);
+			String output = payment.addPayment(CardType, CardNumber, CardHolderName, CVC, CardExpireDate, PaymentDate, BillID);
 			return output;
 		}
 		
@@ -102,13 +101,12 @@ public class PaymentService {
 				 @FormParam("CardHolderName") String CardHolderName,
 				 @FormParam("CVC") String CVC,
 				 @FormParam("CardExpireDate") String CardExpireDate,
-				 @FormParam("Status") String Status,
 				 @FormParam("PaymentDate") String PaymentDate,
 				 @FormParam("BillID") int BillID ) {
 			
 			
 			
-			if(CardType.isEmpty()||CardNumber.isEmpty()||CardHolderName.isEmpty()||CVC.isEmpty()||CardExpireDate.isEmpty()||Status.isEmpty()||PaymentDate.isEmpty())
+			if(CardType.isEmpty()||CardNumber.isEmpty()||CardHolderName.isEmpty()||CVC.isEmpty()||CardExpireDate.isEmpty()||PaymentDate.isEmpty())
 			{
 				 return "Fields must be filled out";
 			}
@@ -142,7 +140,7 @@ public class PaymentService {
 				return "PaymentDate did not match correct date format";
 			}
 			
-		return this.payment.updatePayment(PaymentID, CardType, CardNumber, CardHolderName, CVC, CardExpireDate, Status, PaymentDate, BillID);
+		return this.payment.updatePayment(PaymentID, CardType, CardNumber, CardHolderName, CVC, CardExpireDate, PaymentDate, BillID);
 		
 		}
 		
