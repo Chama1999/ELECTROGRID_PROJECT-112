@@ -30,6 +30,19 @@ public class PasswordService {
 		String output = password.ForgotPassword(pincode,newpassword);//pass userCode sent through the email and new password
 		return output;
 	}
+	
+
+	@POST
+	@Path("/validateUser")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	
+	public String validateLogin(@FormParam("Username") String Username, 
+							    @FormParam("Password") String Password) 
+	{
+		String output = password.validateUserLogin(Username, Password);
+		return output;
+	}
 
 	
 

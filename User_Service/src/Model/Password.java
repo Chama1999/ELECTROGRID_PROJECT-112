@@ -56,6 +56,41 @@ public class Password {
 				System.err.println(e.getMessage());
 			}
 		return "Error while Reseting the Password";
-		}		
+		}
+		
+		//validate the user login details
+		public String validateUserLogin(String userName, String Password) 
+		{
+			try
+			{
+				Connection con = connect();
+				if (con == null)
+				{
+					return "Error while connecting to the database for validation"; 
+				}
+							
+				String query = "select username, password from user";
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+							
+				while(rs.next())
+				{
+					String userN = rs.getString("username");
+					String pass = rs.getString("password");
+					
+								
+					if(userName.equals(userN) && Password.equals(pass))
+					{
+						
+							return "Welcome "+ userName;
+					}		
+				}
+			}
+			catch (Exception e)
+			{
+				System.err.println(e.getMessage());
+			}
+				return "incorrect Username or password";
+			}
 
 }
