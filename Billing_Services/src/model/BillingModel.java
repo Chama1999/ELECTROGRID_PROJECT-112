@@ -254,15 +254,15 @@ public class BillingModel {
 		double c_amount = 0;
 		
 		if(units<=60) {
-			c_amount = units * 7.85;
+			c_amount = (double) (units * 7.85);
 		}else if(units>60 && units<=90){
-			c_amount = units * 10.00;
+			c_amount = (double) ((double) (60 * 7.85) + (units - 60) * 10.00);
 		}else if(units>90 && units<=120){
-			c_amount = units * 27.75;
+			c_amount = (double) ((double) (60 * 7.85) + (30 * 10.00) + (units - 90) * 27.75);
 		}else if(units>120 && units<=180){
-			c_amount = units * 32.00;
+			c_amount = (double) ((double) (60 * 7.85) + (30 * 10.00) + (30 * 27.75) + (units - 120) * 32.75);
 		}else {
-			c_amount = units * 45.00;
+			c_amount = (double) ((double) (60 * 7.85) + (30 * 10.00) + (30 * 27.75) + (60 * 32.75) + (units - 180) * 45.00);
 		}
 		
 		return c_amount;
