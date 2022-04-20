@@ -59,7 +59,7 @@ public class UserModel {
 							//execute the statement
 							 preparedStmt.execute();
 							 con.close();
-							 output = "Inserted successfully";
+							 output = "User data Inserted successfully";
 				    		
 				    	}
 					catch (Exception e)
@@ -260,6 +260,5 @@ public class UserModel {
 				}
 				 
 			   
-			
-
+			   
 }
