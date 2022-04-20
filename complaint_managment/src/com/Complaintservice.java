@@ -16,16 +16,17 @@ public class Complaintservice
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String insertComplaint(@FormParam("customername") String customername,
-			                 @FormParam("date") Date date,
+			                 @FormParam("date") String date,
 			                 @FormParam("location") String location,
 			                 @FormParam("problem") String problem,
-			                 @FormParam(" problemstatus") String  problemstatus,
+			                 @FormParam("problemstatus") String  problemstatus,
 			                 @FormParam("phonenumber") String phonenumber
 			                 )
 	{
 		String output = complaint.insertComplaint(customername,date,location,problem,problemstatus,phonenumber);
 		return output;
 	}
+ 
 @GET
 @Path("/get")
 @Produces(MediaType.TEXT_HTML)
@@ -36,24 +37,22 @@ public String readComplaints()
  }
 
 
-/*@PUT
-@Path("/update/Complaint/{complaintid}")
+@PUT
+@Path("/")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_PLAIN)
-public String updatePaymentById(@PathParam("payment_id") int payment_id ,
-		 @FormParam("account_number") String account_number,
-		 @FormParam("card_type") String card_type,
-		@FormParam("card_number") int card_number,
-		 @FormParam("name_on_card") String name_on_card,
-		 @FormParam("cvc") int cvc,
-		@FormParam("expire_date") Date expire_date,
-		@FormParam("status") String status,
-		@FormParam("date") Date date,
-		@FormParam("bill_id") int bill_id ) {
+public String updateComplaintById(@PathParam("complaintid") int complaintid ,
+		 @FormParam("customername") String customername,
+		 @FormParam("date") String date,
+		@FormParam("location") String location,
+		 @FormParam("problem") String problem,
+		 @FormParam("problemstatus") String problemstatus,
+		@FormParam("phonenumber") String phonenumber
+		 ) {
 	
-return this.payment.updatePayment(payment_id, account_number, card_type, card_number, name_on_card, cvc, expire_date, status, date, bill_id);
+return this.complaint.updateComplaint(complaintid,customername,date,location,problem,problemstatus,phonenumber);
 
-}*/
+}
 
 @DELETE
 @Path("/delete/complaint/{complaintid}")

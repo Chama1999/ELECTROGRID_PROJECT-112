@@ -27,7 +27,7 @@ public Connection connect()
  {e.printStackTrace();}
  return con;
  }
-public String insertComplaint(String customername, Date date, String location, String problem, String problemstatus ,String phonenumber)
+public String insertComplaint(String customername, String date, String location, String problem, String problemstatus ,String phonenumber)
  {
  String output = "";
  try
@@ -36,15 +36,15 @@ public String insertComplaint(String customername, Date date, String location, S
  if (con == null)
  {return "Error while connecting to the database for inserting."; }
  // create a prepared statement
- String query = " insert into complaint values (NULL, ?, ?, ?, ?, ?, ?)";
+ String query = " insert into complaint values (NULL, ?, ?, ?, ?, ?, ?) ";
  PreparedStatement preparedStmt = con.prepareStatement(query);
  // binding values
- preparedStmt.setInt(1, 0);
- preparedStmt.setString(2, customername);
- preparedStmt.setDate(3, date);
- preparedStmt.setString(4, location);
- preparedStmt.setString(5, problem);
- preparedStmt.setString(4, problemstatus);
+
+ preparedStmt.setString(1, customername);
+ preparedStmt.setString(2, date);
+ preparedStmt.setString(3, location);
+ preparedStmt.setString(4, problem);
+ preparedStmt.setString(5, problemstatus);
  preparedStmt.setString(6, phonenumber);
  // execute the statement
  preparedStmt.execute();
@@ -53,11 +53,13 @@ public String insertComplaint(String customername, Date date, String location, S
  }
  catch (Exception e)
  {
- output = "Error while inserting the item.";
+ output = "Error while inserting the complaint";
  System.err.println(e.getMessage());
  }
  return output;
  }
+
+
 public String readComplaints()
  {
  String output = "";
@@ -67,13 +69,13 @@ public String readComplaints()
  if (con == null)
  {return "Error while connecting to the database for reading."; }
  // Prepare the html table to be displayed
- output = "<table border='1'><tr><th>complaintid</th><th>customername</th>" +
+ output = "<table  border:1 solid black;><tr><th>complaintid</th><th>customername</th>" +
  "<th>date</th>" +
  "<th>location</th>" +
  "<th>problem</th>" +
  "<th>problemstatus</th>" +
- "<th>phonenumber</th>" +
- "<th>Update</th><th>Remove</th></tr>";
+ "<th>phonenumber</th>" ;
+ //"<th>Update</th><th>Remove</th></tr>";
 
  String query = "select * from complaint";
  Statement stmt = con.createStatement();
@@ -83,7 +85,8 @@ public String readComplaints()
  {
  int complaintid = rs.getInt("complaintid");
  String customername = rs.getString("customername");
- Date date = rs.getDate("date");
+ String date = rs.getString("date");
+ String location = rs.getString("location");
  String problem = rs.getString("problem");
  String problemstatus = rs.getString("problemstatus");
  String phonenumber = rs.getString("phonenumber");
@@ -91,14 +94,15 @@ public String readComplaints()
  output += "<tr><td>" + complaintid + "</td>";
  output += "<td>" + customername + "</td>";
  output += "<td>" + date + "</td>";
+ output += "<td>" + location + "</td>";
  output += "<td>" + problem + "</td>";
  output += "<td>" + problemstatus + "</td>";
  output += "<td>" + phonenumber + "</td>";
  // buttons
- output += "<td><input name='btnUpdate' type='button' value='Update'class='btn btn-secondary'></td>"
+/* output += "<td><input name='btnUpdate' type='button' value='Update'class='btn btn-secondary'></td>"
  + "<td><form method='post' action='items.jsp'>"
  + "<input name='btnRemove' type='submit' value='Remove'class='btn btn-danger'>"
- + "<input name='itemID' type='hidden' value=' ' itemID '>" + "</form></td></tr>";
+ + "<input name='itemID' type='hidden' value=' ' itemID '>" + "</form></td></tr>";*/
  }
  con.close();
  // Complete the html table
@@ -112,8 +116,9 @@ public String readComplaints()
  return output;
  }
 
-/*public String updateComplaint(int complaintid, String customername, Date date, String location, String problem, String problemstatus ,String phonenumber)
-{
+public String updateComplaint(int complaintid, String customername, String date, String location, String problem, String problemstatus ,String phonenumber)
+{		
+
 	 String output = "";
 	 try
 	 {
@@ -121,13 +126,12 @@ public String readComplaints()
 	 if (con == null)
 	 {return "Error while connecting to the database for updating."; }
 	 // create a prepared statement
-	 String query = "UPDATE complaint SET customername=?,date=?,location=?,problem=?,problemstatus=?,phonenumber=?
-	 WHERE complaintid=?";
+	 String query = "UPDATE complaint SET customername=?,date=?,location=?,problem=?,problemstatus=?,phonenumber=? WHERE complaintid=?";
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
 	 // binding values
 	 
 	 preparedStmt.setString(1, customername);
-	 preparedStmt.setDate(2, date);
+	 preparedStmt.setString(2, date);
 	 preparedStmt.setString(3, location);
 	 preparedStmt.setString(4, problem);
 	 preparedStmt.setString(5, problemstatus);
@@ -135,7 +139,8 @@ public String readComplaints()
 	 // execute the statement
 	 preparedStmt.execute();
 	 con.close();
-	 output = "Updated successfully";
+	 System.out.println(complaintid);
+	 return "Updated successfully";
 	 }
 	 catch (Exception e)
 	 {
@@ -143,7 +148,8 @@ public String readComplaints()
 	 System.err.println(e.getMessage());
 	 }
 	 return output;
-	 }*/
+	 }
+
 	public String deleteComplaint(int complaintid) {
 	
 	 String output = "";
