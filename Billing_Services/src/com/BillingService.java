@@ -39,8 +39,8 @@ public class BillingService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String insertbillingdata(@FormParam("Account_No") String Account_No,
-			@FormParam("From_Date") Date From_Date,
-			@FormParam("To_Date") Date To_Date,
+			@FormParam("From_Date") String From_Date,
+			@FormParam("To_Date") String To_Date,
 			@FormParam("Current_Reading") int Current_Reading,
 			@FormParam("Status") String Status)
 	{

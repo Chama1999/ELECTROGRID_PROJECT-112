@@ -26,7 +26,7 @@ public class BillingModel {
 	} 
 	
 	
-	public String insertbillingdata(String account_no, Date from_d, Date to_d, int current_r, String status )
+	public String insertbillingdata(String account_no, String from_d, String to_d, int current_r, String status )
 	{
 		String output = "";
 		try
@@ -62,9 +62,9 @@ public class BillingModel {
 			preparedStmt.setString(2, account_no);
 			preparedStmt.setString(3, name);
 			preparedStmt.setString(4, address);
-			preparedStmt.setDate(5, from_d);
+			preparedStmt.setString(5, from_d);
 			preparedStmt.setInt(6, previous_r);
-			preparedStmt.setDate(7, to_d);
+			preparedStmt.setString(7, to_d);
 			preparedStmt.setInt(8, current_r);
 			preparedStmt.setInt(9, units);
 			preparedStmt.setDouble(10,  c_amount);
@@ -292,7 +292,8 @@ public class BillingModel {
 			}
 			
 			// Prepare the html table to be displayed
-			output = "<table border='1'><tr><th>Account No</th>"
+			output = "<table border='1'><tr><th>Bill ID</th>"
+					+"<th>Account No</th>" 
 					+"<th>Name</th>" 
 					+"<th>Address</th>"
 					+"<th>From Date</th>"
@@ -371,7 +372,8 @@ public class BillingModel {
 			}
 			
 			// Prepare the html table to be displayed
-			output = "<table border='1'><tr><th>Account No</th>"
+			output = "<table border='1'><tr><th>Bill ID</th>"
+					+"<th>Account No</th>" 
 					+"<th>Name</th>" 
 					+"<th>Address</th>"
 					+"<th>From Date</th>"
