@@ -82,7 +82,7 @@ public class PaymentModel {
 			}
 			
 			// Prepare the html table to be displayed
-			output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%;\">" +
+			output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" +
                     "<tr style=\"border: 1px solid #ddd; padding: 8px;\">" +
 					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">PaymentID</th>" +
                     "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">CardType</th>" +
@@ -113,17 +113,17 @@ public class PaymentModel {
 							String PaymentDate = rs.getString("PaymentDate");
 							int BillID = rs.getInt("BillID");
 
-							output += "<tr><td>" + PaymentID + "</td>";
-							output += "<td>" + CardType + "</td>";
-							output += "<td>" + CardNumber + "</td>";							
-							output += "<td>" + CardHolderName + "</td>";
-							output += "<td>" + CVC + "</td>";
-							output += "<td>" + CardExpireDate + "</td>";
-							output += "<td>" + Status + "</td>";
-							output += "<td>" + TaxAmount + "</td>";
-							output += "<td>" + TotalAmount + "</td>";
-							output += "<td>" + PaymentDate + "</td>";
-							output += "<td>" + BillID + "</td></tr>";
+							output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + PaymentID + "</td>";
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + CardType + "</td>";
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + CardNumber + "</td>";							
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + CardHolderName + "</td>";
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + CVC + "</td>";
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + CardExpireDate + "</td>";
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Status + "</td>";
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #191919; font-weight: 600\">" + TaxAmount + "</td>";
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #191919; font-weight: 600\">" + TotalAmount + "</td>";
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + PaymentDate + "</td>";
+							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + BillID + "</td></tr>";
 						}
 						con.close();
 						// Complete the html table
