@@ -59,7 +59,7 @@ public class Password {
 		}
 		
 		//validate the user login details
-		public String validateUserLogin(String userName, String Password) 
+		public String validateUserLogin(String username, String password) 
 		{
 			try
 			{
@@ -79,10 +79,10 @@ public class Password {
 					String pass = rs.getString("password");
 					
 								
-					if(userName.equals(userN) && Password.equals(pass))
+					if(username.equals(userN) && password.equals(pass))
 					{
 						
-							return "Welcome "+ userName;
+							return "Welcome "+ username;
 					}		
 				}
 			}
@@ -90,7 +90,7 @@ public class Password {
 			{
 				System.err.println(e.getMessage());
 			}
-				return "incorrect Username or password";
+				return "Username or Passwod is incorrect";
 			}
 
 }

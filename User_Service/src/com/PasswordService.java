@@ -37,8 +37,8 @@ public class PasswordService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	
-	public String validateLogin(@FormParam("Username") String Username, 
-							    @FormParam("Password") String Password) 
+	public String validateLogin(@FormParam("username") String Username, 
+							    @FormParam("password") String Password) 
 	{
 		String output = password.validateUserLogin(Username, Password);
 		return output;
