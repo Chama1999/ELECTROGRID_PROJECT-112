@@ -14,19 +14,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+//For JSON
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+//For XML
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 
 import model.BillingModel;
-
-//For JSON
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
- 
-
-
 
 @Path("/Billing")
 public class BillingService {
@@ -39,10 +36,10 @@ public class BillingService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String insertbillingdata(@FormParam("Account_No") String Account_No,
-			@FormParam("From_Date") String From_Date,
-			@FormParam("To_Date") String To_Date,
-			@FormParam("Current_Reading") int Current_Reading,
-			@FormParam("Status") String Status)
+									@FormParam("From_Date") String From_Date,
+									@FormParam("To_Date") String To_Date,
+									@FormParam("Current_Reading") int Current_Reading,
+									@FormParam("Status") String Status)
 	{
 		
 		if(Account_No.isEmpty()||From_Date.isEmpty()|To_Date.isEmpty()||Status.isEmpty())
@@ -57,6 +54,7 @@ public class BillingService {
 		{
 			return "To Date not be in correct format. Reenter To Date..";
 		}
+		
 		
 		String output = billing.insertbillingdata(Account_No, From_Date, To_Date, Current_Reading, Status);
 		return output;
@@ -85,6 +83,7 @@ public class BillingService {
 		
 		// Convert the input string to a JSON object
 		JsonObject billObj = new JsonParser().parse(billData).getAsJsonObject();
+		
 		// Read the values from the JSON object
 		String Account_No = billObj.get("Account_No").getAsString();
 		String From_Date = billObj.get("From_Date").getAsString();
@@ -92,12 +91,8 @@ public class BillingService {
 		String Current_Reading = billObj.get("Current_Reading").getAsString();
 		String Status = billObj.get("Status").getAsString();
 		 
-
-		//return billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
-		  
-		 
-		 String output = billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
-		 return output;
+		String output = billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
+		return output;
 	}
 	
 	@DELETE
@@ -109,8 +104,9 @@ public class BillingService {
 		//Convert the input string to an XML document
 		Document doc = Jsoup.parse(billData, "", Parser.xmlParser());
 
-		//Read the value from the element <itemID>
+		//Read the value from the element <Account No>
 		String Account_No = doc.select("Account_No").text();
+		
 		String output = billing.deletebill(Account_No);
 		return output;
 	}
