@@ -150,7 +150,7 @@ public class PaymentModel {
 			pstmnt.setInt(1, UserID);
 			
 			String output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" + 
-					"<tr>" 
+					"<tr style=\"border: 1px solid #ddd; padding: 8px;\">" 
 					+ "<th>PaymentID</th>" 
 					+ "<th>Bill ID</th>"
 					+ "<th>Full Name</th>"
