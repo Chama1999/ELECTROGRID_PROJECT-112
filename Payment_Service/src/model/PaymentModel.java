@@ -30,7 +30,7 @@ public class PaymentModel {
 		return con;
 	}
 	
-	public String addPayment(String CardType,int CardNumber,String CardHolderName,int CVC,Date CardExpireDate,String Status,Date PaymentDate,int BillID )
+	public String addPayment(String CardType,String CardNumber,String CardHolderName,String CVC,String CardExpireDate,String Status,String PaymentDate,int BillID )
 	{
 		String output = "";
 		try
@@ -45,14 +45,14 @@ public class PaymentModel {
 			double TaxAmount = this.calculateTaxAmount(BillID);
 			double TotalAmount = this.calculateSubAmount(BillID);
 			pstmnt.setString(1, CardType);
-			pstmnt.setInt(2, CardNumber);
+			pstmnt.setString(2, CardNumber);
 			pstmnt.setString(3, CardHolderName);
-			pstmnt.setInt(4, CVC);
-			pstmnt.setDate(5, CardExpireDate);
+			pstmnt.setString(4, CVC);
+			pstmnt.setString(5, CardExpireDate);
 			pstmnt.setString(6, Status);
 			pstmnt.setDouble(7, TaxAmount);
 			pstmnt.setDouble(8, TotalAmount);
-			pstmnt.setDate(9, PaymentDate);
+			pstmnt.setString(9, PaymentDate);
 			pstmnt.setInt(10, BillID);
 			
 			// execute the statement3
@@ -82,7 +82,7 @@ public class PaymentModel {
 			}
 			
 			// Prepare the html table to be displayed
-			output = "<table border=\"1\" border-color=\"red\">" +
+			output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%;\">" +
                     "<tr>" +
 					"<th>PaymentID</th>" +
                     "<th>CardType</th>" +
@@ -103,14 +103,14 @@ public class PaymentModel {
 						{
 							int PaymentID = rs.getInt("PaymentID");
 							String CardType = rs.getString("CardType");
-							int CardNumber = rs.getInt("CardNumber");
+							String CardNumber = rs.getString("CardNumber");
 							String CardHolderName = rs.getString("CardHolderName");
-							int CVC = rs.getInt("CVC");
-							Date CardExpireDate = rs.getDate("CardExpireDate");
+							String CVC = rs.getString("CVC");
+							String CardExpireDate = rs.getString("CardExpireDate");
 							String Status = rs.getString("Status");
 							float TaxAmount = rs.getFloat("TaxAmount");
 							float TotalAmount = rs.getFloat("TotalAmount");
-							Date PaymentDate = rs.getDate("PaymentDate");
+							String PaymentDate = rs.getString("PaymentDate");
 							int BillID = rs.getInt("BillID");
 
 							output += "<tr><td>" + PaymentID + "</td>";
@@ -159,7 +159,7 @@ public class PaymentModel {
 	       while (rs.next()) {
 				int PaymentID = rs.getInt("PaymentID");
 				String name = rs.getString("name");
-				Date PaymentDate = rs.getDate("PaymentDate");
+				String PaymentDate = rs.getString("PaymentDate");
 				double TotalAmount = rs.getDouble("TotalAmount");
 				
 
@@ -309,12 +309,12 @@ public class PaymentModel {
 	
 	public String updatePayment(int PaymentID,
 			String CardType,
-			int CardNumber,
+			String CardNumber,
 			String CardHolderName,
-			int CVC,
-			Date CardExpireDate,
+			String CVC,
+			String CardExpireDate,
 			String Status,
-			Date PaymentDate,
+			String PaymentDate,
 			int BillID) {
 		
 		try(Connection con = connect()) {
@@ -325,14 +325,14 @@ public class PaymentModel {
 			double TaxAmount = this.calculateTaxAmount(BillID);
 			double TotalAmount = this.calculateSubAmount(BillID);
 			pstmt.setString(1,CardType);
-			pstmt.setInt(2,CardNumber);
+			pstmt.setString(2,CardNumber);
 			pstmt.setString(3,CardHolderName);
-			pstmt.setInt(4,CVC);
-			pstmt.setDate(5,CardExpireDate);
+			pstmt.setString(4,CVC);
+			pstmt.setString(5,CardExpireDate);
 			pstmt.setString(6,Status);
 			pstmt.setDouble(7, TaxAmount);
 			pstmt.setDouble(8,TotalAmount);
-			pstmt.setDate(9,PaymentDate);
+			pstmt.setString(9,PaymentDate);
 			pstmt.setInt(10,BillID);
 			pstmt.setInt(11,PaymentID);
 			pstmt.execute();
