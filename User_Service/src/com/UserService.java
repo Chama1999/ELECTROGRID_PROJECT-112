@@ -22,7 +22,7 @@ public class UserService {
 UserModel userObj = new UserModel();
 	
 	@POST
-	@Path("/")
+	@Path("/insertUser")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	//register user
@@ -60,6 +60,7 @@ UserModel userObj = new UserModel();
 		 else if(!email.matches ("(\\W|^)[\\w.+\\-]*@gmail\\.com(\\W|$)")) {
 			 return "Invalid email address";
 	     }
+		
 		
 
 
