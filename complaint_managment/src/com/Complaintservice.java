@@ -47,7 +47,7 @@ public String updateComplaintById(@PathParam("complaintid") int complaintid ,
 		@FormParam("location") String location,
 		 @FormParam("problem") String problem,
 		 @FormParam("problemstatus") String problemstatus,
-		@FormParam("phonenumber") String phonenumber
+		@FormParam("phonenumber2") String phonenumber
 		 ) {
 	
 return this.complaint.updateComplaint(complaintid,customername,date,location,problem,problemstatus,phonenumber);
