@@ -16,12 +16,10 @@ import javax.ws.rs.core.MediaType;
 import model.BillingModel;
 
 //For JSON
-import com.google.gson.*;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-//For XML
-import org.jsoup.*;
-import org.jsoup.parser.*;
-import org.jsoup.nodes.Document;
+ 
 
 
 
@@ -62,14 +60,14 @@ public class BillingService {
 
 	@PUT
 	@Path("/updatebill")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateBillDetails(String billData) {
 		
 		// Convert the input string to a JSON object
 		JsonObject billObj = new JsonParser().parse(billData).getAsJsonObject();
 		// Read the values from the JSON object
-		String Account_No = billObj.get("Acount_No").getAsString();
+		String Account_No = billObj.get("Account_No").getAsString();
 		String From_Date = billObj.get("From_Date").getAsString();
 		String To_Date = billObj.get("To_Date").getAsString();
 		String Current_Reading = billObj.get("Current_Reading").getAsString();
