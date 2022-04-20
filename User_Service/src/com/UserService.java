@@ -71,7 +71,7 @@ UserModel userObj = new UserModel();
 	//reading data
 	
 	@GET
-	@Path("/")
+	@Path("/viewAll")
 	@Produces(MediaType.TEXT_HTML)
 	public String readUserDetails()//view all users
 	{
