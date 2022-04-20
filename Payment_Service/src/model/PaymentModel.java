@@ -83,18 +83,18 @@ public class PaymentModel {
 			
 			// Prepare the html table to be displayed
 			output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%;\">" +
-                    "<tr>" +
-					"<th>PaymentID</th>" +
-                    "<th>CardType</th>" +
-					"<th>CardNumber</th>" +
-					"<th>CardHolderName</th>" +
-					"<th>CVC</th>" +
-					"<th>CardExpireDate</th>" +
-					"<th>Status</th>" +
-					"<th>TaxAmount</th>" +
-                    "<th>TotalAmount</th>" +
-					"<th>PaymentDate</th>" +
-					"<th>BillID</th>";
+                    "<tr style=\"border: 1px solid #ddd; padding: 8px;\">" +
+					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">PaymentID</th>" +
+                    "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">CardType</th>" +
+					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">CardNumber</th>" +
+					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">CardHolderName</th>" +
+					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">CVC</th>" +
+					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">CardExpireDate</th>" +
+					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Status</th>" +
+					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">TaxAmount</th>" +
+                    "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">TotalAmount</th>" +
+					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">PaymentDate</th>" +
+					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">BillID</th>";
 						String query = "select * from payment";
 						Statement stmt = con.createStatement();
 						ResultSet rs = stmt.executeQuery(query);
@@ -123,7 +123,7 @@ public class PaymentModel {
 							output += "<td>" + TaxAmount + "</td>";
 							output += "<td>" + TotalAmount + "</td>";
 							output += "<td>" + PaymentDate + "</td>";
-							output += "<td>" + BillID + "</td>";
+							output += "<td>" + BillID + "</td></tr>";
 						}
 						con.close();
 						// Complete the html table
