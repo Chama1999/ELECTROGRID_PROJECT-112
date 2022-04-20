@@ -119,6 +119,9 @@ UserModel userObj = new UserModel();
 		 else if(!password.matches("(.*[@,#,$,%].*$)" )) {
 	    	 return "password must contain at least one special character";
 	     }
+		 else if(!email.matches ("(\\W|^)[\\w.+\\-]*@gmail\\.com(\\W|$)")) {
+			 return "Invalid email address";
+		 }
 		 
 		 String output = userObj.EditUserDetails(userId,accountNo,pincode, name,address, NIC, email,phone,username,password);
 		return output;
