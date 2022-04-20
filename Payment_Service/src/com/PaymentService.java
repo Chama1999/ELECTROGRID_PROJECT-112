@@ -33,9 +33,9 @@ public class PaymentService {
 				                 @FormParam("BillID") int BillID)
 		{
 			
-			if(CardType.isEmpty()||CardHolderName.isEmpty()||Status.isEmpty())
+			if(CardType.isEmpty()||CardNumber.isEmpty()||CardHolderName.isEmpty()||CVC.isEmpty()||CardExpireDate.isEmpty()||Status.isEmpty()||PaymentDate.isEmpty())
 			{
-				 return "input fields cannot be empty";
+				 return "Fields must be filled out";
 			}
 			
 			
