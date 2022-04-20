@@ -69,12 +69,13 @@ public String readComplaints()
  if (con == null)
  {return "Error while connecting to the database for reading."; }
  // Prepare the html table to be displayed
- output = "<table  border:1 solid black;><tr><th>complaintid</th><th>customername</th>" +
- "<th>date</th>" +
- "<th>location</th>" +
- "<th>problem</th>" +
- "<th>problemstatus</th>" +
- "<th>phonenumber</th>" ;
+ output = "<table  border:1  style=\\\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\\\">\" +\r\n" + 
+ 		"                    \"<tr style=\\\"border: 1px solid #ddd; padding: 8px;\\\">><tr><th>complaintid</th><th>customername</th>" +
+ "<th  style=\\\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\\\">date</th>" +
+ "<th  style=\\\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\\\">location</th>" +
+ "<th  style=\\\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\\\">problem</th>" +
+ "<th   style=\\\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\\\">problemstatus</th>" +
+ "<th   style=\\\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\\\">phonenumber</th>" ;
  //"<th>Update</th><th>Remove</th></tr>";
 
  String query = "select * from complaint";
