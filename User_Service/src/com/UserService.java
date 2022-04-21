@@ -28,7 +28,7 @@ UserModel userObj = new UserModel();
 	@Produces(MediaType.TEXT_PLAIN)
 	//register user
 	public String RegisterUser(@FormParam("accountNo") String accountNo,
-	 @FormParam("pincode") String pincode,
+	// @FormParam("pincode") String pincode,
 	 @FormParam("name") String name,
 	 @FormParam("address") String address,
 	 @FormParam("NIC") String NIC,
@@ -39,7 +39,7 @@ UserModel userObj = new UserModel();
 	
 	 )
 	{	
-		if(accountNo.isEmpty()||name.isEmpty()||address.isEmpty()||NIC.isEmpty()||email.isEmpty()||phone.isEmpty()||username.isEmpty()||password.isEmpty()||pincode.isEmpty()) 
+		if(accountNo.isEmpty()||name.isEmpty()||address.isEmpty()||NIC.isEmpty()||email.isEmpty()||phone.isEmpty()||username.isEmpty()||password.isEmpty()) 
 		 {
 			 return "input fields cannot be empty";
 		 } 
@@ -65,7 +65,7 @@ UserModel userObj = new UserModel();
 		
 
 
-		String output = userObj.RegisterUser(accountNo,pincode, name,address, NIC, email,phone,username,password);
+		String output = userObj.RegisterUser(accountNo, name,address, NIC, email,phone,username,password);
 		return output;
 	}
 	
@@ -98,7 +98,6 @@ UserModel userObj = new UserModel();
 		//Read the values from the JSON object
 		 String userId = userObject.get("userId").getAsString();
 		 String accountNo = userObject.get("accountNo").getAsString();
-		 String pincode = userObject.get("pincode").getAsString();
 		 String name = userObject.get("name").getAsString();
 		 String address = userObject.get("address").getAsString();
 		 String NIC = userObject.get("NIC").getAsString();
@@ -130,7 +129,7 @@ UserModel userObj = new UserModel();
 			 return "Invalid email address";
 		 }
 		 
-		 String output = userObj.EditUserDetails(userId,accountNo,pincode, name,address, NIC, email,phone,username,password);
+		 String output = userObj.EditUserDetails(userId,accountNo, name,address, NIC, email,phone,username,password);
 		return output;
 	}
 	
