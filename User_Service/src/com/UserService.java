@@ -129,7 +129,7 @@ UserModel userObj = new UserModel();
 			 return "Invalid email address";
 		 }
 		 
-		 String output = userObj.EditUserDetails(userId,accountNo, name,address, NIC, email,phone,username,password);
+		 String output = userObj.updateUserDetails(userId,accountNo, name,address, NIC, email,phone,username,password);
 		return output;
 	}
 	

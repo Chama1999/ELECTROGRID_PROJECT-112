@@ -188,7 +188,7 @@ public class UserModel {
 				return output;
 			}
 			 
-			 public String EditUserDetails(String userId,String accountNo,String name,String address,String NIC, String email, String phone, String username, String password)
+			 public String updateUserDetails(String userId,String accountNo,String name,String address,String NIC, String email, String phone, String username, String password)
 			   {
 				   String output = "";
 				   try
