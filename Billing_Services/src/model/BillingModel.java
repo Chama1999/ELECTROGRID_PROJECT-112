@@ -437,6 +437,85 @@ public class BillingModel {
 		
 	}
 	
+public String getuserBilingDetailsbyid(String id) {
+		
+		String output = "";
+		
+		try {
+			
+			Connection con = connect();
+			if (con == null)
+			{
+				return "Error while connecting to the database for reading."; 
+			}
+			
+			// Prepare the html table to be displayed
+			output = "<table border='1'><tr><th>Bill ID</th>"
+					+"<th>Account No</th>" 
+					+"<th>Name</th>" 
+					+"<th>Address</th>"
+					+"<th>From Date</th>"
+					+"<th>Previous Meter Reading</th>"
+					+"<th>To date</th>"
+					+"<th>Current Meter Reading</th>"
+					+"<th>No of Units Consumed</th>"
+					+"<th>Charge for electricity consumed</th>"
+					+"<th>Total amount according to the previous amount</th>"
+					+"<th>Total Amount</th>"
+					+"<th>Status (Pending / Done)</th></tr>";
+			
+			String query = "select * from billing where ID='"+id+"'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			 // iterate through the rows in the result set
+			 while (rs.next())
+			 {
+				 String ID= Integer.toString(rs.getInt("ID"));
+				 String Account_No = rs.getString("Account_No");
+				 String Name = rs.getString("Name");
+				 String Address = rs.getString("Address");
+				 Date From_Date = rs.getDate("From_Date");
+				 int Previous_Reading = rs.getInt("Previous_Reading");
+				 Date To_Date = rs.getDate("To_Date");
+				 int Current_Reading = rs.getInt("Current_Reading");
+				 int Units = rs.getInt("Units");
+				 Double Current_amount = rs.getDouble("Current_amount");
+				 Double Previous_amount = rs.getDouble("Previous_amount");
+				 Double Total_amount = rs.getDouble("Total_amount");
+				 String Status = rs.getString("Status");
+				 
+				 // Add a row into the html table
+				 output += "<tr><td>" + ID + "</td>";
+				 output += "<td>" + Account_No + "</td>";
+				 output += "<td>" + Name + "</td>";
+				 output += "<td>" + Address + "</td>";
+				 output += "<td>" + From_Date + "</td>";
+				 output += "<td>" + Previous_Reading + "</td>";
+				 output += "<td>" + To_Date + "</td>"; 
+				 output += "<td>" + Current_Reading + "</td>";
+				 output += "<td>" + Units + "</td>";
+				 output += "<td>" + Current_amount + "</td>";
+				 output += "<td>" + Previous_amount + "</td>";
+				 output += "<td>" + Total_amount + "</td>";
+				 output += "<td>" + Status + "</td>";
+				 // buttons
+				 
+			 }
+			 con.close();
+			 // Complete the html table
+			 output += "</table>";
+			
+		}catch(Exception e) {
+			
+			output = "Error while reading the bill details of users";
+			System.err.println(e.getMessage());
+		}
+		
+		return output;
+		
+	}
+	
 	public String updateBillDetails(String account_no, String from_Date, String to_Date, String current_Reading, String status ) {
 		
 		String output = "";
@@ -525,4 +604,5 @@ public class BillingModel {
 		
 	}
 	
+ 
 }
