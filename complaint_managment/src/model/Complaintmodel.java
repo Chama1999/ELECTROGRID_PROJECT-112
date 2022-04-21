@@ -111,7 +111,7 @@ public String readComplaints()
  }
  catch (Exception e)
  {
- output = "Error while reading the complaints.";
+ output = "Error while readinddg the complaints.";
  System.err.println(e.getMessage());
  }
  return output;
