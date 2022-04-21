@@ -22,7 +22,16 @@ public class Complaintservice
 			                 @FormParam("problemstatus") String  problemstatus,
 			                 @FormParam("phonenumber") String phonenumber
 			                 )
+	//inserting validations
 	{
+		if(customername.isEmpty()||date.isEmpty()||location.isEmpty()||problem.isEmpty()||problemstatus.isEmpty()||phonenumber.isEmpty())
+		{
+			 return "complain fields must be filled out";
+		}
+	
+		else if(phonenumber.length()!=10) {
+			 return "phonenumber length must be 10 characters long";
+		 }
 		String output = complaint.insertComplaint(customername,date,location,problem,problemstatus,phonenumber);
 		return output;
 	}
