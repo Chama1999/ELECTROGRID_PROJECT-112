@@ -332,19 +332,19 @@ public class BillingModel {
 				 String Status = rs.getString("Status");
 				 
 				 // Add a row into the html table
-				 output += "<tr><td>" + ID + "</td>";
-				 output += "<td>" + Account_No + "</td>";
-				 output += "<td>" + Name + "</td>";
-				 output += "<td>" + Address + "</td>";
-				 output += "<td>" + From_Date + "</td>";
-				 output += "<td>" + Previous_Reading + "</td>";
-				 output += "<td>" + To_Date + "</td>"; 
-				 output += "<td>" + Current_Reading + "</td>";
-				 output += "<td>" + Units + "</td>";
-				 output += "<td>" + Current_amount + "</td>";
-				 output += "<td>" + Previous_amount + "</td>";
-				 output += "<td>" + Total_amount + "</td>";
-				 output += "<td>" + Status + "</td>";
+				 output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + ID + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Account_No + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Name + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Address + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + From_Date + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Previous_Reading + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + To_Date + "</td>"; 
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Current_Reading + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Units + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Current_amount + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Previous_amount + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Total_amount + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Status + "</td>";
 				 // buttons
 				 output += "<input name='ID' type='hidden' "
 				 + " value='" + ID + "'>"
@@ -413,19 +413,18 @@ public class BillingModel {
 				 String Status = rs.getString("Status");
 				 
 				 // Add a row into the html table
-				 output += "<tr><td>" + ID + "</td>";
-				 output += "<td>" + Account_No + "</td>";
-				 output += "<td>" + Name + "</td>";
-				 output += "<td>" + Address + "</td>";
-				 output += "<td>" + From_Date + "</td>";
-				 output += "<td>" + Previous_Reading + "</td>";
-				 output += "<td>" + To_Date + "</td>"; 
-				 output += "<td>" + Current_Reading + "</td>";
-				 output += "<td>" + Units + "</td>";
-				 output += "<td>" + Current_amount + "</td>";
-				 output += "<td>" + Previous_amount + "</td>";
-				 output += "<td>" + Total_amount + "</td>";
-				 output += "<td>" + Status + "</td>";
+				 output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + ID + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Account_No + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Name + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Address + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + From_Date + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Previous_Reading + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + To_Date + "</td>"; 
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Current_Reading + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Units + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Current_amount + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Previous_amount + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Total_amount + "</td>";
 				 // buttons
 				 
 			 }
@@ -493,19 +492,18 @@ public String getuserBilingDetailsbyid(String id) {
 				 String Status = rs.getString("Status");
 				 
 				 // Add a row into the html table
-				 output += "<tr><td>" + ID + "</td>";
-				 output += "<td>" + Account_No + "</td>";
-				 output += "<td>" + Name + "</td>";
-				 output += "<td>" + Address + "</td>";
-				 output += "<td>" + From_Date + "</td>";
-				 output += "<td>" + Previous_Reading + "</td>";
-				 output += "<td>" + To_Date + "</td>"; 
-				 output += "<td>" + Current_Reading + "</td>";
-				 output += "<td>" + Units + "</td>";
-				 output += "<td>" + Current_amount + "</td>";
-				 output += "<td>" + Previous_amount + "</td>";
-				 output += "<td>" + Total_amount + "</td>";
-				 output += "<td>" + Status + "</td>";
+				 output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + ID + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Account_No + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Name + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Address + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + From_Date + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Previous_Reading + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + To_Date + "</td>"; 
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Current_Reading + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Units + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Current_amount + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Previous_amount + "</td>";
+				 output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Total_amount + "</td>";
 				 // buttons
 				 
 			 }
