@@ -111,7 +111,7 @@ public String readComplaints()
  }
  catch (Exception e)
  {
- output = "Error while readinddg the complaints.";
+ output = "Error while reading the complaints.";
  System.err.println(e.getMessage());
  }
  return output;
@@ -119,43 +119,40 @@ public String readComplaints()
 
 
 
-public String getPaymentByComplaint(int complaintid) {
+public String getComplaintById(int complaintid) {
 	try(Connection con = connect()) {
-		String getQuery = "select py.PaymentID, o.BillID, c.name, py.PaymentDate,o.NoOfUnits,py.Status, py.TotalAmount from billing o \n"
-				+ "join user c on o.UserID = c.UserID \n"
-				+ "join payment py on o.BillID = py.BillID \n" 
-				+ "where c.UserID = ?;";
+		String getQuery = "select  o.customername, o.date, o.location,o.problem,o.problemstatus, o.phonenumber\n " +"from complaint o \n"
+				
+				+ "where o.complaintid = ?;";
 		PreparedStatement pstmnt = con.prepareStatement(getQuery);
 		pstmnt.setInt(1, complaintid);
 		
 		String output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" + 
 				"<tr style=\"border: 1px solid #ddd; padding: 8px;\">" 
-				+ "<th>PaymentID</th>" 
-				+ "<th>Bill ID</th>"
-				+ "<th>Full Name</th>"
-				+ "<th>Payment Date</th>" 
-				+ "<th>No Of Units per month</th>"
-				+ "<th>Status</th>"
-				+ "<th>Total Amount(Include TAX)</th>";
+				+ "<th>customername</th>"
+				+ "<th>date</th>"
+				+ "<th>location</th>" 
+				+ "<th>problem</th>"
+				+ "<th>problemstatus</th>"
+				+ "<th>phonenumber</th>";
        ResultSet rs = pstmnt.executeQuery();
        
        while (rs.next()) {
-			int PaymentID = rs.getInt("PaymentID");
-			int BillID = rs.getInt("BillID");
-			String name = rs.getString("name");
-			String PaymentDate = rs.getString("PaymentDate");
-			int NoOfUnits = rs.getInt("NoOfUnits");
-			String Status = rs.getString("Status");
-			double TotalAmount = rs.getDouble("TotalAmount");
+			
+			String customername = rs.getString("customername");
+			String date= rs.getString("date");
+			String location = rs.getString("location");
+			String problem= rs.getString("problem");
+			String problemstatus = rs.getString("problemstatus");
+			String phonenumber = rs.getString("phonenumber");
 			
 
-			output += "<tr><td>" + PaymentID + "</td>";
-			output += "<td>" + BillID + "</td>";
-			output += "<td>" + name + "</td>";
-			output += "<td>" + PaymentDate + "</td>";
-			output += "<td>" + NoOfUnits + "</td>";
-			output += "<td>" + Status + "</td>";
-			output += "<td>" + TotalAmount + "</td>";
+			output += "<tr><td>" + customername + "</td>";
+			output += "<td>" + date + "</td>";
+			output += "<td>" +location  + "</td>";
+			output += "<td>" +  problem+ "</td>";
+			output += "<td>" +  problemstatus + "</td>";
+			output += "<td>" + phonenumber + "</td></tr>";
 			
 
 		}
