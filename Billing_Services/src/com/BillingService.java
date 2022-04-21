@@ -54,7 +54,7 @@ public class BillingService {
 		{
 			return "To Date not be in correct format. Reenter To Date..";
 		}
-		
+		 
 		
 		String output = billing.insertbillingdata(Account_No, From_Date, To_Date, Current_Reading, Status);
 		return output;
@@ -68,11 +68,19 @@ public class BillingService {
 	}
 	
 	@GET
-	@Path("/getDetailsbyid/{Account_No}")//view a specific billing details of user
+	@Path("/getDetailsbyaccountno/{Account_No}")//view a specific billing details of user
 	@Produces(MediaType.TEXT_HTML)
 	public String UserBillingDetails(@PathParam("Account_No") String Account_No) {
 
 		return billing.getuserBilingDetails(Account_No);
+	}
+	
+	@GET
+	@Path("/getDetailsbyid/{ID}")//view a specific billing details from bill id
+	@Produces(MediaType.TEXT_HTML)
+	public String UserBillingDetailsbyid(@PathParam("ID") String ID) {
+
+		return billing.getuserBilingDetailsbyid(ID);
 	}
 
 	@PUT
@@ -90,6 +98,19 @@ public class BillingService {
 		String To_Date = billObj.get("To_Date").getAsString();
 		String Current_Reading = billObj.get("Current_Reading").getAsString();
 		String Status = billObj.get("Status").getAsString();
+		
+		if(Account_No.isEmpty()||From_Date.isEmpty()|To_Date.isEmpty()||Status.isEmpty())
+		{
+			 return "Fields can't be empty";
+		}
+		else if(!From_Date.matches("^(?:[0-9][0-9])?[0-9][0-9]-[0-3][0-9]-[0-3][0-9]$"))
+		{
+			return "From Date not be in correct format. Reenter From Date..";
+		}
+		else if(!To_Date.matches("^(?:[0-9][0-9])?[0-9][0-9]-[0-3][0-9]-[0-3][0-9]$"))
+		{
+			return "To Date not be in correct format. Reenter To Date..";
+		}
 		 
 		String output = billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
 		return output;
@@ -110,5 +131,6 @@ public class BillingService {
 		String output = billing.deletebill(Account_No);
 		return output;
 	}
+	
 	
 }
