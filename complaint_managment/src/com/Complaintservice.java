@@ -64,6 +64,14 @@ public String updateComplaintById(@PathParam("complaintid") int complaintid ,
 		 @FormParam("problemstatus") String problemstatus,
 		@FormParam("phonenumber") String phonenumber
 		 ) {
+	if(customername.isEmpty()||date.isEmpty()||location.isEmpty()||problem.isEmpty()||problemstatus.isEmpty()||phonenumber.isEmpty())
+	{
+		 return "complain fields must be filled out";
+	}
+
+	else if(phonenumber.length()!=10) {
+		 return "phonenumber length must be 10 characters long";
+	 }
 	
 return this.complaint.updateComplaint(complaintid,customername,date,location,problem,problemstatus,phonenumber);
 
