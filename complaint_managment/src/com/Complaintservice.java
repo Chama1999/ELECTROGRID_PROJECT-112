@@ -38,7 +38,7 @@ public String readComplaints()
 
 
 @PUT
-@Path("/")
+@Path("/update/complaint/{complaintid}")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_PLAIN)
 public String updateComplaintById(@PathParam("complaintid") int complaintid ,
@@ -47,7 +47,7 @@ public String updateComplaintById(@PathParam("complaintid") int complaintid ,
 		@FormParam("location") String location,
 		 @FormParam("problem") String problem,
 		 @FormParam("problemstatus") String problemstatus,
-		@FormParam("phonenumber2") String phonenumber
+		@FormParam("phonenumber") String phonenumber
 		 ) {
 	
 return this.complaint.updateComplaint(complaintid,customername,date,location,problem,problemstatus,phonenumber);
