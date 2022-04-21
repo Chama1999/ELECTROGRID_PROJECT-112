@@ -92,13 +92,13 @@ public String readComplaints()
  String problemstatus = rs.getString("problemstatus");
  String phonenumber = rs.getString("phonenumber");
  // Add into the html table
- output += "<tr><td>" + complaintid + "</td>";
- output += "<td>" + customername + "</td>";
- output += "<td>" + date + "</td>";
- output += "<td>" + location + "</td>";
- output += "<td>" + problem + "</td>";
- output += "<td>" + problemstatus + "</td>";
- output += "<td>" + phonenumber + "</td>";
+ output += "<tr style=\\\"border: 1px solid #ddd; padding: 8px;\\\"><td style=\\\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\\\"><td>" + complaintid + "</td>";
+ output += "<td style=\\\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\\\">" + customername + "</td>";
+ output += "<td style=\\\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\\\">" + date + "</td>";
+ output += "<td style=\\\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\\\">" + location + "</td>";
+ output += "<td style=\\\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\\\">" + problem + "</td>";
+ output += "<td style=\\\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\\\">" + problemstatus + "</td>";
+ output += "<td style=\\\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\\\">" + phonenumber + "</td>";
  // buttons
 /* output += "<td><input name='btnUpdate' type='button' value='Update'class='btn btn-secondary'></td>"
  + "<td><form method='post' action='items.jsp'>"
@@ -116,6 +116,59 @@ public String readComplaints()
  }
  return output;
  }
+
+
+
+public String getPaymentByComplaint(int complaintid) {
+	try(Connection con = connect()) {
+		String getQuery = "select py.PaymentID, o.BillID, c.name, py.PaymentDate,o.NoOfUnits,py.Status, py.TotalAmount from billing o \n"
+				+ "join user c on o.UserID = c.UserID \n"
+				+ "join payment py on o.BillID = py.BillID \n" 
+				+ "where c.UserID = ?;";
+		PreparedStatement pstmnt = con.prepareStatement(getQuery);
+		pstmnt.setInt(1, complaintid);
+		
+		String output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" + 
+				"<tr style=\"border: 1px solid #ddd; padding: 8px;\">" 
+				+ "<th>PaymentID</th>" 
+				+ "<th>Bill ID</th>"
+				+ "<th>Full Name</th>"
+				+ "<th>Payment Date</th>" 
+				+ "<th>No Of Units per month</th>"
+				+ "<th>Status</th>"
+				+ "<th>Total Amount(Include TAX)</th>";
+       ResultSet rs = pstmnt.executeQuery();
+       
+       while (rs.next()) {
+			int PaymentID = rs.getInt("PaymentID");
+			int BillID = rs.getInt("BillID");
+			String name = rs.getString("name");
+			String PaymentDate = rs.getString("PaymentDate");
+			int NoOfUnits = rs.getInt("NoOfUnits");
+			String Status = rs.getString("Status");
+			double TotalAmount = rs.getDouble("TotalAmount");
+			
+
+			output += "<tr><td>" + PaymentID + "</td>";
+			output += "<td>" + BillID + "</td>";
+			output += "<td>" + name + "</td>";
+			output += "<td>" + PaymentDate + "</td>";
+			output += "<td>" + NoOfUnits + "</td>";
+			output += "<td>" + Status + "</td>";
+			output += "<td>" + TotalAmount + "</td>";
+			
+
+		}
+       output += "</table>";
+		return output;
+		
+	}
+	catch(Exception e) {
+		return "Error occur during retrieving \n" + e.getMessage();
+	}
+	
+}
+
 
 public String updateComplaint(int complaintid, String customername, String date, String location, String problem, String problemstatus ,String phonenumber)
 {		
@@ -137,6 +190,7 @@ public String updateComplaint(int complaintid, String customername, String date,
 	 preparedStmt.setString(4, problem);
 	 preparedStmt.setString(5, problemstatus);
 	 preparedStmt.setString(6, phonenumber);
+	 preparedStmt.setInt(7, complaintid);
 	 // execute the statement
 	 preparedStmt.execute();
 	 con.close();
