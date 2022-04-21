@@ -94,7 +94,7 @@ public String readComplaints()
  String problemstatus = rs.getString("problemstatus");
  String phonenumber = rs.getString("phonenumber");
  // Add into the html table
- output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + complaintid + "</td>";
+ output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: Violet;\">" + complaintid + "</td>";
  output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + customername + "</td>";
  output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + date + "</td>";
  output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + location + "</td>";
@@ -131,7 +131,7 @@ public String getComplaintById(int complaintid) {
 		
 		String output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" + 
 				"<tr style=\"border: 1px solid #ddd; padding: 8px;\">" 
-				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">customername</th>"
+				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color:#04AA6D ; color: white;\">customername</th>"
 				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">date</th>"
 				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">location</th>" 
 				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">problem</th>"
@@ -149,7 +149,7 @@ public String getComplaintById(int complaintid) {
 			String phonenumber = rs.getString("phonenumber");
 			
 
-			output +=  "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + complaintid + "</td>";
+			output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + complaintid + "</td>";
 			output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" +date+ "</td>";
 			output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" +location+ "</td>";
 			output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" +problem+ "</td>";
