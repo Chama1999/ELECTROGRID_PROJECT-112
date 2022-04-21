@@ -93,6 +93,7 @@ public class BillingService {
 		JsonObject billObj = new JsonParser().parse(billData).getAsJsonObject();
 		
 		// Read the values from the JSON object
+		String ID = billObj.get("ID").getAsString();
 		String Account_No = billObj.get("Account_No").getAsString();
 		String From_Date = billObj.get("From_Date").getAsString();
 		String To_Date = billObj.get("To_Date").getAsString();
@@ -112,7 +113,7 @@ public class BillingService {
 			return "To Date not be in correct format. Reenter To Date..";
 		}
 		 
-		String output = billing.updateBillDetails(Account_No,From_Date,To_Date,Current_Reading,Status);
+		String output = billing.updateBillDetails(ID,Account_No,From_Date,To_Date,Current_Reading,Status);
 		return output;
 	}
 	
