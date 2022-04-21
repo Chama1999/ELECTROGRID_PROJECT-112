@@ -34,7 +34,7 @@ public class PasswordService {
 	{	
 		
 		
-		String output = password.ForgotPassword(userId,newpassword);//use the unique user ID and set the new password
+		String output = password.ResetPassword(userId,newpassword);//use the unique user ID and set the new password
 		return output;
 	}
 	
