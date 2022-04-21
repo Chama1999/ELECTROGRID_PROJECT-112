@@ -131,12 +131,12 @@ public String getComplaintById(int complaintid) {
 		
 		String output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" + 
 				"<tr style=\"border: 1px solid #ddd; padding: 8px;\">" 
-				+ "<th>customername</th>"
-				+ "<th>date</th>"
-				+ "<th>location</th>" 
-				+ "<th>problem</th>"
-				+ "<th>problemstatus</th>"
-				+ "<th>phonenumber</th>";
+				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">customername</th>"
+				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">date</th>"
+				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">location</th>" 
+				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">problem</th>"
+				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">problemstatus</th>"
+				+ "<th style=\"padding-top: 12px; padding-bottom: 13px; text-align: left; background-color: #04AA6D; color: white;\">phonenumber</th>";
        ResultSet rs = pstmnt.executeQuery();
        
        while (rs.next()) {
@@ -149,12 +149,12 @@ public String getComplaintById(int complaintid) {
 			String phonenumber = rs.getString("phonenumber");
 			
 
-			output += "<tr><td>" + customername + "</td>";
-			output += "<td>" + date + "</td>";
-			output += "<td>" +location  + "</td>";
-			output += "<td>" +  problem+ "</td>";
-			output += "<td>" +  problemstatus + "</td>";
-			output += "<td>" + phonenumber + "</td></tr>";
+			output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: Violet;\">" + customername + "</td>";
+			output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" +date+ "</td>";
+			output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" +location+ "</td>";
+			output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" +problem+ "</td>";
+			output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" +problemstatus+ "</td>";
+			output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" +phonenumber+ "</td></tr>";
 			
 
 		}
