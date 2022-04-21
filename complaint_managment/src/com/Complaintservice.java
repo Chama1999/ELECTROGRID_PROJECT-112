@@ -36,6 +36,12 @@ public String readComplaints()
 
  }
 
+@GET
+@Path("/getById/{complaintid}")
+@Produces(MediaType.TEXT_HTML)
+public String getComplaintById(@PathParam("complaintid") int complaintid) {
+	return this.complaint.getComplaintById(complaintid);
+}
 
 @PUT
 @Path("/update/complaint/{complaintid}")
