@@ -51,11 +51,11 @@ public class BillingModel {
 			double p_amount = this.getPreviousAmount(account_no, status);
 			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
 			
-			/*String querynew = "update billing set status = 'Cancel'  where Account_No = ?";
+			String querynew = "update billing set status = 'Cancel'  where Account_No = ?";
 			PreparedStatement preparedStmt1 = con.prepareStatement(querynew);
 			preparedStmt1 .setString(1, account_no);
 			
-			preparedStmt1.execute();*/
+			preparedStmt1.execute();
 			
 			// binding values
 			preparedStmt.setInt(1, 0);
