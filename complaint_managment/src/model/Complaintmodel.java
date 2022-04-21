@@ -27,6 +27,8 @@ public Connection connect()
  {e.printStackTrace();}
  return con;
  }
+
+//insert method is created
 public String insertComplaint(String customername, String date, String location, String problem, String problemstatus ,String phonenumber)
  {
  String output = "";
