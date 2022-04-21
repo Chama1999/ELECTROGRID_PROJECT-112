@@ -23,6 +23,10 @@ public class Complaintservice
 			                 @FormParam("phonenumber") String phonenumber
 			                 )
 	{
+		if(customername.isEmpty()||date.isEmpty()||location.isEmpty()||problem.isEmpty()||problemstatus.isEmpty()||phonenumber.isEmpty())
+		{
+			 return "Fields must be filled out";
+		}
 		String output = complaint.insertComplaint(customername,date,location,problem,problemstatus,phonenumber);
 		return output;
 	}
