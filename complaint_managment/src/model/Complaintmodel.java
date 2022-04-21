@@ -145,7 +145,7 @@ public String updateComplaint(int complaintid, String customername, String date,
 	 }
 	 catch (Exception e)
 	 {
-	 output = "Error while updating the item.";
+	 output = "Error while updating the complaint.";
 	 System.err.println(e.getMessage());
 	 }
 	 return output;
@@ -160,7 +160,7 @@ public String updateComplaint(int complaintid, String customername, String date,
 	 if (con == null)
 	 {return "Error while connecting to the database for deleting."; }
 	 // create a prepared statement
-	 String query = "delete from items where complaintid=?";
+	 String query = "delete from complaint where complaintid=?";
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
 	 // binding values
 	 preparedStmt.setInt(1, (complaintid));
