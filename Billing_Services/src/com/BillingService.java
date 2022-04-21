@@ -46,11 +46,11 @@ public class BillingService {
 		{
 			 return "Fields can't be empty";
 		}
-		else if(!From_Date.matches("^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$"))
+		else if(!From_Date.matches("^(?:[0-9][0-9])?[0-9][0-9]-[0-3][0-9]-[0-3][0-9]$"))
 		{
 			return "From Date not be in correct format. Reenter From Date..";
 		}
-		else if(!To_Date.matches("^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$"))
+		else if(!To_Date.matches("^(?:[0-9][0-9])?[0-9][0-9]-[0-3][0-9]-[0-3][0-9]$"))
 		{
 			return "To Date not be in correct format. Reenter To Date..";
 		}
