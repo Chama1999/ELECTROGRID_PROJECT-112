@@ -48,14 +48,14 @@ public class Password {
 		
 				preparedStmt.execute();
 				con.close();
-				return "Password reseted Successfully";
+				return "Password changed Successfully";
 				
 			}
 			catch (Exception e)
 			{
 				System.err.println(e.getMessage());
 			}
-		return "Error while Reseting the Password";
+		return "Error while changing the Password";
 		}
 		
 		//validate the user login details
@@ -91,7 +91,7 @@ public class Password {
 			{
 				System.err.println(e.getMessage());
 			}
-				return "Username or Password is incorrect";
+				return "UserId ,Username or Password is incorrect";
 			}
 
 }

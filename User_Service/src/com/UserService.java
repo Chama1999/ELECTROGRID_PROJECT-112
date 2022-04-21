@@ -136,7 +136,7 @@ UserModel userObj = new UserModel();
 	
 	
 	@DELETE
-	@Path("/")
+	@Path("/deleteUser")
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String deleteUser(String userData)//delete users
