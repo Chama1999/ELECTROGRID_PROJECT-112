@@ -41,6 +41,13 @@ public class BillingModel {
 			String query = " insert into billing values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
+			double p_amount = this.getPreviousAmount(account_no, status);
+			String querynew = "update billing set status = 'Cancel'  where Account_No = ?";
+			PreparedStatement preparedStmt1 = con.prepareStatement(querynew);
+			preparedStmt1 .setString(1, account_no);
+			
+			preparedStmt1.execute();
+			
 			String name = this.getuserdetailsname(account_no);
 			String address = this.getuserdetailsaddress(account_no);
 			
@@ -48,14 +55,10 @@ public class BillingModel {
 			
 			int units = this.calculateUnits(previous_r,current_r);
 			double c_amount = this.calculateCurrentAmount(units);
-			double p_amount = this.getPreviousAmount(account_no, status);
+			
 			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
 			
-			String querynew = "update billing set status = 'Cancel'  where Account_No = ?";
-			PreparedStatement preparedStmt1 = con.prepareStatement(querynew);
-			preparedStmt1 .setString(1, account_no);
 			
-			preparedStmt1.execute();
 			
 			// binding values
 			preparedStmt.setInt(1, 0);
@@ -136,7 +139,7 @@ public class BillingModel {
 			
 			String getQuery = "select Current_Reading\n"
 					+ "from billing\n"
-					+ "where Account_No = ? and Status='Pending' or Status='Done'; ";
+					+ "where Account_No = ? and Status='Cancel'  ; ";
 			
 			PreparedStatement pstmt = con.prepareStatement(getQuery);
 			pstmt.setString(1, account_no);
@@ -291,19 +294,21 @@ public class BillingModel {
 			}
 			
 			// Prepare the html table to be displayed
-			output = "<table border='1'><tr><th>Bill ID</th>"
-					+"<th>Account No</th>" 
-					+"<th>Name</th>" 
-					+"<th>Address</th>"
-					+"<th>From Date</th>"
-					+"<th>Previous Meter Reading</th>"
-					+"<th>To date</th>"
-					+"<th>Current Meter Reading</th>"
-					+"<th>No of Units Consumed</th>"
-					+"<th>Charge for electricity consumed</th>"
-					+"<th>Total amount according to the previous amount</th>"
-					+"<th>Total Amount</th>"
-					+"<th>Status (Pending / Done)</th></tr>";
+			output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">"
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Bill ID</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Account No</th>" 
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Name</th>" 
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Address</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>From Date</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Previous Meter Reading</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>To date</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Current Meter Reading</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>No of Units Consumed</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Charge for electricity consumed</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Total amount according to the previous amount</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Total Amount</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Status (Pending / Done)</th></tr>";
+			
 			
 			String query = "select * from billing";
 			Statement stmt = con.createStatement();
@@ -371,19 +376,20 @@ public class BillingModel {
 			}
 			
 			// Prepare the html table to be displayed
-			output = "<table border='1'><tr><th>Bill ID</th>"
-					+"<th>Account No</th>" 
-					+"<th>Name</th>" 
-					+"<th>Address</th>"
-					+"<th>From Date</th>"
-					+"<th>Previous Meter Reading</th>"
-					+"<th>To date</th>"
-					+"<th>Current Meter Reading</th>"
-					+"<th>No of Units Consumed</th>"
-					+"<th>Charge for electricity consumed</th>"
-					+"<th>Total amount according to the previous amount</th>"
-					+"<th>Total Amount</th>"
-					+"<th>Status (Pending / Done)</th></tr>";
+			output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">"
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Bill ID</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Account No</th>" 
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Name</th>" 
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Address</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>From Date</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Previous Meter Reading</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>To date</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Current Meter Reading</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>No of Units Consumed</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Charge for electricity consumed</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Total amount according to the previous amount</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Total Amount</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Status (Pending / Done)</th></tr>";
 			
 			String query = "select * from billing where Account_No='"+account_no+"'";
 			Statement stmt = con.createStatement();
@@ -450,19 +456,20 @@ public String getuserBilingDetailsbyid(String id) {
 			}
 			
 			// Prepare the html table to be displayed
-			output = "<table border='1'><tr><th>Bill ID</th>"
-					+"<th>Account No</th>" 
-					+"<th>Name</th>" 
-					+"<th>Address</th>"
-					+"<th>From Date</th>"
-					+"<th>Previous Meter Reading</th>"
-					+"<th>To date</th>"
-					+"<th>Current Meter Reading</th>"
-					+"<th>No of Units Consumed</th>"
-					+"<th>Charge for electricity consumed</th>"
-					+"<th>Total amount according to the previous amount</th>"
-					+"<th>Total Amount</th>"
-					+"<th>Status (Pending / Done)</th></tr>";
+			output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">"
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Bill ID</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Account No</th>" 
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Name</th>" 
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Address</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>From Date</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Previous Meter Reading</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>To date</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Current Meter Reading</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>No of Units Consumed</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Charge for electricity consumed</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Total amount according to the previous amount</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Total Amount</th>"
+					+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\"th>Status (Pending / Done)</th></tr>";
 			
 			String query = "select * from billing where ID='"+id+"'";
 			Statement stmt = con.createStatement();
@@ -516,7 +523,7 @@ public String getuserBilingDetailsbyid(String id) {
 		
 	}
 	
-	public String updateBillDetails(String account_no, String from_Date, String to_Date, String current_Reading, String status ) {
+	public String updateBillDetails(String id,String account_no, String from_Date, String to_Date, String current_Reading, String status ) {
 		
 		String output = "";
 		
@@ -528,6 +535,18 @@ public String getuserBilingDetailsbyid(String id) {
 				return "Error while connecting to the database for updating."; 
 			}
 			
+			
+			
+			// create a prepared statement
+			String query = "UPDATE billing SET Account_No=?,Name=?,Address=?,From_Date=?,Previous_reading=?,To_Date=?,Current_Reading=?,Units=?,Current_amount=?,Previous_amount=?,Total_amount=?,Status=? where ID=?  ";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			
+			String querynew = "update billing set status = 'Cancel'  where Account_No = ?";
+			PreparedStatement preparedStmt1 = con.prepareStatement(querynew);
+			preparedStmt1 .setString(1, account_no);
+			
+			double p_amount = this.getPreviousAmount(account_no, status);
+			
 			String name = this.getuserdetailsname(account_no);
 			String address = this.getuserdetailsaddress(account_no);
 			
@@ -535,26 +554,23 @@ public String getuserBilingDetailsbyid(String id) {
 			
 			int units = this.calculateUnits(previous_r,Integer.parseInt(current_Reading));
 			double c_amount = this.calculateCurrentAmount(units);
-			double p_amount = this.getPreviousAmount(account_no, status);
+			
 			double t_amount = this.calculateTotalAmount(c_amount,p_amount);
 			
-			// create a prepared statement
-			String query = "UPDATE billing SET From_Date=?,Previous_Reading=?,To_Date=?,Current_Reading=?,Units=?,Current_amount=?,Previous_amount=?,Total_amount=?,Status=? where Account_No=? ";
-			PreparedStatement preparedStmt = con.prepareStatement(query);
-			
-			
 			// binding values
-		
-			preparedStmt.setString(1, from_Date);
-			preparedStmt.setInt(2, previous_r);
-			preparedStmt.setString(3, to_Date);
-			preparedStmt.setInt(4, Integer.parseInt(current_Reading));
-			preparedStmt.setInt(5, units);
-			preparedStmt.setDouble(6,  c_amount);
-			preparedStmt.setDouble(7, p_amount);
-			preparedStmt.setDouble(8,  t_amount);
-			preparedStmt.setString(9, status);
-			preparedStmt.setString(10, account_no); 
+			preparedStmt.setString(1, account_no); 
+			preparedStmt.setString(2, name); 
+			preparedStmt.setString(3, address); 
+			preparedStmt.setString(4, from_Date);
+			preparedStmt.setInt(5, previous_r);
+			preparedStmt.setString(6, to_Date);
+			preparedStmt.setInt(7, Integer.parseInt(current_Reading));
+			preparedStmt.setInt(8, units);
+			preparedStmt.setDouble(9,  c_amount);
+			preparedStmt.setDouble(10, p_amount);
+			preparedStmt.setDouble(11,  t_amount);
+			preparedStmt.setString(12, status);
+			preparedStmt.setString(13, id); 
 			
 			
 			// execute the statement
