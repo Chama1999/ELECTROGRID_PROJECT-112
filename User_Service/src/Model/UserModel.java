@@ -222,7 +222,7 @@ public class UserModel {
 					   // execute the statement
 					   preparedStmt.execute();
 					   con.close();
-					   output = "Updated successfully";
+					   output = "User details Updated successfully";
 					   }
 				    catch (Exception e)
 					{
