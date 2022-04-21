@@ -28,7 +28,7 @@ public class Password {
 			return con;
 			}
 				
-		public String ForgotPassword(String userId,String password) 
+		public String ResetPassword(String userId,String password) 
 		{
 			try
 			{
