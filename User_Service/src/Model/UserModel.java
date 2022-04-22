@@ -246,7 +246,7 @@ public class UserModel {
 					 // execute the statement
 					 preparedStmt.execute();
 					 con.close();
-					 output = "Deleted successfully";
+					 output = "User account Deleted successfully";
 				 }
 				 catch (Exception e)
 				 {
