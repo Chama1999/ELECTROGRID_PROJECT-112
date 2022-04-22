@@ -61,7 +61,7 @@ public String insertComplaint(String customername, String date, String location,
  return output;
  }
 
-
+//get method is created
 public String readComplaints()
  {
  String output = "";
