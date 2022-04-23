@@ -157,7 +157,7 @@ public class PaymentModel {
 					+ "where c.UserID = ?;";
 			PreparedStatement pstmnt = con.prepareStatement(getQuery);
 			pstmnt.setInt(1, UserID);
-			
+			//add to the html table
 			String output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" + 
 					"<tr style=\"border: 1px solid #ddd; padding: 8px;\">" 
 					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">PaymentID</th>" 
