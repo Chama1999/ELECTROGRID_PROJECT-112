@@ -242,10 +242,11 @@ public class PaymentModel {
 		
 	}*/
 	
-	
+	//create method to calculate tax amount
 	public double calculateTaxAmount(int BillID) {
 		double TaxAmount = 0;
 		try(Connection con = connect()) {
+			//create a prepared statement
 			String getQuery = "select o.Amount, o.NoOfUnits\n" 
 					+ "from billing o\n"
 					+ "where o.BillID = ?;";
