@@ -1,12 +1,12 @@
 ## ELECTROGRID_PROJECT-112
 ## Group No - 112
 ---
-### contributors
-    1. Mudunkotuwa N.K
-    2. Siriwardana S.S.A
-    3. Senadeera S.A.C.H
-    4. Egodawattaarachchige A.B
-    5. Senaratne H.S
+### Contributors and Sub Branches
+    1. Mudunkotuwa N.K          - Kavindi
+    2. Siriwardana S.S.A        - sadini
+    3. Senadeera S.A.C.H        - chamath
+    4. Egodawattaarachchige A.B - Asini
+    5. Senaratne H.S            - harindu
     
 ### Work Distribution (Micro-services)    
     
@@ -26,7 +26,7 @@
  ### IDEs
  Eclipse(2020-03)  - **For JAVA Development**<br/>
  phpMyAdmin(XAMPP) - **For DBMS**<br/>
- Postman           - **For client side testing**
+ Postman           - **For Client Side Testing**
  
  
  
