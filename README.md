@@ -9,12 +9,6 @@
     5. Senaratne H.S
 
 ### Work Distribution (Micro-services)
-     | First Header  | Second Header |
-     | ------------- | ------------- |
-     | Content Cell  | Content Cell  |
-     | Content Cell  | Content Cell  |
-
-### Work Distribution (Micro-services)
     1. Mudunkotuwa N.K - User Service
     2. Siriwardana S.S.A - Billing Service
     3. Senadeera S.A.C.H - Payment Service
