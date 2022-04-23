@@ -166,7 +166,7 @@ public class BillingModel {
 			e.printStackTrace();
 		}
 		
-		return previous_r;//
+		return previous_r; //return previous reading
 	}
 
 
