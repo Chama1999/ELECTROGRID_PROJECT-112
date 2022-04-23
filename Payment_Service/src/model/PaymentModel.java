@@ -21,7 +21,7 @@ public class PaymentModel {
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/electrogrid",
+			con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/electrogrid",//provide the correct details: DBServer/DBName, username, password
 					"root", "");
 			//For testing
 			System.out.print("Successfully connected to db");
