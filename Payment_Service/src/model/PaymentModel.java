@@ -168,7 +168,7 @@ public class PaymentModel {
 					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Status</th>"
 					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Total Amount(Include TAX)</th>";
 	       ResultSet rs = pstmnt.executeQuery();
-	       
+	       //iterate through the rows in the result set
 	       while (rs.next()) {
 				int PaymentID = rs.getInt("PaymentID");
 				int BillID = rs.getInt("BillID");
