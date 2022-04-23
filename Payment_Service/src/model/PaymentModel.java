@@ -317,7 +317,7 @@ public class PaymentModel {
 				
 			}
             con.close();
-            TotalAmount = Amount + TaxAmount;
+            TotalAmount = Amount + TaxAmount;//Calculate total amount
 			
 		}
 		catch(Exception e) {
@@ -328,6 +328,7 @@ public class PaymentModel {
 		
 	}
 	
+	//create update method
 	public String updatePayment(int PaymentID,
 			String CardType,
 			String CardNumber,
@@ -338,7 +339,7 @@ public class PaymentModel {
 			int BillID) {
 		
 		try(Connection con = connect()) {
-			
+			//implement prepared statement
 			String updateQuery = "update payment set CardType=?,CardNumber=?,CardHolderName=?,CVC=?,CardExpireDate=?,Status=?,TaxAmount=? ,TotalAmount=? ,PaymentDate=?,BillID=? where PaymentID =?" ;
 			
 			PreparedStatement pstmt = con.prepareStatement(updateQuery);
@@ -360,7 +361,7 @@ public class PaymentModel {
 			con.close();
 			System.out.println(PaymentID);
 	
-			return "Payment updated successfully";
+			return "Payment updated successfully";//successful message
 			
 			
 		}
@@ -371,7 +372,7 @@ public class PaymentModel {
 		
 		
 	}
-	
+	//create delete method
 	public String DeletePayment(int PaymentID) 
 	{ 
 		String output = ""; 
@@ -382,7 +383,7 @@ public class PaymentModel {
 			{return "Error while connecting to the database for deleting."; } 
 			// create a prepared statement
 			String query = "delete from payment where PaymentID=?"; 
-			PreparedStatement preparedStmt = con.prepareStatement(query); 
+			PreparedStatement preparedStmt = con.prepareStatement(query); //prepared statement
 			// binding values
 			preparedStmt.setInt(1,PaymentID); 
 			// execute the statement
