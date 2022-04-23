@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class BillingModel {
 	
-	//Creating the db connection
+	// Creating the db connection
 	public Connection connect()
 	{
 		Connection con = null;
@@ -25,7 +25,7 @@ public class BillingModel {
 		return con;
 	} 
 	
-	//create method to insert bill details
+	// Create method to insert bill details
 	public String insertbillingdata(String account_no, String from_d, String to_d, int current_r, String status )
 	{
 		String output = "";
@@ -89,7 +89,7 @@ public class BillingModel {
 	}
 
 
-	//create method to get previous amount
+	// Create method to get previous amount
 	public double getPreviousAmount(String account_no, String status) {
 		 
 		double p_amount=0;
@@ -130,7 +130,7 @@ public class BillingModel {
 		return p_amount; //return previous amount
 	}
 
-	//create method to get previous reading
+	// Create method to get previous reading
 	public int getpreviousreading(String account_no, String status) {
 		 
 		int previous_r=0;
@@ -169,7 +169,7 @@ public class BillingModel {
 		return previous_r; //return previous reading
 	}
 
-	//create method to get user address
+	// Create method to get user address
 	public String getuserdetailsaddress(String account_no) {
 		 
 		 String address="";
@@ -207,7 +207,7 @@ public class BillingModel {
 		return address; //return address
 	}
 
-	//create method to get user name
+	// Create method to get user name
 	public String getuserdetailsname(String account_no) {
 		 
 		String name="";
@@ -245,7 +245,7 @@ public class BillingModel {
 		return name; //return name
 	}
 
-	//create method to calculate units
+	// Create method to calculate units
 	public int calculateUnits(int previous_r, int current_r) {
 		
 		 int units = 0;
@@ -286,7 +286,7 @@ public class BillingModel {
 		return t_amount; //return total amount
 	}
 
-
+	// Create method to all bill details
 	public String readBilingDetails() {
 		
 		String output = "";
@@ -369,6 +369,7 @@ public class BillingModel {
 		return output;
 	}
 	
+	//create method to read bill details using account no
 	public String getuserBilingDetails(String account_no) {
 		
 		String output = "";
@@ -448,7 +449,8 @@ public class BillingModel {
 		
 	}
 	
-public String getuserBilingDetailsbyid(String id) {
+	// Create method to read bill details using bill id
+	public String getuserBilingDetailsbyid(String id) {
 		
 		String output = "";
 		
@@ -527,6 +529,7 @@ public String getuserBilingDetailsbyid(String id) {
 		
 	}
 	
+
 	public String updateBillDetails(String id,String account_no, String from_Date, String to_Date, String current_Reading, String status ) {
 		
 		String output = "";
