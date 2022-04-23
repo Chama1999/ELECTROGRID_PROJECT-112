@@ -29,4 +29,13 @@ public String insertEmployee(@FormParam("employeeid") String employeeid,
  String output = employeeObj.insertEmployee(employeename, employeedob, employeeaddress, employeegender, employeesalary); 
 return output; 
 }
+
+
+@GET
+@Path("/") 
+@Produces(MediaType.TEXT_HTML) 
+public String readItems() 
+ { 
+ return employeeObj.readEmployees(); 
+}
 }
