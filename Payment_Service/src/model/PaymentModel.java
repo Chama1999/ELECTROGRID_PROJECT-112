@@ -66,19 +66,19 @@ public class PaymentModel {
 			// execute the statement
 						pstmnt.execute();
 						con.close();
-						output = "Payment Added successfully";
+						output = "Payment Added successfully";//successful message
 			
 			
 		}
 		catch (Exception e)
 		{
-			output = "Error while inserting the Payment.";
+			output = "Error while inserting the Payment.";//error insert message
 			System.err.println(e.getMessage());
 		}
 		return output;
 	}
 	
-	
+	//create method to read all payment details
 	public String getAllPayment() {
 		String output = "";
 		try
