@@ -257,12 +257,12 @@ public class PaymentModel {
 			
 			int NoOfUnits = 0;
 			
-			
+			//iterate through the rows in the result set
             while (rs.next()) {
 				
-            	NoOfUnits = rs.getInt("NoOfUnits");
+            	NoOfUnits = rs.getInt("NoOfUnits");//get from bill table
 	
-				
+				//calculate tax using if condition
 				if(NoOfUnits < 100)
 				{
 					TaxAmount = NoOfUnits*3;
