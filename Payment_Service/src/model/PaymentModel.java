@@ -140,7 +140,7 @@ public class PaymentModel {
 	}
 		catch (Exception e)
 		{
-			output = "Error while reading the Payment.";
+			output = "Error while reading the Payment.";//display error message
 			System.err.println(e.getMessage());
 		}
 		return output;
