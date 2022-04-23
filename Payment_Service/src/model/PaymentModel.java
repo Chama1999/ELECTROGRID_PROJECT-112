@@ -63,7 +63,7 @@ public class PaymentModel {
 			pstmnt.setString(9, PaymentDate);
 			pstmnt.setInt(10, BillID);
 			
-			// execute the statement3
+			// execute the statement
 						pstmnt.execute();
 						con.close();
 						output = "Payment Added successfully";
