@@ -529,7 +529,7 @@ public class BillingModel {
 		
 	}
 	
-
+	// Create method to update bill details
 	public String updateBillDetails(String id,String account_no, String from_Date, String to_Date, String current_Reading, String status ) {
 		
 		String output = "";
@@ -594,6 +594,7 @@ public class BillingModel {
 		return output;
 	}
 	
+	// Create method to delete bill details
 	public String deletebill(String Account_No){
 		
 		String output = "";
