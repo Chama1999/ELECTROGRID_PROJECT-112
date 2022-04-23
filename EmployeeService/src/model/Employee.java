@@ -98,5 +98,43 @@ System.err.println(e.getMessage());
 } 
 return output; 
 }
+
+
+
+public String updateEmployee(int employeeid, String employeename, String employeedob, String employeeaddress, String employeegender, String employeesalary)
+{		
+
+	 String output = "";
+	 try
+	 {
+	 Connection con = connect();
+	 if (con == null)
+	 {return "Error while connecting to the database for updating."; }
+	 // create a prepared statement
+	 String query = "UPDATE complaint SET employeename=?,employeedob=?,employeeaddress=?,employeegender=?,employeesalary=? WHERE complaintid=?";
+	 PreparedStatement preparedStmt = con.prepareStatement(query);
+	 // binding values
+	 
+	 preparedStmt.setString(1, employeename);
+	 preparedStmt.setString(2, employeedob);
+	 preparedStmt.setString(3, employeeaddress);
+	 preparedStmt.setString(4, employeegender);
+	 preparedStmt.setString(5, employeesalary);
+	 preparedStmt.setInt(6, employeeid);
+	 // execute the statement
+	 preparedStmt.execute();
+	 con.close();
+	 System.out.println(employeeid);
+	 return "Updated successfully";
+	 }
+	 
+	 catch (Exception e)
+	 {
+	 output = "Error while updating the employee.";
+	 System.err.println(e.getMessage());
+	 }
+	 return output;
+	 }
 }
+
 
