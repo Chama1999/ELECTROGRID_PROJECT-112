@@ -1,4 +1,5 @@
 package com;
+//import java packages
 import model.PaymentModel;
 
 
@@ -11,9 +12,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 
-@Path("/Payment")
+@Path("/Payment")//url path
 public class PaymentService {
-	PaymentModel payment = new PaymentModel();
+	PaymentModel payment = new PaymentModel();//create object of paymentModel class
 	
 	//add service
 	
@@ -31,7 +32,7 @@ public class PaymentService {
 				                 @FormParam("PaymentDate") String PaymentDate,
 				                 @FormParam("BillID") int BillID)
 		{
-			
+			//validation
 			if(CardType.isEmpty()||CardNumber.isEmpty()||CardHolderName.isEmpty()||CVC.isEmpty()||CardExpireDate.isEmpty()||PaymentDate.isEmpty())
 			{
 				 return "Fields must be filled out";
@@ -67,7 +68,7 @@ public class PaymentService {
 			}
 			
 			
-			
+			//execute output
 			String output = payment.addPayment(CardType, CardNumber, CardHolderName, CVC, CardExpireDate, PaymentDate, BillID);
 			return output;
 		}
@@ -81,7 +82,7 @@ public class PaymentService {
 	    public String getAllPatmentEntry(){
 	        return this.payment.getAllPayment();
 	    }
-		
+		//view by id service
 		@GET
 		@Path("/getById/{UserID}")
 		@Produces(MediaType.TEXT_HTML)
@@ -105,7 +106,7 @@ public class PaymentService {
 				 @FormParam("BillID") int BillID ) {
 			
 			
-			
+			//validation
 			if(CardType.isEmpty()||CardNumber.isEmpty()||CardHolderName.isEmpty()||CVC.isEmpty()||CardExpireDate.isEmpty()||PaymentDate.isEmpty())
 			{
 				 return "Fields must be filled out";
