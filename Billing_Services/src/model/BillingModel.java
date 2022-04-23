@@ -130,16 +130,16 @@ public class BillingModel {
 		return p_amount; //return previous amount
 	}
 
-
+	//create method to get previous reading
 	public int getpreviousreading(String account_no, String status) {
 		 
 		int previous_r=0;
 		 
 		try {
-			
+			//db connectivity
 			Connection con = connect();
 			
-			
+			//create a prepared statement
 			String getQuery = "select Current_Reading\n"
 					+ "from billing\n"
 					+ "where Account_No = ? and Status='Cancel'  ; ";
@@ -151,9 +151,8 @@ public class BillingModel {
 			
 			ResultSet rs = pstmt.executeQuery();
 			
-			
+			//iterate through the rows in the result set
 			while (rs.next()) {
-				
 				
 				Current_R = rs.getInt("Current_Reading");
 				
