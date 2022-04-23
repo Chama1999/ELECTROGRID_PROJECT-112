@@ -149,14 +149,15 @@ public class PaymentModel {
 	
 	//create method to read payment by user id
 	public String getPaymentByUser(int UserID) {
-		try(Connection con = connect()) {
+		try(Connection con = connect()) {//get connection
+			//create a prepared statement
 			String getQuery = "select py.PaymentID, o.BillID, c.name, py.PaymentDate,o.NoOfUnits,py.Status, py.TotalAmount from billing o \n"
 					+ "join user c on o.UserID = c.UserID \n"
 					+ "join payment py on o.BillID = py.BillID \n" 
 					+ "where c.UserID = ?;";
 			PreparedStatement pstmnt = con.prepareStatement(getQuery);
 			pstmnt.setInt(1, UserID);
-			
+			//create html table
 			String output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" + 
 					"<tr style=\"border: 1px solid #ddd; padding: 8px;\">" 
 					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">PaymentID</th>" 
@@ -167,7 +168,7 @@ public class PaymentModel {
 					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Status</th>"
 					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Total Amount(Include TAX)</th>";
 	       ResultSet rs = pstmnt.executeQuery();
-	       
+	       //iterate through the rows in the result set
 	       while (rs.next()) {
 				int PaymentID = rs.getInt("PaymentID");
 				int BillID = rs.getInt("BillID");
@@ -177,7 +178,7 @@ public class PaymentModel {
 				String Status = rs.getString("Status");
 				double TotalAmount = rs.getDouble("TotalAmount");
 				
-
+                //add into the html table
 				output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + PaymentID + "</td>";
 				output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + BillID + "</td>";
 				output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + name + "</td>";
@@ -188,12 +189,12 @@ public class PaymentModel {
 				
 
 			}
-	       output += "</table>";
+	       output += "</table>";//complete the html table
 			return output;
 			
 		}
 		catch(Exception e) {
-			return "Error occur during retrieving \n" + e.getMessage();
+			return "Error occur during retrieving \n" + e.getMessage();//get error message
 		}
 		
 	}
@@ -241,10 +242,11 @@ public class PaymentModel {
 		
 	}*/
 	
-	
+	//create method to calculate tax amount
 	public double calculateTaxAmount(int BillID) {
 		double TaxAmount = 0;
 		try(Connection con = connect()) {
+			//create a prepared statement
 			String getQuery = "select o.Amount, o.NoOfUnits\n" 
 					+ "from billing o\n"
 					+ "where o.BillID = ?;";
@@ -255,12 +257,12 @@ public class PaymentModel {
 			
 			int NoOfUnits = 0;
 			
-			
+			//iterate through the rows in the result set
             while (rs.next()) {
 				
-            	NoOfUnits = rs.getInt("NoOfUnits");
+            	NoOfUnits = rs.getInt("NoOfUnits");//get from bill table
 	
-				
+				//calculate tax using if condition
 				if(NoOfUnits < 100)
 				{
 					TaxAmount = NoOfUnits*3;
@@ -281,7 +283,7 @@ public class PaymentModel {
 			e.printStackTrace();
 		}
 		
-		return TaxAmount;
+		return TaxAmount;//return valid tax amount
 		
 	}
 	
@@ -289,22 +291,23 @@ public class PaymentModel {
 	
 	
 	
-	
+	//create method to calculate total amount
 	public double calculateSubAmount(int BillID) {
 		double TotalAmount = 0;
 		
 		try(Connection con = connect()) {
+			//create a prepared statement
 			String getQuery = "select o.Amount, o.NoOfUnits\n" 
 					+ "from billing o\n"
 					+ "where o.BillID = ?;";
 		     
 			PreparedStatement pstmt = con.prepareStatement(getQuery);
 			pstmt.setInt(1, BillID);
-			ResultSet rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery();//execute a statement
 			
 			
 			float Amount = 0;
-			double TaxAmount = calculateTaxAmount(BillID);
+			double TaxAmount = calculateTaxAmount(BillID);//get from calculateTaxAmount() method
 			
             while (rs.next()) {
 				
@@ -314,7 +317,7 @@ public class PaymentModel {
 				
 			}
             con.close();
-            TotalAmount = Amount + TaxAmount;
+            TotalAmount = Amount + TaxAmount;//Calculate total amount
 			
 		}
 		catch(Exception e) {
@@ -325,6 +328,7 @@ public class PaymentModel {
 		
 	}
 	
+	//create update method
 	public String updatePayment(int PaymentID,
 			String CardType,
 			String CardNumber,
@@ -335,7 +339,7 @@ public class PaymentModel {
 			int BillID) {
 		
 		try(Connection con = connect()) {
-			
+			//implement prepared statement
 			String updateQuery = "update payment set CardType=?,CardNumber=?,CardHolderName=?,CVC=?,CardExpireDate=?,Status=?,TaxAmount=? ,TotalAmount=? ,PaymentDate=?,BillID=? where PaymentID =?" ;
 			
 			PreparedStatement pstmt = con.prepareStatement(updateQuery);
@@ -357,7 +361,7 @@ public class PaymentModel {
 			con.close();
 			System.out.println(PaymentID);
 	
-			return "Payment updated successfully";
+			return "Payment updated successfully";//successful message
 			
 			
 		}
@@ -368,7 +372,7 @@ public class PaymentModel {
 		
 		
 	}
-	
+	//create delete method
 	public String DeletePayment(int PaymentID) 
 	{ 
 		String output = ""; 
@@ -379,7 +383,7 @@ public class PaymentModel {
 			{return "Error while connecting to the database for deleting."; } 
 			// create a prepared statement
 			String query = "delete from payment where PaymentID=?"; 
-			PreparedStatement preparedStmt = con.prepareStatement(query); 
+			PreparedStatement preparedStmt = con.prepareStatement(query); //prepared statement
 			// binding values
 			preparedStmt.setInt(1,PaymentID); 
 			// execute the statement
