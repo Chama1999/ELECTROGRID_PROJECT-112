@@ -121,7 +121,7 @@ public class PaymentModel {
 							float TotalAmount = rs.getFloat("TotalAmount");
 							String PaymentDate = rs.getString("PaymentDate");
 							int BillID = rs.getInt("BillID");
-
+                            //add into the html table
 							output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + PaymentID + "</td>";
 							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + CardType + "</td>";
 							output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + CardNumber + "</td>";							
@@ -140,14 +140,14 @@ public class PaymentModel {
 	}
 		catch (Exception e)
 		{
-			output = "Error while reading the Payment.";
+			output = "Error while reading the Payment.";//display error message
 			System.err.println(e.getMessage());
 		}
 		return output;
 
     }
 	
-	
+	//create method to read payment by user id
 	public String getPaymentByUser(int UserID) {
 		try(Connection con = connect()) {
 			String getQuery = "select py.PaymentID, o.BillID, c.name, py.PaymentDate,o.NoOfUnits,py.Status, py.TotalAmount from billing o \n"
