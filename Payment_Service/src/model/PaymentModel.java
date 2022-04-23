@@ -149,7 +149,8 @@ public class PaymentModel {
 	
 	//create method to read payment by user id
 	public String getPaymentByUser(int UserID) {
-		try(Connection con = connect()) {
+		try(Connection con = connect()) {//get connection
+			//create a prepared statement
 			String getQuery = "select py.PaymentID, o.BillID, c.name, py.PaymentDate,o.NoOfUnits,py.Status, py.TotalAmount from billing o \n"
 					+ "join user c on o.UserID = c.UserID \n"
 					+ "join payment py on o.BillID = py.BillID \n" 
