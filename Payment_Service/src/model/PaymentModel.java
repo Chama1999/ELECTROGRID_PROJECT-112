@@ -40,9 +40,10 @@ public class PaymentModel {
 		String output = "";
 		try
 		{
+			//for get DB connection
 			Connection con = connect();
 			if (con == null)
-			{return "Error while connecting to the database for inserting."; }
+			{return "Error while connecting to the database for inserting."; }//connection error message 
 			
 			
 			String insertQuery = "insert into payment values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
