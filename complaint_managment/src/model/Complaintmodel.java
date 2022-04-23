@@ -201,6 +201,7 @@ public String updateComplaint(int complaintid, String customername, String date,
 	 System.out.println(complaintid);
 	 return "Updated successfully";
 	 }
+	 
 	 catch (Exception e)
 	 {
 	 output = "Error while updating the complaint.";
