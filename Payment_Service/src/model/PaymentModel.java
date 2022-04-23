@@ -296,17 +296,18 @@ public class PaymentModel {
 		double TotalAmount = 0;
 		
 		try(Connection con = connect()) {
+			//create a prepared statement
 			String getQuery = "select o.Amount, o.NoOfUnits\n" 
 					+ "from billing o\n"
 					+ "where o.BillID = ?;";
 		     
 			PreparedStatement pstmt = con.prepareStatement(getQuery);
 			pstmt.setInt(1, BillID);
-			ResultSet rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery();//execute a statement
 			
 			
 			float Amount = 0;
-			double TaxAmount = calculateTaxAmount(BillID);
+			double TaxAmount = calculateTaxAmount(BillID);//get from calculateTaxAmount() method
 			
             while (rs.next()) {
 				
