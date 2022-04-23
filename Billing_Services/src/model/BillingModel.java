@@ -186,7 +186,7 @@ public class BillingModel {
 			PreparedStatement pstmt = con.prepareStatement(getQuery);
 			pstmt.setString(1, account_no);
 
-			String getaddress ="";
+			String getaddress = "";
 			
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -207,7 +207,7 @@ public class BillingModel {
 		return address; //return address
 	}
 
-
+	//create method to get user name
 	public String getuserdetailsname(String account_no) {
 		 
 		String name="";
@@ -227,6 +227,7 @@ public class BillingModel {
 			
 			ResultSet rs = pstmt.executeQuery();
 			
+			//iterate through the rows in the result set
 			while (rs.next()) {
 				
 				getname = rs.getString("Name");
@@ -241,7 +242,7 @@ public class BillingModel {
 			e.printStackTrace();
 		}
 		
-		return name;
+		return name; //return name
 	}
 
 
