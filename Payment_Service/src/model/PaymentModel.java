@@ -14,6 +14,7 @@ import java.sql.SQLException;
 //created class called PaymentModel
 @SuppressWarnings("restriction")
 public class PaymentModel {
+	//created method to connect to the DB
 	public Connection connect()
 	{
 		Connection con = null;
