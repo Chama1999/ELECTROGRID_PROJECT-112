@@ -169,7 +169,7 @@ public class BillingModel {
 		return previous_r; //return previous reading
 	}
 
-
+	//create method to get user address
 	public String getuserdetailsaddress(String account_no) {
 		 
 		 String address="";
@@ -178,6 +178,7 @@ public class BillingModel {
 			
 			Connection con = connect();
 			
+			//create a prepared statement
 			String getQuery = "select u.Address\n"
 							+ "from user u\n"
 							+ "where u.accountNo = ?; ";
@@ -189,6 +190,7 @@ public class BillingModel {
 			
 			ResultSet rs = pstmt.executeQuery();
 			
+			//iterate through the rows in the result set
 			while (rs.next()) {
 				
 				getaddress = rs.getString("Address");
@@ -202,7 +204,7 @@ public class BillingModel {
 			e.printStackTrace();
 		}
 		
-		return address;
+		return address; //return address
 	}
 
 
