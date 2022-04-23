@@ -89,13 +89,13 @@ public class BillingModel {
 	}
 
 
-
+	//create method to get previous amount
 	public double getPreviousAmount(String account_no, String status) {
 		 
 		double p_amount=0;
 		 
 		try {
-			
+			//db connectivity
 			Connection con = connect();
 			
 			String getQuery = "select Total_amount\n"
@@ -137,6 +137,7 @@ public class BillingModel {
 			
 			Connection con = connect();
 			
+			//create a prepared statement
 			String getQuery = "select Current_Reading\n"
 					+ "from billing\n"
 					+ "where Account_No = ? and Status='Cancel'  ; ";
