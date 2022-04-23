@@ -25,7 +25,7 @@ public class BillingModel {
 		return con;
 	} 
 	
-	
+	//create method to insert bill details
 	public String insertbillingdata(String account_no, String from_d, String to_d, int current_r, String status )
 	{
 		String output = "";
