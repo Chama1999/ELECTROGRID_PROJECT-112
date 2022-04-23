@@ -28,7 +28,8 @@
  phpMyAdmin(XAMPP) - **For DBMS**<br/>
  Postman           - **For Client Side Testing**
  
- 
+ ## Gantt-Chart 
+![gantt-chart](https://user-images.githubusercontent.com/103487603/164912777-b69949a1-2f65-4b0d-a2ed-d9413602305f.png)
  
 
    
