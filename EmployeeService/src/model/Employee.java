@@ -16,7 +16,7 @@ private Connection connect()
  {e.printStackTrace();} 
  return con; 
  }
-public String insertEmployee(String employeeid, String employeename, String employeedob, String employeeaddress, String employeegender, String employeesalary) 
+public String insertEmployee(String employeename, String employeedob, String employeeaddress, String employeegender, String employeesalary) 
 { 
 String output = ""; 
 try
@@ -29,12 +29,12 @@ String query = " insert into employee values (?, ?, ?, ?, ?,?)";
 
 PreparedStatement preparedStmt = con.prepareStatement(query); 
 // binding values
-preparedStmt.setString(1, employeeid); 
+preparedStmt.setInt(1, 0); 
 preparedStmt.setString(2, employeename); 
 preparedStmt.setString(3, employeedob); 
 preparedStmt.setString(4, employeeaddress); 
 preparedStmt.setString(5, employeegender);
-preparedStmt.setDouble(6, Double.parseDouble(employeesalary));
+preparedStmt.setString(6, employeesalary);
 
 // execute the statement
 preparedStmt.execute(); 
