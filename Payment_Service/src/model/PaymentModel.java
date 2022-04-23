@@ -18,6 +18,7 @@ public class PaymentModel {
 	public Connection connect()
 	{
 		Connection con = null;
+		//implement try-catch block to find errors
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
