@@ -26,7 +26,7 @@ public String insertEmployee(@FormParam("employeeid") String employeeid,
  @FormParam("employeegender") String employeegender, 
  @FormParam("employeesalary") String employeesalary)
 { 
- String output = employeeObj.insertEmployee(employeeid, employeename, employeedob, employeeaddress, employeegender, employeesalary); 
+ String output = employeeObj.insertEmployee(employeename, employeedob, employeeaddress, employeegender, employeesalary); 
 return output; 
 }
 }
