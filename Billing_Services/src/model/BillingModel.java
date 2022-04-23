@@ -276,14 +276,14 @@ public class BillingModel {
 		return c_amount; //return current amount
 	}
 
-
+	//create method to calculate total amount
 	public double calculateTotalAmount(double c_amount, double p_amount) {
 		
 		double t_amount = 0;
 		
 		t_amount = c_amount + p_amount;
 		
-		return t_amount;
+		return t_amount; //return total amount
 	}
 
 
