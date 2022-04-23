@@ -48,5 +48,55 @@ System.err.println(e.getMessage());
 } 
 return output; 
 }
+ 
+
+
+public String readEmployees() 
+{ 
+String output = ""; 
+try
+{ 
+Connection con = connect(); 
+if (con == null) 
+{return "Error while connecting to the database for reading."; } 
+// Prepare the html table to be displayed
+output = "<table border='1'><tr><th>Employee Name</th><th>Employee DOB</th>" +
+"<th>Employee Address</th>" + 
+"<th>Employee Gender</th>" +
+"<th>Employee Salary</th>" +
+"<th>Update</th><th>Remove</th></tr>"; 
+
+String query = "select * from employees"; 
+Statement stmt = con.createStatement(); 
+ResultSet rs = stmt.executeQuery(query); 
+// iterate through the rows in the result set
+while (rs.next()) 
+{ 
+int employeeid = rs.getInt("employeeid"); 
+String employeename = rs.getString("employeename"); 
+String employeedob = rs.getString("employeedob"); 
+String employeeaddress = rs.getString("employeeaddress"); 
+String employeegender = rs.getString("employeegender"); 
+String employeesalary = rs.getString("employeesalary"); 
+// Add into the html table
+    output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: Violet;\">" + employeeid + "</td>";
+	output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + employeename + "</td>";
+	output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + employeedob + "</td>";
+	output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + employeeaddress + "</td>";
+	output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + employeegender + "</td>";
+	output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + employeesalary + "</td>";
+
+} 
+con.close(); 
+// Complete the html table
+output += "</table>"; 
+} 
+catch (Exception e) 
+{ 
+output = "Error while reading the employees."; 
+System.err.println(e.getMessage()); 
+} 
+return output; 
+}
 }
 
