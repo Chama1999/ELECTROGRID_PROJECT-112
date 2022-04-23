@@ -194,7 +194,7 @@ public class PaymentModel {
 			
 		}
 		catch(Exception e) {
-			return "Error occur during retrieving \n" + e.getMessage();
+			return "Error occur during retrieving \n" + e.getMessage();//get error message
 		}
 		
 	}
