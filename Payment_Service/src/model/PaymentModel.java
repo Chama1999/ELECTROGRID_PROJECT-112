@@ -83,10 +83,11 @@ public class PaymentModel {
 		String output = "";
 		try
 		{
+			//for get DB connection
 			Connection con = connect();
 			if (con == null)
 			{
-				return "Error while connecting to the database for reading.";
+				return "Error while connecting to the database for reading.";//connection error message
 			}
 			
 			// Prepare the html table to be displayed
@@ -103,7 +104,7 @@ public class PaymentModel {
                     "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">TotalAmount</th>" +
 					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">PaymentDate</th>" +
 					"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">BillID</th>";
-						String query = "select * from payment";
+						String query = "select * from payment";//create statement
 						Statement stmt = con.createStatement();
 						ResultSet rs = stmt.executeQuery(query);
 						// iterate through the rows in the result set
