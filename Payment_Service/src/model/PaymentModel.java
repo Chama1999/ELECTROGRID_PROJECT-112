@@ -151,13 +151,13 @@ public class PaymentModel {
 			
 			String output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">" + 
 					"<tr style=\"border: 1px solid #ddd; padding: 8px;\">" 
-					+ "<th>PaymentID</th>" 
-					+ "<th>Bill ID</th>"
-					+ "<th>Full Name</th>"
-					+ "<th>Payment Date</th>" 
-					+ "<th>No Of Units per month</th>"
-					+ "<th>Status</th>"
-					+ "<th>Total Amount(Include TAX)</th>";
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">PaymentID</th>" 
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Bill ID</th>"
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Full Name</th>"
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Payment Date</th>" 
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">No Of Units per month</th>"
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Status</th>"
+					+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Total Amount(Include TAX)</th>";
 	       ResultSet rs = pstmnt.executeQuery();
 	       
 	       while (rs.next()) {
@@ -170,13 +170,13 @@ public class PaymentModel {
 				double TotalAmount = rs.getDouble("TotalAmount");
 				
 
-				output += "<tr><td>" + PaymentID + "</td>";
-				output += "<td>" + BillID + "</td>";
-				output += "<td>" + name + "</td>";
-				output += "<td>" + PaymentDate + "</td>";
-				output += "<td>" + NoOfUnits + "</td>";
-				output += "<td>" + Status + "</td>";
-				output += "<td>" + TotalAmount + "</td>";
+				output += "<tr style=\"border: 1px solid #ddd; padding: 8px;\"><td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + PaymentID + "</td>";
+				output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + BillID + "</td>";
+				output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + name + "</td>";
+				output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + PaymentDate + "</td>";
+				output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + NoOfUnits + "</td>";
+				output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + Status + "</td>";
+				output += "<td style=\"padding-top: 6px; padding-bottom: 6px; text-align: center; color: #3B3B3B;\">" + TotalAmount + "</td>";
 				
 
 			}
