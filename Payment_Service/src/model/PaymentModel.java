@@ -51,6 +51,7 @@ public class PaymentModel {
 			double TaxAmount = this.calculateTaxAmount(BillID);
 			double TotalAmount = this.calculateSubAmount(BillID);
 			String Status = "pending";
+			//binding values
 			pstmnt.setString(1, CardType);
 			pstmnt.setString(2, CardNumber);
 			pstmnt.setString(3, CardHolderName);
