@@ -25,7 +25,7 @@ import org.jsoup.parser.Parser;
 
 import model.BillingModel;
 
-@Path("/Billing")
+@Path("/Billing") //url path
 public class BillingService {
 
 	
@@ -116,6 +116,7 @@ public class BillingService {
 		String output = billing.updateBillDetails(ID,Account_No,From_Date,To_Date,Current_Reading,Status);
 		return output;
 	}
+	
 	
 	@DELETE
 	@Path("/delete")
