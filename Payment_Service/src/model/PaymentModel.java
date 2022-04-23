@@ -283,7 +283,7 @@ public class PaymentModel {
 			e.printStackTrace();
 		}
 		
-		return TaxAmount;
+		return TaxAmount;//return valid tax amount
 		
 	}
 	
@@ -291,7 +291,7 @@ public class PaymentModel {
 	
 	
 	
-	
+	//create method to calculate total amount
 	public double calculateSubAmount(int BillID) {
 		double TotalAmount = 0;
 		
