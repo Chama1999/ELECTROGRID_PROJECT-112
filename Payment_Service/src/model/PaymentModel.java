@@ -34,6 +34,7 @@ public class PaymentModel {
 		return con;
 	}
 	
+	//Implement insert method
 	public String addPayment(String CardType,String CardNumber,String CardHolderName,String CVC,String CardExpireDate,String PaymentDate,int BillID )
 	{
 		String output = "";
