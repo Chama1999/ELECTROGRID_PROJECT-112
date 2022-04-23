@@ -45,7 +45,7 @@ public class PaymentModel {
 			if (con == null)
 			{return "Error while connecting to the database for inserting."; }//connection error message 
 			
-			
+			//create a prepared statement
 			String insertQuery = "insert into payment values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pstmnt = con.prepareStatement(insertQuery);
 			double TaxAmount = this.calculateTaxAmount(BillID);
