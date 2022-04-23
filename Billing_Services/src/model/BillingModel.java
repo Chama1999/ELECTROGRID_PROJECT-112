@@ -245,7 +245,7 @@ public class BillingModel {
 		return name; //return name
 	}
 
-
+	//create method to calculate units
 	public int calculateUnits(int previous_r, int current_r) {
 		
 		 int units = 0;
@@ -253,10 +253,10 @@ public class BillingModel {
 		 //calculation
 		 units = current_r - previous_r;
 		
-		 return units;
+		 return units; //return no of units
 	}
 
-	
+	//create method to calculate current amount
 	public double calculateCurrentAmount(int units) {
 		
 		double c_amount = 0;
@@ -273,7 +273,7 @@ public class BillingModel {
 			c_amount = (double) ((double) (60 * 7.85) + (30 * 10.00) + (30 * 27.75) + (60 * 32.75) + (units - 180) * 45.00);
 		}
 		
-		return c_amount;
+		return c_amount; //return current amount
 	}
 
 
