@@ -78,11 +78,11 @@ public class BillingModel {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Billing data added successfully";
+			output = "Billing data added successfully"; //success message
 		}
 		catch (Exception e)
 		{
-			output = "Error occur during inserting\n";
+			output = "Error occur during inserting\n"; //error message
 			System.err.println(e.getMessage());
 		}
 		return output;
