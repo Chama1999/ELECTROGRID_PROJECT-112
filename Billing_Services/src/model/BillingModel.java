@@ -98,6 +98,7 @@ public class BillingModel {
 			//db connectivity
 			Connection con = connect();
 			
+			//create a prepared statement
 			String getQuery = "select Total_amount\n"
 								+ "from billing\n"
 								+ "where Account_No = ? and Status='Pending'; ";
@@ -109,6 +110,7 @@ public class BillingModel {
 			
 			ResultSet rs = pstmt.executeQuery();
 			
+			//iterate through the rows in the result set
 			while (rs.next()) {
 				
 				
@@ -125,7 +127,7 @@ public class BillingModel {
 			e.printStackTrace();
 		}
 		
-		return p_amount;
+		return p_amount; //return previous amount
 	}
 
 
@@ -137,7 +139,7 @@ public class BillingModel {
 			
 			Connection con = connect();
 			
-			//create a prepared statement
+			
 			String getQuery = "select Current_Reading\n"
 					+ "from billing\n"
 					+ "where Account_No = ? and Status='Cancel'  ; ";
@@ -148,6 +150,7 @@ public class BillingModel {
 			int Current_R= 0;
 			
 			ResultSet rs = pstmt.executeQuery();
+			
 			
 			while (rs.next()) {
 				
@@ -164,7 +167,7 @@ public class BillingModel {
 			e.printStackTrace();
 		}
 		
-		return previous_r;
+		return previous_r;//
 	}
 
 
