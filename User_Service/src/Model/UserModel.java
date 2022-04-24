@@ -82,12 +82,12 @@ public class UserModel {
 						return "Error while connecting to the database for reading.";
 					}
 					// Prepare the html table to be displayed
-					output = "<table border='1'><tr><th>Account Number</th>"
-							+"<th>Name</th><th>Address</th><th>NIC</th>"
-							+ "<th>Email</th>"
-							+ "<th>Phone</th>"
-							+ "<th>UserName</th>"
-							+ "<th>Password</th>";
+					output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\">"+ "<tr><th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Account Number</th>"
+							+"<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Name</th><th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Address</th><th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">NIC</th>"
+							+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Email</th>"
+							+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Phone</th>"
+							+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">UserName</th>"
+							+ "<th style=\"padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #04AA6D; color: white;\">Password</th>";
 					String query = "select * from user";
 					Statement stmt = con.createStatement();
 					ResultSet rs = stmt.executeQuery(query);
@@ -104,7 +104,7 @@ public class UserModel {
 						String username = rs.getString("username");
 						String password = rs.getString("password");
 						// Add a row into the html table
-						output += "<tr><td>" + accountNo + "</td>";
+						output += "<tr ><td>" + accountNo + "</td>";
 						output += "<td>" + name + "</td>";
 						output += "<td>" + address + "</td>";
 						output += "<td>" + NIC + "</td>";
@@ -142,7 +142,7 @@ public class UserModel {
 						return "Error while connecting to the database for reading";
 					}
 					// Prepare the html table to be displayed
-					output = "<table border='1'><tr><th>Account No</th>"
+					output = "<table border='1' ><tr><th>Account No</th>"
 							+"<th>Name</th><th>NIC</th>"
 							+ "<th>Email</th>"
 							+ "<th>Phone</th>"
