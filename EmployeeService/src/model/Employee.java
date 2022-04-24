@@ -154,7 +154,7 @@ public String deleteEmployee(int employeeid) {
 	 // execute the statement
 	 preparedStmt.execute();
 	 con.close();
-	 output = "Deleted successfully";
+	 output = "Deleted employee successfully";
 	 }
 	 catch (Exception e)
 	 {
