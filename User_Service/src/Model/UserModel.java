@@ -129,6 +129,8 @@ public class UserModel {
 				}
 				return output;
 			}
+			
+			//view user details by using the ID
 
 			public String getUserDetails(String userID)
 
