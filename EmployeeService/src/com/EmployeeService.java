@@ -60,4 +60,24 @@ public String updateEmployee(String employeeData)
  String output = employeeObj.updateEmployee(employeeid, employeename, employeedob, employeeaddress, employeegender, employeesalary); 
 return output; 
 }
+
+
+
+@DELETE
+@Path("/") 
+@Consumes(MediaType.APPLICATION_XML) 
+@Produces(MediaType.TEXT_PLAIN) 
+public String deleteEmployee(String employeeData) 
+{ 
+//Convert the input string to an XML document
+ Document doc = Jsoup.parse(employeeData, "", Parser.xmlParser()); 
+ 
+//Read the value from the element <employeeid>
+ String employeeid = doc.select("employeeid").text(); 
+ String output = employeeObj.deleteEmployee(employeeid); 
+return output; 
 }
+
+
+}
+

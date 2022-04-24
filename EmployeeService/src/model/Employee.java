@@ -138,7 +138,7 @@ public String updateEmployee(int employeeid, String employeename, String employe
 
 
 
-public String deleteEmployee(int employeeid) {
+public String deleteEmployee(String employeeid) {
 	
 	 String output = "";
 	 try
@@ -150,7 +150,7 @@ public String deleteEmployee(int employeeid) {
 	 String query = "delete from complaint where employeeid=?";
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
 	 // binding values
-	 preparedStmt.setInt(1, (employeeid));
+	 preparedStmt.setInt(1, Integer.parseInt(employeeid));
 	 // execute the statement
 	 preparedStmt.execute();
 	 con.close();
