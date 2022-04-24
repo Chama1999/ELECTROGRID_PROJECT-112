@@ -79,6 +79,8 @@ UserModel userObj = new UserModel();
 		return userObj.readUserDetails();
 	}
 	
+	
+	
 	@GET
 	@Path("/getUserbyID/{userId}")//view a specific user
 	@Produces(MediaType.TEXT_HTML)
@@ -106,6 +108,7 @@ UserModel userObj = new UserModel();
 		 String username = userObject.get("username").getAsString();
 		 String password = userObject.get("password").getAsString();
 		 
+		 //validations
 		if(accountNo.isEmpty()||name.isEmpty()||address.isEmpty()||NIC.isEmpty()||email.isEmpty()||phone.isEmpty()||username.isEmpty()||password.isEmpty()) 
 		 {
 			 return "input fields cannot be empty";
