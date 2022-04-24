@@ -135,7 +135,36 @@ public String updateEmployee(int employeeid, String employeename, String employe
 	 }
 	 return output;
 	 }
-}
+
+
+
+public String deleteEmployee(int employeeid) {
+	
+	 String output = "";
+	 try
+	 {
+	 Connection con = connect();
+	 if (con == null)
+	 {return "Error while connecting to the database for deleting."; }
+	 // create a prepared statement
+	 String query = "delete from complaint where employeeid=?";
+	 PreparedStatement preparedStmt = con.prepareStatement(query);
+	 // binding values
+	 preparedStmt.setInt(1, (employeeid));
+	 // execute the statement
+	 preparedStmt.execute();
+	 con.close();
+	 output = "Deleted successfully";
+	 }
+	 catch (Exception e)
+	 {
+	 output = "Error while deleting the employee";
+	 System.err.println(e.getMessage());
+	 }
+	 return output;
+	 }
+	}
+	
 
 
 
