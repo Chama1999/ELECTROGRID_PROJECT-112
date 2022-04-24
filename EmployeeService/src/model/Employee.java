@@ -63,10 +63,9 @@ if (con == null)
 output = "<table border='1'><tr><th>Employee Name</th><th>Employee DOB</th>" +
 "<th>Employee Address</th>" + 
 "<th>Employee Gender</th>" +
-"<th>Employee Salary</th>" +
-"<th>Update</th><th>Remove</th></tr>"; 
+"<th>Employee Salary</th>" ; 
 
-String query = "select * from employees"; 
+String query = "select * from employee"; 
 Statement stmt = con.createStatement(); 
 ResultSet rs = stmt.executeQuery(query); 
 // iterate through the rows in the result set
