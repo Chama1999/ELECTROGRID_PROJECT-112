@@ -39,7 +39,7 @@ preparedStmt.setString(6, employeesalary);
 // execute the statement
 preparedStmt.execute(); 
 con.close(); 
-output = "Inserted successfully"; 
+output = "Inserted employee successfully"; 
 } 
 catch (Exception e) 
 { 
@@ -125,7 +125,7 @@ public String updateEmployee(int employeeid, String employeename, String employe
 	 preparedStmt.execute();
 	 con.close();
 	 System.out.println(employeeid);
-	 return "Updated successfully";
+	 return "Updated employee successfully";
 	 }
 	 
 	 catch (Exception e)
@@ -136,5 +136,9 @@ public String updateEmployee(int employeeid, String employeename, String employe
 	 return output;
 	 }
 }
+
+
+
+
 
 

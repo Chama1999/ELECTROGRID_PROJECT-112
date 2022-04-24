@@ -31,11 +31,33 @@ return output;
 }
 
 
+
 @GET
 @Path("/") 
 @Produces(MediaType.TEXT_HTML) 
 public String readItems() 
  { 
  return employeeObj.readEmployees(); 
+}
+
+
+
+@PUT
+@Path("/") 
+@Consumes(MediaType.APPLICATION_JSON) 
+@Produces(MediaType.TEXT_PLAIN) 
+public String updateEmployee(String employeeData) 
+{ 
+//Convert the input string to a JSON object 
+ JsonObject employeeObject = new JsonParser().parse(employeeData).getAsJsonObject(); 
+//Read the values from the JSON object
+ int employeeid = employeeObject.get("employeeid").getAsInt(); 
+ String employeename = employeeObject.get("employeename").getAsString(); 
+ String employeedob = employeeObject.get("employeedob").getAsString(); 
+ String employeeaddress = employeeObject.get("employeeaddress").getAsString(); 
+ String employeegender = employeeObject.get("employeegender").getAsString(); 
+ String employeesalary = employeeObject.get("employeesalary").getAsString();
+ String output = employeeObj.updateEmployee(employeeid, employeename, employeedob, employeeaddress, employeegender, employeesalary); 
+return output; 
 }
 }
