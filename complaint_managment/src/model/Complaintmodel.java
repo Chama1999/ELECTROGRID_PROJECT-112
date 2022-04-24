@@ -188,13 +188,13 @@ public String updateComplaint(int complaintid, String customername, String date,
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
 	 // binding values
 	 
-	 preparedStmt.setString(1, customername);
+	      preparedStmt.setString(1, customername);
 	      preparedStmt.setString(2, date);
-	 preparedStmt.setString(3, location);
-	 preparedStmt.setString(4, problem);
-	 preparedStmt.setString(5, problemstatus);
-	 preparedStmt.setString(6, phonenumber);
-	 preparedStmt.setInt(7, complaintid);
+	      preparedStmt.setString(3, location);
+	     preparedStmt.setString(4, problem);
+	    preparedStmt.setString(5, problemstatus);
+	     preparedStmt.setString(6, phonenumber);
+	     preparedStmt.setInt(7, complaintid);
 	 // execute the statement
 	 preparedStmt.execute();
 	 con.close();
