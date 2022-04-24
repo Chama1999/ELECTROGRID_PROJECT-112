@@ -28,7 +28,6 @@ UserModel userObj = new UserModel();
 	@Produces(MediaType.TEXT_PLAIN)
 	//register user
 	public String RegisterUser(@FormParam("accountNo") String accountNo,
-	// @FormParam("pincode") String pincode,
 	 @FormParam("name") String name,
 	 @FormParam("address") String address,
 	 @FormParam("NIC") String NIC,
