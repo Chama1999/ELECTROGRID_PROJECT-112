@@ -144,7 +144,7 @@ public class UserModel {
 						return "Error while connecting to the database for reading";
 					}
 					// Prepare the html table to be displayed
-					output = "<table border='1' ><tr><th>Account No</th>"
+					output = "<table border='1' style=\"font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%; radius: 10px\" ><tr><th>Account No</th>"
 							+"<th>Name</th><th>NIC</th>"
 							+ "<th>Email</th>"
 							+ "<th>Phone</th>"
