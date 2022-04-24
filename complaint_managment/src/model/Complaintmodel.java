@@ -30,7 +30,7 @@ public Connection connect()
       }
       return con;
   }
-
+//
          //insert method is created
           public String insertComplaint(String customername, String date, String location, String problem, String problemstatus ,String phonenumber)
           {
@@ -189,7 +189,7 @@ public String updateComplaint(int complaintid, String customername, String date,
 	 // binding values
 	 
 	 preparedStmt.setString(1, customername);
-	 preparedStmt.setString(2, date);
+	      preparedStmt.setString(2, date);
 	 preparedStmt.setString(3, location);
 	 preparedStmt.setString(4, problem);
 	 preparedStmt.setString(5, problemstatus);
