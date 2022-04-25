@@ -3,10 +3,10 @@
 ---
 ### Contributors and Sub Branches
     1. Mudunkotuwa N.K          - Kavindi
-    2. Siriwardana S.S.A        - sadini
-    3. Senadeera S.A.C.H        - chamath
+    2. Siriwardana S.S.A        - Sadini
+    3. Senadeera S.A.C.H        - Chamath
     4. Egodawattaarachchige A.B - Asini
-    5. Senaratne H.S            - harindu
+    5. Senaratne H.S            - Harindu
     
 ### Work Distribution (Micro-services)    
     
