@@ -19,7 +19,7 @@
 | Senaratne H.S            | Employee Service  |
 
 
-**We have uploaded the screenshots of the Test Cases in the above {Test Results}**
+**We have uploaded the screenshots of the Test Cases in the above folder {Test Results}**
 
 ### Technology Stack Used
     1. JAX-RS
